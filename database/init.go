@@ -22,3 +22,15 @@ func OpenDatabase() (*badger.DB, error) {
 	database = db
 	return database, nil
 }
+
+// Open a test Badger database in a /tmp/badger directory
+func OpenTestDatabase() (*badger.DB, error) {
+	opts := badger.DefaultOptions
+	opts.Dir = "/tmp/badger"
+	opts.ValueDir = "/tmp/badger"
+	db, err := badger.Open(opts)
+	if err != nil {
+		return nil, err
+	}
+	return db, nil
+}
