@@ -1,4 +1,4 @@
-package ethereumInteraction
+package ethereuminteraction
 
 import (
 	"errors"
@@ -9,7 +9,7 @@ import (
 	ABI "github.com/matterinc/PlasmaBlockVerifier/contractABI"
 )
 
-var depositIndexPrefix = []byte("deposit")
+var DepositIndexPrefix = []byte("deposit")
 
 type DepositEventProcessor struct {
 	db *badger.DB
@@ -20,7 +20,7 @@ func NewDepositEventProcessor(db *badger.DB) *DepositEventProcessor {
 	return newInstance
 }
 
-func (p *DepositEventProcessor) Process(event ABI.PlasmaParentDepositEvent) (bool, error) {
+func (p *DepositEventProcessor) Process(event *ABI.PlasmaParentDepositEvent) (bool, error) {
 	// depositFrom := event.From
 	depositIndex := event.DepositIndex
 	// depositAmount := event.Amount
@@ -29,18 +29,11 @@ func (p *DepositEventProcessor) Process(event ABI.PlasmaParentDepositEvent) (boo
 		return false, err
 	}
 	depositIndexKey := []byte{}
-	depositIndexKey = append(depositIndexKey, depositIndexPrefix...)
+	depositIndexKey = append(depositIndexKey, DepositIndexPrefix...)
 	depositIndexKey = append(depositIndexKey, depositIndexBytes...)
 	err = p.db.Update(func(txn *badger.Txn) error {
-		item, err := txn.Get(depositIndexKey)
-		if err != nil {
-			return err
-		}
-		val, err := item.Value()
-		if err != nil {
-			return err
-		}
-		if len(val) != 0 {
+		_, err := txn.Get(depositIndexKey)
+		if err == nil {
 			return errors.New("Duplicate deposit")
 		}
 		err = txn.Set(depositIndexKey, []byte{0x01})

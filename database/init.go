@@ -1,6 +1,8 @@
 package database
 
 import (
+	"os"
+
 	"github.com/dgraph-io/badger"
 )
 
@@ -33,4 +35,17 @@ func OpenTestDatabase() (*badger.DB, error) {
 		return nil, err
 	}
 	return db, nil
+}
+
+// purge /tmp/badger
+func PurgeTestDatabase() error {
+	err := os.RemoveAll("/tmp/badger/")
+	if err != nil {
+		return err
+	}
+	err = os.MkdirAll("/tmp/badger/", 0777)
+	if err != nil {
+		return err
+	}
+	return nil
 }
