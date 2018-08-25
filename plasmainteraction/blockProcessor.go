@@ -1,7 +1,9 @@
 package plasmainteraction
 
 import (
+	"bytes"
 	"encoding/binary"
+	"errors"
 	"fmt"
 	"math/big"
 	"sync"
@@ -67,7 +69,38 @@ func NewBlockProcessor(db *badger.DB, concurrencyLimit int, sliceSize int) *Bloc
 	return newInstance
 }
 
-func (p *BlockProcessor) ProcessBlock(blockBytes []byte) ([]*DepositIndexCheckoutRequest, []*WithdrawChallengeRequest, error) {
+func (p *BlockProcessor) ValidateBlock(blockBytes []byte, expectedHeaderHash []byte, expectedMerkleRoot []byte) (*block.Block, error) {
+	parsedBlock, err := block.NewBlockFromBytes(blockBytes)
+	if err != nil {
+		return nil, err
+	}
+	err = parsedBlock.Validate()
+	if err != nil {
+		return nil, err
+	}
+	blockHeaderHash, err := parsedBlock.BlockHeader.GetHash()
+	if err != nil {
+		return nil, err
+	}
+	if bytes.Compare(expectedHeaderHash, blockHeaderHash[:]) != 0 {
+		return nil, errors.New("Header hash mismatch")
+	}
+	merkleRootHash := parsedBlock.BlockHeader.MerkleTreeRoot
+	if bytes.Compare(expectedMerkleRoot, merkleRootHash[:]) != 0 {
+		return nil, errors.New("Header hash mismatch")
+	}
+	return parsedBlock, nil
+}
+
+func (p *BlockProcessor) ProcessBlock(blockBytes, expectedHeaderHash, expectedMerkleRoot []byte) ([]*DepositIndexCheckoutRequest, []*WithdrawChallengeRequest, error) {
+	parsedBlock, err := p.ValidateBlock(blockBytes, expectedHeaderHash, expectedMerkleRoot)
+	if err != nil {
+		return nil, nil, err
+	}
+	return p.ProcessParsedBlock(parsedBlock)
+}
+
+func (p *BlockProcessor) ProcessBlockWithoutCommitment(blockBytes []byte) ([]*DepositIndexCheckoutRequest, []*WithdrawChallengeRequest, error) {
 	parsedBlock, err := block.NewBlockFromBytes(blockBytes)
 	if err != nil {
 		return nil, nil, err
@@ -76,14 +109,19 @@ func (p *BlockProcessor) ProcessBlock(blockBytes []byte) ([]*DepositIndexCheckou
 	if err != nil {
 		return nil, nil, err
 	}
+	return p.ProcessParsedBlock(parsedBlock)
+}
+
+func (p *BlockProcessor) ProcessParsedBlock(parsedBlock *block.Block) ([]*DepositIndexCheckoutRequest, []*WithdrawChallengeRequest, error) {
 	blockNumberBytes := parsedBlock.BlockHeader.BlockNumber[:]
 	blockNumber := binary.BigEndian.Uint32(blockNumberBytes)
 	numTransactions := len(parsedBlock.Transactions)
-	numSlices := numTransactions / p.sliceSize
-	if numTransactions%p.sliceSize != 0 {
+	sliceSize := p.sliceSize
+	numSlices := numTransactions / sliceSize
+	if numTransactions%sliceSize != 0 {
 		numSlices++
 	}
-	sliceSize := p.sliceSize
+
 	resChannels := make([]<-chan []ResultPayload, numSlices)
 	for i := 0; i < numSlices; i++ {
 		minTxNumber := uint32(0)
@@ -119,12 +157,10 @@ func (p *BlockProcessor) ProcessBlock(blockBytes []byte) ([]*DepositIndexCheckou
 	return depositChecks, withdrawChecks, nil
 }
 
+// simple merger that waits until all channels are closed
 func merge(inputs []<-chan []ResultPayload) <-chan ResultPayload {
 	var wg sync.WaitGroup
 	out := make(chan ResultPayload)
-
-	// Start an output goroutine for each input channel in cs.  output
-	// copies values from c to out until c is closed, then calls wg.Done.
 	output := func(c <-chan []ResultPayload) {
 		for n := range c {
 			for _, r := range n {
@@ -137,9 +173,6 @@ func merge(inputs []<-chan []ResultPayload) <-chan ResultPayload {
 	for _, c := range inputs {
 		go output(c)
 	}
-
-	// Start a goroutine to close out once all the output goroutines are
-	// done.  This must start after the wg.Add call.
 	go func() {
 		wg.Wait()
 		close(out)
@@ -263,6 +296,7 @@ func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTr
 			results[i] = ResultPayload{payload.txNumber, true, nil, payload.depositCheckoutRequest, nil}
 		} else {
 			for _, toDelete := range payload.keysToDelete {
+				// fmt.Printf("deleting=%s", common.ToHex(toDelete))
 				err := txn.Delete(toDelete)
 				if err == badger.ErrTxnTooBig {
 					err := txn.Commit(nil)
