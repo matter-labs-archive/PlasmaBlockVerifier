@@ -135,7 +135,7 @@ func createTransferTransaction(blockNumber int, txNumberInBlock int, outputNumbe
 }
 
 func TestLargeBlockApplication(t *testing.T) {
-	blockSize := 50000
+	blockSize := 100000
 	blockNumber := rand.Uint32()
 	amount := "100"
 	_ = database.PurgeTestDatabase()
