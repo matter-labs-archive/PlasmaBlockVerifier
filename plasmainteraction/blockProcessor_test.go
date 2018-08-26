@@ -254,7 +254,7 @@ func TestLargeBlockApplication(t *testing.T) {
 }
 
 func TestLargeBlockApplicationWithWithdraws(t *testing.T) {
-	blockSize := 1000
+	blockSize := 100000
 	blockNumber := rand.Uint32()
 	amount := "100"
 	withdrawChance := 10
