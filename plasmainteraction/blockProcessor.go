@@ -202,7 +202,7 @@ func (p *BlockProcessor) startWorker(startIndex, endIndex uint32, txes []*transa
 	return finished
 }
 
-// preprocessing step does the following:
+// Preprocessing step does the following:
 // 1. check for deposit transactions that there is a deposit record in database
 // 2. parse transaction signature
 // 3. make an array of UTXO indexes that should be marked as spent and write transaction index
@@ -286,17 +286,136 @@ func (p *BlockProcessor) MakeCheckDepositRecord(tx *transaction.SignedTransactio
 	return request, nil
 }
 
+// func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTransactionPayload) ([]ResultPayload, error) {
+// 	results := make([]ResultPayload, len(preprocessed))
+// 	txn := p.db.NewTransaction(true)
+// 	defer txn.Discard()
+// 	for i, payload := range preprocessed {
+// 		// process either a deposit transaction or work with UTXO indexes
+// 		if payload.depositCheckoutRequest != nil {
+// 			results[i] = ResultPayload{payload.txNumber, true, nil, payload.depositCheckoutRequest, nil}
+// 		} else {
+// 			for _, toDelete := range payload.keysToDelete {
+// 				_, err := txn.Get(toDelete)
+// 				if err == badger.ErrTxnTooBig {
+// 					err := txn.Commit(nil)
+// 					if err != nil {
+// 						return nil, err
+// 					}
+// 					txn = p.db.NewTransaction(true)
+// 					_, err = txn.Get(toDelete)
+// 					if err != nil {
+// 						withdrawRequest := &WithdrawChallengeRequest{toDelete, nil}
+// 						results[i] = ResultPayload{payload.txNumber, true, nil, nil, withdrawRequest}
+// 						continue
+// 					}
+// 				} else if err != nil {
+// 					withdrawRequest := &WithdrawChallengeRequest{toDelete, nil}
+// 					results[i] = ResultPayload{payload.txNumber, true, nil, nil, withdrawRequest}
+// 					continue
+// 				}
+// 				err = txn.Delete(toDelete)
+// 				if err == badger.ErrTxnTooBig {
+// 					err := txn.Commit(nil)
+// 					if err != nil {
+// 						return nil, err
+// 					}
+// 					txn = p.db.NewTransaction(true)
+// 					err = txn.Delete(toDelete)
+// 					if err != nil {
+// 						return nil, err
+// 					}
+// 				} else if err != nil {
+// 					return nil, err
+// 				}
+// 			}
+
+// 			for _, toIndex := range payload.spendingIndexesToWrite {
+// 				err := txn.Set(toIndex[0], toIndex[1])
+// 				if err == badger.ErrTxnTooBig {
+// 					err := txn.Commit(nil)
+// 					if err != nil {
+// 						return nil, err
+// 					}
+// 					txn = p.db.NewTransaction(true)
+// 					err = txn.Set(toIndex[0], toIndex[1])
+// 					if err != nil {
+// 						return nil, err
+// 					}
+// 				} else if err != nil {
+// 					return nil, err
+// 				}
+// 			}
+// 			res := ResultPayload{payload.txNumber, true, nil, nil, nil}
+// 			results[i] = res
+// 		}
+
+// 		// process new UTXOs
+// 		for _, toAdd := range payload.keysToWrite {
+// 			err := txn.Set(toAdd, []byte{0x01})
+// 			if err == badger.ErrTxnTooBig {
+// 				err := txn.Commit(nil)
+// 				if err != nil {
+// 					return nil, err
+// 				}
+// 				txn = p.db.NewTransaction(true)
+// 				err = txn.Set(toAdd, []byte{0x01})
+// 				if err != nil {
+// 					return nil, err
+// 				}
+// 			} else if err != nil {
+// 				return nil, err
+// 			}
+// 		}
+// 	}
+// 	err := txn.Commit(nil)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	return results, nil
+// }
+
+func (p *BlockProcessor) ProcessSliceInSequence(preprocessed []*PreprocessedTransactionPayload) ([]ResultPayload, error) {
+	results := make([]ResultPayload, len(preprocessed))
+	return results, nil
+}
+
 func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTransactionPayload) ([]ResultPayload, error) {
 	results := make([]ResultPayload, len(preprocessed))
-	txn := p.db.NewTransaction(true)
+	txn := p.db.NewTransaction(false)
 	defer txn.Discard()
+	// first do an UTXO check
 	for i, payload := range preprocessed {
 		// process either a deposit transaction or work with UTXO indexes
 		if payload.depositCheckoutRequest != nil {
 			results[i] = ResultPayload{payload.txNumber, true, nil, payload.depositCheckoutRequest, nil}
 		} else {
 			for _, toDelete := range payload.keysToDelete {
-				// fmt.Printf("deleting=%s", common.ToHex(toDelete))
+				_, err := txn.Get(toDelete)
+				if err == badger.ErrTxnTooBig {
+					err := txn.Commit(nil)
+					if err != nil {
+						return nil, err
+					}
+					txn = p.db.NewTransaction(false)
+					_, err = txn.Get(toDelete)
+					if err != nil {
+						withdrawRequest := &WithdrawChallengeRequest{toDelete, nil}
+						results[i] = ResultPayload{payload.txNumber, true, nil, nil, withdrawRequest}
+						continue
+					}
+				} else if err != nil {
+					withdrawRequest := &WithdrawChallengeRequest{toDelete, nil}
+					results[i] = ResultPayload{payload.txNumber, true, nil, nil, withdrawRequest}
+					continue
+				}
+			}
+			txn.Commit(nil)
+			txn = p.db.NewTransaction(true)
+			for _, toDelete := range payload.keysToDelete {
+				if results[i].result == true {
+					continue
+				}
 				err := txn.Delete(toDelete)
 				if err == badger.ErrTxnTooBig {
 					err := txn.Commit(nil)
@@ -314,6 +433,9 @@ func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTr
 			}
 
 			for _, toIndex := range payload.spendingIndexesToWrite {
+				if results[i].result == true {
+					continue
+				}
 				err := txn.Set(toIndex[0], toIndex[1])
 				if err == badger.ErrTxnTooBig {
 					err := txn.Commit(nil)
@@ -329,12 +451,13 @@ func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTr
 					return nil, err
 				}
 			}
-			res := ResultPayload{payload.txNumber, true, nil, nil, nil}
-			results[i] = res
 		}
 
 		// process new UTXOs
 		for _, toAdd := range payload.keysToWrite {
+			if results[i].result == true {
+				continue
+			}
 			err := txn.Set(toAdd, []byte{0x01})
 			if err == badger.ErrTxnTooBig {
 				err := txn.Commit(nil)
@@ -350,15 +473,15 @@ func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTr
 				return nil, err
 			}
 		}
+
+		if results[i].result != true {
+			res := ResultPayload{payload.txNumber, true, nil, nil, nil}
+			results[i] = res
+		}
 	}
 	err := txn.Commit(nil)
 	if err != nil {
 		return nil, err
 	}
-	return results, nil
-}
-
-func (p *BlockProcessor) ProcessSliceInSequence(preprocessed []*PreprocessedTransactionPayload) ([]ResultPayload, error) {
-	results := make([]ResultPayload, len(preprocessed))
 	return results, nil
 }
