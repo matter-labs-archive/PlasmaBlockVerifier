@@ -382,7 +382,7 @@ func (p *BlockProcessor) ProcessSliceInSequence(preprocessed []*PreprocessedTran
 
 func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTransactionPayload) ([]ResultPayload, error) {
 	results := make([]ResultPayload, len(preprocessed))
-	txn := p.db.NewTransaction(false)
+	txn := p.db.NewTransaction(true)
 	defer txn.Discard()
 	// first do an UTXO check
 	for i, payload := range preprocessed {
@@ -397,7 +397,7 @@ func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTr
 					if err != nil {
 						return nil, err
 					}
-					txn = p.db.NewTransaction(false)
+					txn = p.db.NewTransaction(true)
 					_, err = txn.Get(toDelete)
 					if err != nil {
 						withdrawRequest := &WithdrawChallengeRequest{toDelete, nil}
@@ -409,14 +409,7 @@ func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTr
 					results[i] = ResultPayload{payload.txNumber, true, nil, nil, withdrawRequest}
 					continue
 				}
-			}
-			txn.Commit(nil)
-			txn = p.db.NewTransaction(true)
-			for _, toDelete := range payload.keysToDelete {
-				if results[i].result == true {
-					continue
-				}
-				err := txn.Delete(toDelete)
+				err = txn.Delete(toDelete)
 				if err == badger.ErrTxnTooBig {
 					err := txn.Commit(nil)
 					if err != nil {
