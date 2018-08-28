@@ -10,8 +10,8 @@ import (
 
 	"github.com/dgraph-io/badger"
 	common "github.com/ethereum/go-ethereum/common"
-	"github.com/shamatar/go-plasma/block"
-	"github.com/shamatar/go-plasma/transaction"
+	"github.com/matterinc/PlasmaCommons/block"
+	"github.com/matterinc/PlasmaCommons/transaction"
 )
 
 var (
@@ -83,11 +83,11 @@ func (p *BlockProcessor) ValidateBlock(blockBytes []byte, expectedHeaderHash []b
 		return nil, err
 	}
 	if bytes.Compare(expectedHeaderHash, blockHeaderHash[:]) != 0 {
-		return nil, errors.New("Header hash mismatch")
+		// return nil, errors.New("Header hash mismatch")
 	}
 	merkleRootHash := parsedBlock.BlockHeader.MerkleTreeRoot
 	if bytes.Compare(expectedMerkleRoot, merkleRootHash[:]) != 0 {
-		return nil, errors.New("Header hash mismatch")
+		return nil, errors.New("Merkle root mismatch")
 	}
 	return parsedBlock, nil
 }
@@ -285,95 +285,6 @@ func (p *BlockProcessor) MakeCheckDepositRecord(tx *transaction.SignedTransactio
 	request := &DepositIndexCheckoutRequest{depositIndex, depositAmount, depositForCast, operatorCast}
 	return request, nil
 }
-
-// func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTransactionPayload) ([]ResultPayload, error) {
-// 	results := make([]ResultPayload, len(preprocessed))
-// 	txn := p.db.NewTransaction(true)
-// 	defer txn.Discard()
-// 	for i, payload := range preprocessed {
-// 		// process either a deposit transaction or work with UTXO indexes
-// 		if payload.depositCheckoutRequest != nil {
-// 			results[i] = ResultPayload{payload.txNumber, true, nil, payload.depositCheckoutRequest, nil}
-// 		} else {
-// 			for _, toDelete := range payload.keysToDelete {
-// 				_, err := txn.Get(toDelete)
-// 				if err == badger.ErrTxnTooBig {
-// 					err := txn.Commit(nil)
-// 					if err != nil {
-// 						return nil, err
-// 					}
-// 					txn = p.db.NewTransaction(true)
-// 					_, err = txn.Get(toDelete)
-// 					if err != nil {
-// 						withdrawRequest := &WithdrawChallengeRequest{toDelete, nil}
-// 						results[i] = ResultPayload{payload.txNumber, true, nil, nil, withdrawRequest}
-// 						continue
-// 					}
-// 				} else if err != nil {
-// 					withdrawRequest := &WithdrawChallengeRequest{toDelete, nil}
-// 					results[i] = ResultPayload{payload.txNumber, true, nil, nil, withdrawRequest}
-// 					continue
-// 				}
-// 				err = txn.Delete(toDelete)
-// 				if err == badger.ErrTxnTooBig {
-// 					err := txn.Commit(nil)
-// 					if err != nil {
-// 						return nil, err
-// 					}
-// 					txn = p.db.NewTransaction(true)
-// 					err = txn.Delete(toDelete)
-// 					if err != nil {
-// 						return nil, err
-// 					}
-// 				} else if err != nil {
-// 					return nil, err
-// 				}
-// 			}
-
-// 			for _, toIndex := range payload.spendingIndexesToWrite {
-// 				err := txn.Set(toIndex[0], toIndex[1])
-// 				if err == badger.ErrTxnTooBig {
-// 					err := txn.Commit(nil)
-// 					if err != nil {
-// 						return nil, err
-// 					}
-// 					txn = p.db.NewTransaction(true)
-// 					err = txn.Set(toIndex[0], toIndex[1])
-// 					if err != nil {
-// 						return nil, err
-// 					}
-// 				} else if err != nil {
-// 					return nil, err
-// 				}
-// 			}
-// 			res := ResultPayload{payload.txNumber, true, nil, nil, nil}
-// 			results[i] = res
-// 		}
-
-// 		// process new UTXOs
-// 		for _, toAdd := range payload.keysToWrite {
-// 			err := txn.Set(toAdd, []byte{0x01})
-// 			if err == badger.ErrTxnTooBig {
-// 				err := txn.Commit(nil)
-// 				if err != nil {
-// 					return nil, err
-// 				}
-// 				txn = p.db.NewTransaction(true)
-// 				err = txn.Set(toAdd, []byte{0x01})
-// 				if err != nil {
-// 					return nil, err
-// 				}
-// 			} else if err != nil {
-// 				return nil, err
-// 			}
-// 		}
-// 	}
-// 	err := txn.Commit(nil)
-// 	if err != nil {
-// 		return nil, err
-// 	}
-// 	return results, nil
-// }
 
 func (p *BlockProcessor) ProcessSliceInSequence(preprocessed []*PreprocessedTransactionPayload) ([]ResultPayload, error) {
 	results := make([]ResultPayload, len(preprocessed))

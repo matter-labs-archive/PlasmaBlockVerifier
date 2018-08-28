@@ -8,13 +8,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/shamatar/go-plasma/block"
+	"github.com/matterinc/PlasmaCommons/block"
 
 	"github.com/dgraph-io/badger"
 	"github.com/ethereum/go-ethereum/common"
 	database "github.com/matterinc/PlasmaBlockVerifier/database"
-	"github.com/shamatar/go-plasma/transaction"
-	"github.com/shamatar/go-plasma/types"
+	"github.com/matterinc/PlasmaCommons/transaction"
+	"github.com/matterinc/PlasmaCommons/types"
 )
 
 var testRecipientAccount = common.FromHex("0xf62803ffaddda373d44b10bf6bb404909be0e66b")

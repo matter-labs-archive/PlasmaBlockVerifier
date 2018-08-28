@@ -31,6 +31,19 @@ func (p *DepositEventProcessor) Process(event *ABI.PlasmaParentDepositEvent) (bo
 	depositIndexKey := []byte{}
 	depositIndexKey = append(depositIndexKey, DepositIndexPrefix...)
 	depositIndexKey = append(depositIndexKey, depositIndexBytes...)
+	err = p.db.View(func(txn *badger.Txn) error {
+		_, err := txn.Get(depositIndexKey)
+		if err == nil {
+			return errors.New("Duplicate deposit")
+		}
+		return nil
+	})
+	if err != nil {
+		return false, err
+	}
+
+	// check the ethereum for an existence of the deposit and correspondance
+
 	err = p.db.Update(func(txn *badger.Txn) error {
 		_, err := txn.Get(depositIndexKey)
 		if err == nil {
