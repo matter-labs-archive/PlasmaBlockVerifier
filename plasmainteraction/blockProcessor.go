@@ -290,7 +290,7 @@ func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTr
 		if payload.depositCheckoutRequest != nil {
 			results[i] = ResultPayload{payload.txNumber, false, nil, payload.depositCheckoutRequest, nil}
 		} else {
-			for _, toDelete := range payload.keysToDelete {
+			for j, toDelete := range payload.keysToDelete {
 				_, err := txn.Get(toDelete)
 				if err == badger.ErrTxnTooBig {
 					err := txn.Commit(nil)
@@ -300,12 +300,14 @@ func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTr
 					txn = p.db.NewTransaction(true)
 					_, err = txn.Get(toDelete)
 					if err != nil {
-						withdrawRequest := &messageStructures.WithdrawChallengeRequest{toDelete, nil}
+						spendingIndex := payload.spendingIndexesToWrite[j][1]
+						withdrawRequest := &messageStructures.WithdrawChallengeRequest{toDelete, spendingIndex}
 						results[i] = ResultPayload{payload.txNumber, true, nil, nil, withdrawRequest}
 						continue
 					}
 				} else if err != nil {
-					withdrawRequest := &messageStructures.WithdrawChallengeRequest{toDelete, nil}
+					spendingIndex := payload.spendingIndexesToWrite[j][1]
+					withdrawRequest := &messageStructures.WithdrawChallengeRequest{toDelete, spendingIndex}
 					results[i] = ResultPayload{payload.txNumber, true, nil, nil, withdrawRequest}
 					continue
 				}

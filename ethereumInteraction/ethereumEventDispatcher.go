@@ -41,7 +41,7 @@ func NewEthereumNetworkEventDispatcher(connection, contractAddress string) *Ethe
 	return newInstance
 }
 
-func (p *EthereumNetworkEventDispatcher) Run(fromBlockNumber int64, blockProcessorLoopChannel chan<- *messageStructures.BlockInformation) {
+func (p *EthereumNetworkEventDispatcher) Run(fromBlockNumber int64, blockProcessorLoopChannel chan<- *messageStructures.BlockInformation, withdrawProcessor *WithdrawStartedProcessor) {
 	lastBlockNumber := big.NewInt(fromBlockNumber - 1)
 	if fromBlockNumber <= 1 {
 		lastBlockNumber.SetUint64(0)
@@ -59,13 +59,34 @@ func (p *EthereumNetworkEventDispatcher) Run(fromBlockNumber int64, blockProcess
 			blockNumberUInt64 := newBlockNumber.Uint64()
 
 			filterOptions := &bind.FilterOpts{blockNumberUInt64, &blockNumberUInt64, context.TODO()}
-			eventIterator, err := p.BlockStorageContract.PlasmaBlockStorageFilterer.FilterBlockHeaderSubmitted(filterOptions, nil, nil)
+			exitEventsIterator, err := p.PlasmaParentContract.PlasmaParentFilterer.FilterExitStartedEvent(filterOptions, nil, nil, nil)
 			if err != nil {
 				fmt.Println(err)
 				continue
 			}
-			for eventIterator.Next() {
-				ev := eventIterator.Event
+			for exitEventsIterator.Next() {
+				ev := exitEventsIterator.Event
+				fmt.Println("Processing exit event")
+				fullInfo, err := p.PlasmaParentContract.PlasmaParentCaller.PublishedUTXOs(nil, ev.Index)
+				if err != nil {
+					fmt.Println(err)
+					panic(err)
+				}
+
+				info := &messageStructures.WithdrawStartedInformation{false, ev.Index, nil, ev.From, fullInfo.Value}
+				_, err = withdrawProcessor.Process(info)
+				if err != nil {
+					fmt.Println(err)
+					panic(err)
+				}
+			}
+			blocksEventIterator, err := p.BlockStorageContract.PlasmaBlockStorageFilterer.FilterBlockHeaderSubmitted(filterOptions, nil, nil)
+			if err != nil {
+				fmt.Println(err)
+				continue
+			}
+			for blocksEventIterator.Next() {
+				ev := blocksEventIterator.Event
 				fmt.Println("Processing Plasma block " + ev.BlockNumber.String() + " in Ethereum block " + newBlockNumber.String())
 				plasmaBlockNumber := uint32(ev.BlockNumber.Uint64())
 				merkleRoot := ev.MerkleRoot

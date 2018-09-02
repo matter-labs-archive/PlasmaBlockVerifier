@@ -19,10 +19,11 @@ func main() {
 	ethereumLoop := eth.NewEthereumNetworkEventDispatcher("http://127.0.0.1:8545", "0x345ca3e014aaf5dca488057592ee47305d9b3e10")
 	depositCheckoutsProcessor := eth.NewDepositCheckoutProcessor(db, ethereumLoop.PlasmaParentContract, ethereumLoop.BlockStorageContract)
 	withdrawChallengeProcessor := eth.NewWithdrawChallengeProcessor(ethereumLoop.PlasmaParentContract, db)
+	withdrawStartedProcessor := eth.NewWithdrawStartedProcessor(db)
 	blockProcessor := plasma.NewBlockProcessor(db, 100, 100)
 	processingLoop := plasma.NewBlockProcessingLoop(blockProcessor)
 
-	ethereumLoop.Run(0, dispatch.BlockInformationChannel)
+	ethereumLoop.Run(0, dispatch.BlockInformationChannel, withdrawStartedProcessor)
 	processingLoop.Run(dispatch.BlockInformationChannel, depositCheckoutsProcessor, withdrawChallengeProcessor)
 
 	if err != nil {
