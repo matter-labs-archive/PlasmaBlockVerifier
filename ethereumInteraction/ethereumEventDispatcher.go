@@ -6,6 +6,8 @@ import (
 	"math/big"
 	"time"
 
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
+
 	"github.com/ethereum/go-ethereum/common"
 	ethclient "github.com/ethereum/go-ethereum/ethclient"
 	ABI "github.com/matterinc/PlasmaBlockVerifier/contractABI"
@@ -54,14 +56,17 @@ func (p *EthereumNetworkEventDispatcher) Run(fromBlockNumber int64, blockProcess
 				continue
 			}
 			fmt.Println("Processing Ethereum block " + newBlockNumber.String())
-			eventIterator, err := p.BlockStorageContract.PlasmaBlockStorageFilterer.FilterBlockHeaderSubmitted(nil, []*big.Int{newBlockNumber}, nil)
+			blockNumberUInt64 := newBlockNumber.Uint64()
+
+			filterOptions := &bind.FilterOpts{blockNumberUInt64, &blockNumberUInt64, context.TODO()}
+			eventIterator, err := p.BlockStorageContract.PlasmaBlockStorageFilterer.FilterBlockHeaderSubmitted(filterOptions, nil, nil)
 			if err != nil {
 				fmt.Println(err)
 				continue
 			}
 			for eventIterator.Next() {
 				ev := eventIterator.Event
-				fmt.Println("Processing Plasma block " + ev.BlockNumber.String())
+				fmt.Println("Processing Plasma block " + ev.BlockNumber.String() + " in Ethereum block " + newBlockNumber.String())
 				plasmaBlockNumber := uint32(ev.BlockNumber.Uint64())
 				merkleRoot := ev.MerkleRoot
 				blockProcessingInformation := &messageStructures.BlockInformation{BlockNumber: plasmaBlockNumber, BlockHash: [32]byte{}, BlockMerkleRoot: merkleRoot}
