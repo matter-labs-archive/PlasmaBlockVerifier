@@ -9,10 +9,10 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	ethclient "github.com/ethereum/go-ethereum/ethclient"
 	ABI "github.com/matterinc/PlasmaBlockVerifier/contractABI"
-	plasmaInt "github.com/matterinc/PlasmaBlockVerifier/plasmainteraction"
+	messageStructures "github.com/matterinc/PlasmaBlockVerifier/messageStructures"
 )
 
-const loopDelay = 10000 // 10 seconds
+const loopDelay = 10000000 // 10 seconds
 
 type EthereumNetworkEventDispatcher struct {
 	ConnectionString     string
@@ -39,7 +39,7 @@ func NewEthereumNetworkEventDispatcher(connection, contractAddress string) *Ethe
 	return newInstance
 }
 
-func (p *EthereumNetworkEventDispatcher) Run(fromBlockNumber int64, blockProcessorLoopChannel chan *plasmaInt.BlockInformation) {
+func (p *EthereumNetworkEventDispatcher) Run(fromBlockNumber int64, blockProcessorLoopChannel chan<- *messageStructures.BlockInformation) {
 	lastBlockNumber := big.NewInt(fromBlockNumber - 1)
 	if fromBlockNumber <= 1 {
 		lastBlockNumber.SetUint64(0)
@@ -49,13 +49,11 @@ func (p *EthereumNetworkEventDispatcher) Run(fromBlockNumber int64, blockProcess
 		for {
 			time.Sleep(loopDelay)
 			newBlockNumber := new(big.Int).Add(lastBlockNumber, one)
-			fmt.Println("Processing Ethereum block block " + newBlockNumber.String())
 			_, err := p.Client.HeaderByNumber(context.TODO(), newBlockNumber)
 			if err != nil {
-				fmt.Println(err)
-				lastBlockNumber = newBlockNumber
 				continue
 			}
+			fmt.Println("Processing Ethereum block " + newBlockNumber.String())
 			eventIterator, err := p.BlockStorageContract.PlasmaBlockStorageFilterer.FilterBlockHeaderSubmitted(nil, []*big.Int{newBlockNumber}, nil)
 			if err != nil {
 				fmt.Println(err)
@@ -63,9 +61,10 @@ func (p *EthereumNetworkEventDispatcher) Run(fromBlockNumber int64, blockProcess
 			}
 			for eventIterator.Next() {
 				ev := eventIterator.Event
+				fmt.Println("Processing Plasma block " + ev.BlockNumber.String())
 				plasmaBlockNumber := uint32(ev.BlockNumber.Uint64())
 				merkleRoot := ev.MerkleRoot
-				blockProcessingInformation := &plasmaInt.BlockInformation{BlockNumber: plasmaBlockNumber, BlockHash: [32]byte{}, BlockMerkleRoot: merkleRoot}
+				blockProcessingInformation := &messageStructures.BlockInformation{BlockNumber: plasmaBlockNumber, BlockHash: [32]byte{}, BlockMerkleRoot: merkleRoot}
 				blockProcessorLoopChannel <- blockProcessingInformation
 			}
 			lastBlockNumber = newBlockNumber

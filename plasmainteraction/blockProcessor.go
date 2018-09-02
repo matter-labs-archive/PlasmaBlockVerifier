@@ -10,6 +10,7 @@ import (
 
 	"github.com/dgraph-io/badger"
 	common "github.com/ethereum/go-ethereum/common"
+	"github.com/matterinc/PlasmaBlockVerifier/messageStructures"
 	"github.com/matterinc/PlasmaCommons/block"
 	"github.com/matterinc/PlasmaCommons/transaction"
 )
@@ -26,32 +27,20 @@ type TransactionPayload struct {
 	tx       *transaction.SignedTransaction
 }
 
-type DepositIndexCheckoutRequest struct {
-	index    *big.Int
-	value    *big.Int
-	address  common.Address
-	operator common.Address
-}
-
-type WithdrawChallengeRequest struct {
-	utxoIndex                []byte
-	spendingTransactionIndex []byte
-}
-
 type PreprocessedTransactionPayload struct {
 	txNumber               uint32
 	keysToDelete           [][]byte
 	keysToWrite            [][]byte
 	spendingIndexesToWrite [][2][]byte
-	depositCheckoutRequest *DepositIndexCheckoutRequest
+	depositCheckoutRequest *messageStructures.DepositIndexCheckoutRequest
 }
 
 type ResultPayload struct {
-	txNumber                 uint32
-	result                   bool
-	nonrecoverableError      error
-	depositIndexRequest      *DepositIndexCheckoutRequest
-	withdrawChallengeRequest *WithdrawChallengeRequest
+	TxNumber                 uint32
+	Result                   bool
+	NonrecoverableError      error
+	DepositIndexRequest      *messageStructures.DepositIndexCheckoutRequest
+	WithdrawChallengeRequest *messageStructures.WithdrawChallengeRequest
 }
 
 type BlockProcessor struct {
@@ -92,7 +81,7 @@ func (p *BlockProcessor) ValidateBlock(blockBytes []byte, expectedHeaderHash []b
 	return parsedBlock, nil
 }
 
-func (p *BlockProcessor) ProcessBlock(blockBytes, expectedHeaderHash, expectedMerkleRoot []byte) ([]*DepositIndexCheckoutRequest, []*WithdrawChallengeRequest, error) {
+func (p *BlockProcessor) ProcessBlock(blockBytes, expectedHeaderHash, expectedMerkleRoot []byte) ([]*messageStructures.DepositIndexCheckoutRequest, []*messageStructures.WithdrawChallengeRequest, error) {
 	parsedBlock, err := p.ValidateBlock(blockBytes, expectedHeaderHash, expectedMerkleRoot)
 	if err != nil {
 		return nil, nil, err
@@ -100,7 +89,7 @@ func (p *BlockProcessor) ProcessBlock(blockBytes, expectedHeaderHash, expectedMe
 	return p.ProcessParsedBlock(parsedBlock)
 }
 
-func (p *BlockProcessor) ProcessBlockWithoutCommitment(blockBytes []byte) ([]*DepositIndexCheckoutRequest, []*WithdrawChallengeRequest, error) {
+func (p *BlockProcessor) ProcessBlockWithoutCommitment(blockBytes []byte) ([]*messageStructures.DepositIndexCheckoutRequest, []*messageStructures.WithdrawChallengeRequest, error) {
 	parsedBlock, err := block.NewBlockFromBytes(blockBytes)
 	if err != nil {
 		return nil, nil, err
@@ -112,7 +101,7 @@ func (p *BlockProcessor) ProcessBlockWithoutCommitment(blockBytes []byte) ([]*De
 	return p.ProcessParsedBlock(parsedBlock)
 }
 
-func (p *BlockProcessor) ProcessParsedBlock(parsedBlock *block.Block) ([]*DepositIndexCheckoutRequest, []*WithdrawChallengeRequest, error) {
+func (p *BlockProcessor) ProcessParsedBlock(parsedBlock *block.Block) ([]*messageStructures.DepositIndexCheckoutRequest, []*messageStructures.WithdrawChallengeRequest, error) {
 	blockNumberBytes := parsedBlock.BlockHeader.BlockNumber[:]
 	blockNumber := binary.BigEndian.Uint32(blockNumberBytes)
 	numTransactions := len(parsedBlock.Transactions)
@@ -138,20 +127,20 @@ func (p *BlockProcessor) ProcessParsedBlock(parsedBlock *block.Block) ([]*Deposi
 	}
 
 	flattenedResults := merge(resChannels)
-	depositChecks := []*DepositIndexCheckoutRequest{}
-	withdrawChecks := []*WithdrawChallengeRequest{}
+	depositChecks := []*messageStructures.DepositIndexCheckoutRequest{}
+	withdrawChecks := []*messageStructures.WithdrawChallengeRequest{}
 	for result := range flattenedResults {
-		if result.result == false {
+		if result.Result == false {
 			fmt.Println("Unsuccesfull result")
 		}
-		if result.nonrecoverableError != nil {
-			panic(result.nonrecoverableError)
+		if result.NonrecoverableError != nil {
+			panic(result.NonrecoverableError)
 		}
-		if result.depositIndexRequest != nil {
-			depositChecks = append(depositChecks, result.depositIndexRequest)
+		if result.DepositIndexRequest != nil {
+			depositChecks = append(depositChecks, result.DepositIndexRequest)
 		}
-		if result.withdrawChallengeRequest != nil {
-			withdrawChecks = append(withdrawChecks, result.withdrawChallengeRequest)
+		if result.WithdrawChallengeRequest != nil {
+			withdrawChecks = append(withdrawChecks, result.WithdrawChallengeRequest)
 		}
 	}
 	return depositChecks, withdrawChecks, nil
@@ -269,7 +258,7 @@ func (p *BlockProcessor) PreprocessTransactions(startIndex, endIndex uint32, txe
 }
 
 // during the block processing parse database for deposits during parsing
-func (p *BlockProcessor) MakeCheckDepositRecord(tx *transaction.SignedTransaction) (*DepositIndexCheckoutRequest, error) {
+func (p *BlockProcessor) MakeCheckDepositRecord(tx *transaction.SignedTransaction) (*messageStructures.DepositIndexCheckoutRequest, error) {
 	depositIndexBytes := tx.UnsignedTransaction.Inputs[0].Value[:]
 	depositIndex := big.NewInt(0).SetBytes(depositIndexBytes)
 	depositFor := tx.UnsignedTransaction.Outputs[0].GetToAddress()
@@ -282,7 +271,7 @@ func (p *BlockProcessor) MakeCheckDepositRecord(tx *transaction.SignedTransactio
 	copy(depositForCast[:], depositFor[:])
 	operatorCast := common.Address{}
 	copy(operatorCast[:], sender[:])
-	request := &DepositIndexCheckoutRequest{depositIndex, depositAmount, depositForCast, operatorCast}
+	request := &messageStructures.DepositIndexCheckoutRequest{depositIndex, depositAmount, depositForCast, operatorCast}
 	return request, nil
 }
 
@@ -299,7 +288,7 @@ func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTr
 	for i, payload := range preprocessed {
 		// process either a deposit transaction or work with UTXO indexes
 		if payload.depositCheckoutRequest != nil {
-			results[i] = ResultPayload{payload.txNumber, true, nil, payload.depositCheckoutRequest, nil}
+			results[i] = ResultPayload{payload.txNumber, false, nil, payload.depositCheckoutRequest, nil}
 		} else {
 			for _, toDelete := range payload.keysToDelete {
 				_, err := txn.Get(toDelete)
@@ -311,12 +300,12 @@ func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTr
 					txn = p.db.NewTransaction(true)
 					_, err = txn.Get(toDelete)
 					if err != nil {
-						withdrawRequest := &WithdrawChallengeRequest{toDelete, nil}
+						withdrawRequest := &messageStructures.WithdrawChallengeRequest{toDelete, nil}
 						results[i] = ResultPayload{payload.txNumber, true, nil, nil, withdrawRequest}
 						continue
 					}
 				} else if err != nil {
-					withdrawRequest := &WithdrawChallengeRequest{toDelete, nil}
+					withdrawRequest := &messageStructures.WithdrawChallengeRequest{toDelete, nil}
 					results[i] = ResultPayload{payload.txNumber, true, nil, nil, withdrawRequest}
 					continue
 				}
@@ -337,7 +326,7 @@ func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTr
 			}
 
 			for _, toIndex := range payload.spendingIndexesToWrite {
-				if results[i].result == true {
+				if results[i].Result == true {
 					continue
 				}
 				err := txn.Set(toIndex[0], toIndex[1])
@@ -359,7 +348,7 @@ func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTr
 
 		// process new UTXOs
 		for _, toAdd := range payload.keysToWrite {
-			if results[i].result == true {
+			if results[i].Result == true {
 				continue
 			}
 			err := txn.Set(toAdd, []byte{0x01})
@@ -378,9 +367,14 @@ func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTr
 			}
 		}
 
-		if results[i].result != true {
-			res := ResultPayload{payload.txNumber, true, nil, nil, nil}
-			results[i] = res
+		if results[i].Result != true {
+			if results[i].DepositIndexRequest != nil {
+				results[i].Result = true
+			} else {
+				res := ResultPayload{payload.txNumber, true, nil, nil, nil}
+				results[i] = res
+			}
+
 		}
 	}
 	err := txn.Commit(nil)

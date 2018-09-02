@@ -9,18 +9,21 @@ import (
 
 	database "github.com/matterinc/PlasmaBlockVerifier/database"
 	eth "github.com/matterinc/PlasmaBlockVerifier/ethereuminteraction"
+	dispatch "github.com/matterinc/PlasmaBlockVerifier/grandCentralDispatch"
 	plasma "github.com/matterinc/PlasmaBlockVerifier/plasmainteraction"
 )
 
 func main() {
 	database.PurgeTestDatabase()
 	db, err := database.OpenTestDatabase()
-
+	ethereumLoop := eth.NewEthereumNetworkEventDispatcher("http://127.0.0.1:8545", "0x345ca3e014aaf5dca488057592ee47305d9b3e10")
+	depositCheckoutsProcessor := eth.NewDepositCheckoutProcessor(db, ethereumLoop.PlasmaParentContract, ethereumLoop.BlockStorageContract)
+	withdrawChallengeProcessor := eth.NewWithdrawChallengeProcessor(ethereumLoop.PlasmaParentContract)
 	blockProcessor := plasma.NewBlockProcessor(db, 100, 100)
 	processingLoop := plasma.NewBlockProcessingLoop(blockProcessor)
-	ethereumLoop := eth.NewEthereumNetworkEventDispatcher("http://127.0.0.1:8545", "0x82d50ad3c1091866e258fd0f1a7cc9674609d254")
-	ethereumLoop.Run(0, processingLoop.ProcessingRequestsChannel)
-	processingLoop.Run()
+
+	ethereumLoop.Run(0, dispatch.BlockInformationChannel)
+	processingLoop.Run(dispatch.BlockInformationChannel, depositCheckoutsProcessor, withdrawChallengeProcessor)
 
 	if err != nil {
 		log.Fatal(err)
