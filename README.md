@@ -4,6 +4,11 @@ In this repository resides an initial prototype of the block verifier. The code 
 
 At the moment the achieved block verification speed is `~20000 TPS`. That is lower that the maximum achieved block production speed with `~30000 TPS` and should be improved, as well as quasi-sharing procedure implemented that will allow small clients to only monitor a part of their address space.
 
+## TODO
+- [ ] Divide and conquer application of slices
+- [ ] Store global state in DB
+- [ ] Check restarts without purge
+
 ### Authors
 
 - Alex Vlasov, [@shamatar](https://github.com/shamatar)
