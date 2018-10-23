@@ -11,6 +11,7 @@ import (
 	eth "github.com/matterinc/PlasmaBlockVerifier/ethereuminteraction"
 	dispatch "github.com/matterinc/PlasmaBlockVerifier/grandCentralDispatch"
 	plasma "github.com/matterinc/PlasmaBlockVerifier/plasmainteraction"
+	restapi "github.com/matterinc/PlasmaBlockVerifier/restAPI"
 )
 
 func main() {
@@ -29,9 +30,12 @@ func main() {
 	processingLoop := plasma.NewBlockProcessingLoop(blockProcessor)
 
 	// ethereumLoop.Run(6525445, dispatch.BlockInformationChannel, withdrawStartedProcessor, dispatch.ControlChannel)
-	ethereumLoop.Run(6527670, dispatch.BlockInformationChannel, withdrawStartedProcessor)
+	// ethereumLoop.Run(6527670, dispatch.BlockInformationChannel, withdrawStartedProcessor)
+	ethereumLoop.Run(6530700, dispatch.BlockInformationChannel, withdrawStartedProcessor)
 	processingLoop.Run(dispatch.BlockInformationChannel, depositCheckoutsProcessor, withdrawChallengeProcessor)
 
+	restAPI := restapi.NewRestAPI(db)
+	restAPI.Start(8000)
 	wait := time.Second * 15
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
@@ -39,6 +43,7 @@ func main() {
 	_, cancel := context.WithTimeout(context.Background(), wait)
 	ethereumLoop.SignalChannel <- 1
 	processingLoop.ControlChannel <- 1
+	restAPI.ControlChannel <- 1
 	defer cancel()
 	log.Println("Shutting down")
 	os.Exit(0)

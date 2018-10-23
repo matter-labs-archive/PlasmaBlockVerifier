@@ -72,17 +72,24 @@ func (p *EthereumNetworkEventDispatcher) Run(fromBlockNumber int64, blockProcess
 					log.Println(err)
 					continue
 				}
+				// iterate over exits first
 				for exitEventsIterator.Next() {
 					ev := exitEventsIterator.Event
 					log.Println("Processing exit event")
-					fullInfo, err := p.PlasmaParentContract.PlasmaParentCaller.ExitRecords(nil, ev.Hash)
+					// this is a BUG in ethereum client, it unpacks bytesN type from the last byte, not the first
+
+					exitRecordHash := ev.Raw.Topics[3][:22]
+					exitRecordFixedLength := [22]byte{}
+					copy(exitRecordFixedLength[:], exitRecordHash)
+					fullInfo, err := p.PlasmaParentContract.PlasmaParentCaller.ExitRecords(nil, exitRecordFixedLength)
 					if err != nil {
+						log.Println("Can not get exit record data")
 						log.Fatalln(err)
 					}
-
-					info := &messageStructures.WithdrawStartedInformation{false, fullInfo.BlockNumber, fullInfo.TransactionNumber, fullInfo.OutputNumber, ev.From, fullInfo.Amount, ev.Hash[:]}
+					info := &messageStructures.WithdrawStartedInformation{false, fullInfo.BlockNumber, fullInfo.TransactionNumber, fullInfo.OutputNumber, ev.From, fullInfo.Amount, exitRecordHash}
 					_, err = withdrawProcessor.Process(info)
 					if err != nil {
+						log.Println("Exit processor returned an error")
 						log.Fatalln(err)
 					}
 				}

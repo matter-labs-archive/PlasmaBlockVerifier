@@ -304,8 +304,10 @@ func (p *BlockProcessor) CheckTransactionsSlice(preprocessed []*PreprocessedTran
 			for j, toDelete := range payload.keysToDelete {
 				_, err := txn.Get(toDelete)
 				if err != nil {
+					// There is no UTXO allowed for spending, so it's either withdrawn or spent
+					// with invalid signature or some other information
 					spendingIndex := payload.spendingIndexesToWrite[j][1]
-					withdrawRequest := &messageStructures.WithdrawChallengeRequest{toDelete, spendingIndex}
+					withdrawRequest := &messageStructures.WithdrawChallengeRequest{PartialHash: nil, UtxoIndex: toDelete, SpendingTransactionIndex: spendingIndex}
 					results[i] = ResultPayload{payload.txNumber, true, nil, nil, withdrawRequest}
 					continue
 				}

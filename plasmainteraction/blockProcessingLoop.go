@@ -4,6 +4,7 @@ import (
 	"log"
 	"time"
 
+	blockdownloader "github.com/matterinc/PlasmaBlockVerifier/blockdownloader"
 	ethereuminteraction "github.com/matterinc/PlasmaBlockVerifier/ethereuminteraction"
 	"github.com/matterinc/PlasmaBlockVerifier/messageStructures"
 )
@@ -32,7 +33,7 @@ func NewBlockProcessingLoop(processor *BlockProcessor) *BlockProcessingLoop {
 func (p *BlockProcessingLoop) Run(blockInfoChannel <-chan *messageStructures.BlockInformation,
 	depositCheckoutProcessor *ethereuminteraction.DepositCheckoutProcessor,
 	withdrawChallengeProcessor *ethereuminteraction.WithdrawChallengeProcessor) {
-	blockDownloader := NewBlockDownloader()
+	blockDownloader := blockdownloader.NewBlockDownloader()
 	depositCheckoutsChannel := make(chan *messageStructures.DepositIndexCheckoutRequest)
 	withdrawChallengesChannel := make(chan *messageStructures.WithdrawChallengeRequest)
 	blockFunction := func() {
@@ -81,8 +82,9 @@ func (p *BlockProcessingLoop) Run(blockInfoChannel <-chan *messageStructures.Blo
 			}
 			select {
 			case challengeRequest := <-withdrawChallengesChannel:
-				success, err := withdrawChallengeProcessor.Process(challengeRequest)
-				if !success || err != nil {
+				resultChannel := withdrawChallengeProcessor.Process(challengeRequest)
+				result := <-resultChannel
+				if result.Error != nil {
 					log.Fatalln("Unrecoverable error, chain is byzantine")
 				}
 			default:

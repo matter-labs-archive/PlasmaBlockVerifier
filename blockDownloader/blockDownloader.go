@@ -1,4 +1,4 @@
-package plasmainteraction
+package blockdownloader
 
 import (
 	"io/ioutil"

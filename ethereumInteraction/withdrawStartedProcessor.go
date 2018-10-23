@@ -70,5 +70,7 @@ func (p *WithdrawStartedProcessor) Process(event *messageStructures.WithdrawStar
 		return nil, err
 	}
 	log.Printf("Preparing challenge by using a block %i, tx %i, output %i", spendingBlock, spendingTxNumber, spendingInput)
-	return nil, nil
+	request := &messageStructures.WithdrawChallengeRequest{event.PartialHash, shortIndex, spendingIndex}
+	// request := &messageStructures.WithdrawChallengeRequest{event.PartialHash, blockNumber, transactionNumber, outputNumber, spendingBlock, spendingTxNumber, spendingInput, true, shortIndex, spendingIndex}
+	return request, nil
 }
