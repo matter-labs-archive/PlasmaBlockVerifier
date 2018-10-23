@@ -3,7 +3,7 @@ package ethereuminteraction
 import (
 	"bytes"
 	"errors"
-	"fmt"
+	"log"
 	"math/big"
 
 	"github.com/matterinc/PlasmaBlockVerifier/messageStructures"
@@ -29,7 +29,7 @@ func NewDepositCheckoutProcessor(db *badger.DB, plasmaParent *ABI.PlasmaParent, 
 func (p *DepositCheckoutProcessor) Process(checkoutRequest *messageStructures.DepositIndexCheckoutRequest) (bool, error) {
 	// depositFrom := event.From
 	depositIndex := checkoutRequest.Index
-	fmt.Println("Processing deposit for index " + depositIndex.String())
+	log.Println("Processing deposit for index " + depositIndex.String())
 	// depositAmount := event.Amount
 	depositIndexBytes, err := makeDepositIndex(depositIndex)
 	if err != nil {

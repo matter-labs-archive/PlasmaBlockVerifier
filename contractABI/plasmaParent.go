@@ -16,7 +16,7 @@ import (
 )
 
 // PlasmaParentABI is the input ABI used to generate the binding from.
-const PlasmaParentABI = "[{\"constant\":true,\"inputs\":[],\"name\":\"totalAmountDeposited\",\"outputs\":[{\"name\":\"\",\"type\":\"int256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint176\"}],\"name\":\"limboUTXOs\",\"outputs\":[{\"name\":\"spendingTransactionIndex\",\"type\":\"uint160\"},{\"name\":\"utxoStatus\",\"type\":\"uint8\"},{\"name\":\"isLinkedToLimbo\",\"type\":\"bool\"},{\"name\":\"amountAndOwnerConfirmed\",\"type\":\"bool\"},{\"name\":\"pendingExit\",\"type\":\"bool\"},{\"name\":\"succesfullyWithdrawn\",\"type\":\"bool\"},{\"name\":\"collateralHolder\",\"type\":\"address\"},{\"name\":\"originalOwner\",\"type\":\"address\"},{\"name\":\"boughtBy\",\"type\":\"address\"},{\"name\":\"value\",\"type\":\"uint256\"},{\"name\":\"dateExitAllowed\",\"type\":\"uint64\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"WithdrawCollateral\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"OutputChallangesDelay\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"plasmaErrorFound\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"lastValidBlock\",\"outputs\":[{\"name\":\"\",\"type\":\"uint32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"DepositWithdrawDelay\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"amountPendingExit\",\"outputs\":[{\"name\":\"\",\"type\":\"int256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"ExitDelay\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"blockStorage\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"operatorsBond\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint160\"}],\"name\":\"publishedTransactions\",\"outputs\":[{\"name\":\"isCanonical\",\"type\":\"bool\"},{\"name\":\"isLimbo\",\"type\":\"bool\"},{\"name\":\"priority\",\"type\":\"uint72\"},{\"name\":\"status\",\"type\":\"uint8\"},{\"name\":\"transactionType\",\"type\":\"uint8\"},{\"name\":\"datePublished\",\"type\":\"uint64\"},{\"name\":\"sender\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"limboExitContract\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"depositRecords\",\"outputs\":[{\"name\":\"from\",\"type\":\"address\"},{\"name\":\"status\",\"type\":\"uint8\"},{\"name\":\"hasCollateral\",\"type\":\"bool\"},{\"name\":\"amount\",\"type\":\"uint256\"},{\"name\":\"withdrawStartedAt\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint160\"}],\"name\":\"limboTransactions\",\"outputs\":[{\"name\":\"isCanonical\",\"type\":\"bool\"},{\"name\":\"isLimbo\",\"type\":\"bool\"},{\"name\":\"priority\",\"type\":\"uint72\"},{\"name\":\"status\",\"type\":\"uint8\"},{\"name\":\"transactionType\",\"type\":\"uint8\"},{\"name\":\"datePublished\",\"type\":\"uint64\"},{\"name\":\"sender\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"DepositWithdrawCollateral\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"challengesContract\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"},{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"allDepositRecordsForUser\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint72\"}],\"name\":\"exitBuyoutOffers\",\"outputs\":[{\"name\":\"amount\",\"type\":\"uint256\"},{\"name\":\"from\",\"type\":\"address\"},{\"name\":\"accepted\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"InputChallangesDelay\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint72\"}],\"name\":\"publishedUTXOs\",\"outputs\":[{\"name\":\"spendingTransactionIndex\",\"type\":\"uint160\"},{\"name\":\"utxoStatus\",\"type\":\"uint8\"},{\"name\":\"isLinkedToLimbo\",\"type\":\"bool\"},{\"name\":\"amountAndOwnerConfirmed\",\"type\":\"bool\"},{\"name\":\"pendingExit\",\"type\":\"bool\"},{\"name\":\"succesfullyWithdrawn\",\"type\":\"bool\"},{\"name\":\"collateralHolder\",\"type\":\"address\"},{\"name\":\"originalOwner\",\"type\":\"address\"},{\"name\":\"boughtBy\",\"type\":\"address\"},{\"name\":\"value\",\"type\":\"uint256\"},{\"name\":\"dateExitAllowed\",\"type\":\"uint64\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"depositCounter\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"},{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"allExitsForUser\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"exitProcessorContract\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"exitQueue\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"name\":\"_priorityQueue\",\"type\":\"address\"},{\"name\":\"_blockStorage\",\"type\":\"address\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"constructor\"},{\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_lastValidBlockNumber\",\"type\":\"uint256\"}],\"name\":\"ErrorFoundEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_amount\",\"type\":\"uint256\"},{\"indexed\":true,\"name\":\"_depositIndex\",\"type\":\"uint256\"}],\"name\":\"DepositEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_depositIndex\",\"type\":\"uint256\"}],\"name\":\"DepositWithdrawStartedEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_depositIndex\",\"type\":\"uint256\"}],\"name\":\"DepositWithdrawChallengedEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_depositIndex\",\"type\":\"uint256\"}],\"name\":\"DepositWithdrawCompletedEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_priority\",\"type\":\"uint72\"},{\"indexed\":true,\"name\":\"_index\",\"type\":\"uint72\"}],\"name\":\"ExitStartedEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_priority\",\"type\":\"uint72\"},{\"indexed\":true,\"name\":\"_partialHash\",\"type\":\"bytes22\"}],\"name\":\"LimboExitStartedEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_withdrawIndex\",\"type\":\"uint256\"},{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_buyoutAmount\",\"type\":\"uint256\"}],\"name\":\"WithdrawBuyoutOffered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_withdrawIndex\",\"type\":\"uint256\"},{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"}],\"name\":\"WithdrawBuyoutAccepted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_index\",\"type\":\"uint72\"}],\"name\":\"InputIsPublished\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_index\",\"type\":\"uint72\"}],\"name\":\"OutputIsPublished\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_index\",\"type\":\"uint64\"}],\"name\":\"TransactionIsPublished\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"name\":\"_op\",\"type\":\"address\"},{\"name\":\"_status\",\"type\":\"uint256\"}],\"name\":\"setOperator\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_exitProcessor\",\"type\":\"address\"},{\"name\":\"_challenger\",\"type\":\"address\"},{\"name\":\"_limboExit\",\"type\":\"address\"}],\"name\":\"setDelegates\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_headers\",\"type\":\"bytes\"}],\"name\":\"submitBlockHeaders\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"lastBlockNumber\",\"outputs\":[{\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"hashOfLastSubmittedBlock\",\"outputs\":[{\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"incrementWeekOldCounter\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"deposit\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_for\",\"type\":\"address\"}],\"name\":\"depositFor\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_plasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_plasmaTransactionNumber\",\"type\":\"uint32\"},{\"name\":\"_outputNumber\",\"type\":\"uint8\"}],\"name\":\"joinExit\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_numOfExits\",\"type\":\"uint256\"}],\"name\":\"finalizeExits\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_transactionIndex\",\"type\":\"uint64\"}],\"name\":\"collectInputsCollateral\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_utxoIndex\",\"type\":\"uint72\"},{\"name\":\"_beneficiary\",\"type\":\"address\"}],\"name\":\"offerOutputBuyout\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_utxoIndex\",\"type\":\"uint72\"}],\"name\":\"acceptBuyoutOffer\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_utxoIndex\",\"type\":\"uint72\"}],\"name\":\"returnExpiredBuyoutOffer\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_plasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_merkleProof\",\"type\":\"bytes\"},{\"name\":\"_inputNumber\",\"type\":\"uint8\"}],\"name\":\"markInputAsDoubleSpent\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_plasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_outputNumber\",\"type\":\"uint8\"},{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_merkleProof\",\"type\":\"bytes\"}],\"name\":\"startExit\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_plasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_merkleProof\",\"type\":\"bytes\"}],\"name\":\"publishTransaction\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"},{\"name\":\"inputsAffected\",\"type\":\"uint72[]\"},{\"name\":\"outputsAffected\",\"type\":\"uint72[]\"},{\"name\":\"transactionIndex\",\"type\":\"uint160\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"depositIndex\",\"type\":\"uint256\"}],\"name\":\"startDepositWithdraw\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"depositIndex\",\"type\":\"uint256\"}],\"name\":\"finalizeDepositWithdraw\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"depositIndex\",\"type\":\"uint256\"},{\"name\":\"_plasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_merkleProof\",\"type\":\"bytes\"}],\"name\":\"challengeDepositWithdraw\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_utxoIndex\",\"type\":\"uint72\"},{\"name\":\"_plasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_inputNumber\",\"type\":\"uint8\"},{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_merkleProof\",\"type\":\"bytes\"}],\"name\":\"challengeExit\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_plasmaBlockNumber1\",\"type\":\"uint32\"},{\"name\":\"_inputNumber1\",\"type\":\"uint8\"},{\"name\":\"_plasmaTransaction1\",\"type\":\"bytes\"},{\"name\":\"_merkleProof1\",\"type\":\"bytes\"},{\"name\":\"_plasmaBlockNumber2\",\"type\":\"uint32\"},{\"name\":\"_inputNumber2\",\"type\":\"uint8\"},{\"name\":\"_plasmaTransaction2\",\"type\":\"bytes\"},{\"name\":\"_merkleProof2\",\"type\":\"bytes\"}],\"name\":\"proveDoubleSpend\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_plasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_merkleProof\",\"type\":\"bytes\"}],\"name\":\"proveInvalidDeposit\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_plasmaBlockNumber1\",\"type\":\"uint32\"},{\"name\":\"_plasmaTransaction1\",\"type\":\"bytes\"},{\"name\":\"_merkleProof1\",\"type\":\"bytes\"},{\"name\":\"_plasmaBlockNumber2\",\"type\":\"uint32\"},{\"name\":\"_plasmaTransaction2\",\"type\":\"bytes\"},{\"name\":\"_merkleProof2\",\"type\":\"bytes\"}],\"name\":\"proveDoubleFunding\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_plasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_plasmaInputNumberInTx\",\"type\":\"uint8\"},{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_merkleProof\",\"type\":\"bytes\"}],\"name\":\"proveReferencingInvalidBlock\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_plasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_merkleProof\",\"type\":\"bytes\"},{\"name\":\"_originatingPlasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_originatingPlasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_originatingMerkleProof\",\"type\":\"bytes\"},{\"name\":\"_inputOfInterest\",\"type\":\"uint256\"}],\"name\":\"proveBalanceOrOwnershipBreakingBetweenInputAndOutput\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"}],\"name\":\"isWellFormedTransaction\",\"outputs\":[{\"name\":\"isWellFormed\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_index\",\"type\":\"uint176\"}],\"name\":\"LimboOutputIsPublished\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_index\",\"type\":\"uint160\"}],\"name\":\"LimboTransactionIsPublished\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"name\":\"_outputNumber\",\"type\":\"uint8\"},{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"}],\"name\":\"startLimboExit\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"}],\"name\":\"publishLimboTransaction\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"},{\"name\":\"inputsAffected\",\"type\":\"uint72[]\"},{\"name\":\"transactionHash\",\"type\":\"uint160\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
+const PlasmaParentABI = "[{\"constant\":true,\"inputs\":[],\"name\":\"buyoutProcessorContract\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"WithdrawCollateral\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"OutputChallangesDelay\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"plasmaErrorFound\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"lastValidBlock\",\"outputs\":[{\"name\":\"\",\"type\":\"uint32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"DepositWithdrawDelay\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"ExitDelay\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"blockStorage\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"operatorsBond\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"bytes22\"}],\"name\":\"succesfulExits\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"limboExitContract\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"depositRecords\",\"outputs\":[{\"name\":\"from\",\"type\":\"address\"},{\"name\":\"status\",\"type\":\"uint8\"},{\"name\":\"hasCollateral\",\"type\":\"bool\"},{\"name\":\"amount\",\"type\":\"uint256\"},{\"name\":\"withdrawStartedAt\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"DepositWithdrawCollateral\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"bytes22\"}],\"name\":\"exitBuyoutOffers\",\"outputs\":[{\"name\":\"amount\",\"type\":\"uint256\"},{\"name\":\"from\",\"type\":\"address\"},{\"name\":\"accepted\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"challengesContract\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"bytes22\"}],\"name\":\"exitRecords\",\"outputs\":[{\"name\":\"transactionRef\",\"type\":\"bytes32\"},{\"name\":\"amount\",\"type\":\"uint256\"},{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"timePublished\",\"type\":\"uint64\"},{\"name\":\"blockNumber\",\"type\":\"uint32\"},{\"name\":\"transactionNumber\",\"type\":\"uint32\"},{\"name\":\"outputNumber\",\"type\":\"uint8\"},{\"name\":\"isValid\",\"type\":\"bool\"},{\"name\":\"isLimbo\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"},{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"allDepositRecordsForUser\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"InputChallangesDelay\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"depositCounter\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"},{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"allExitsForUser\",\"outputs\":[{\"name\":\"\",\"type\":\"bytes22\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"exitQueue\",\"outputs\":[{\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"name\":\"_priorityQueue\",\"type\":\"address\"},{\"name\":\"_blockStorage\",\"type\":\"address\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"constructor\"},{\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"fallback\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_lastValidBlockNumber\",\"type\":\"uint256\"}],\"name\":\"ErrorFoundEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_amount\",\"type\":\"uint256\"},{\"indexed\":true,\"name\":\"_depositIndex\",\"type\":\"uint256\"}],\"name\":\"DepositEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_depositIndex\",\"type\":\"uint256\"}],\"name\":\"DepositWithdrawStartedEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_depositIndex\",\"type\":\"uint256\"}],\"name\":\"DepositWithdrawChallengedEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_depositIndex\",\"type\":\"uint256\"}],\"name\":\"DepositWithdrawCompletedEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_hash\",\"type\":\"bytes32\"},{\"indexed\":false,\"name\":\"_data\",\"type\":\"bytes\"}],\"name\":\"TransactionPublished\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_hash\",\"type\":\"bytes22\"}],\"name\":\"ExitRecordCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_hash\",\"type\":\"bytes22\"}],\"name\":\"ExitChallenged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_index\",\"type\":\"uint64\"}],\"name\":\"TransactionIsPublished\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"_priority\",\"type\":\"uint72\"},{\"indexed\":true,\"name\":\"_index\",\"type\":\"uint72\"},{\"indexed\":true,\"name\":\"_hash\",\"type\":\"bytes22\"}],\"name\":\"ExitStartedEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_priority\",\"type\":\"uint72\"},{\"indexed\":true,\"name\":\"_partialHash\",\"type\":\"bytes22\"}],\"name\":\"LimboExitStartedEvent\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_partialHash\",\"type\":\"bytes22\"},{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"_buyoutAmount\",\"type\":\"uint256\"}],\"name\":\"ExitBuyoutOffered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_partialHash\",\"type\":\"bytes22\"},{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"}],\"name\":\"ExitBuyoutAccepted\",\"type\":\"event\"},{\"constant\":false,\"inputs\":[{\"name\":\"_op\",\"type\":\"address\"},{\"name\":\"_status\",\"type\":\"uint256\"}],\"name\":\"setOperator\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_buyouts\",\"type\":\"address\"}],\"name\":\"allowDeposits\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_challenger\",\"type\":\"address\"}],\"name\":\"allowChallenges\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_limboExiter\",\"type\":\"address\"}],\"name\":\"allowLimboExits\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_headers\",\"type\":\"bytes\"}],\"name\":\"submitBlockHeaders\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"lastBlockNumber\",\"outputs\":[{\"name\":\"blockNumber\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"hashOfLastSubmittedBlock\",\"outputs\":[{\"name\":\"\",\"type\":\"bytes32\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"incrementWeekOldCounter\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_plasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_outputNumber\",\"type\":\"uint8\"},{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_merkleProof\",\"type\":\"bytes\"}],\"name\":\"startExit\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_exitRecordHash\",\"type\":\"bytes22\"},{\"name\":\"_plasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_merkleProof\",\"type\":\"bytes\"},{\"name\":\"_inputNumber\",\"type\":\"uint8\"}],\"name\":\"challengeNormalExitByShowingExitBeingSpent\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_originalTransaction\",\"type\":\"bytes\"},{\"name\":\"_originalInputNumber\",\"type\":\"uint8\"},{\"name\":\"_exitRecordHash\",\"type\":\"bytes22\"},{\"name\":\"_plasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_merkleProof\",\"type\":\"bytes\"},{\"name\":\"_inputNumber\",\"type\":\"uint8\"}],\"name\":\"challengeNormalExitByShowingAnInputDoubleSpend\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_originalTransaction\",\"type\":\"bytes\"},{\"name\":\"_originalInputNumber\",\"type\":\"uint8\"},{\"name\":\"_exitRecordHash\",\"type\":\"bytes22\"},{\"name\":\"_plasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_merkleProof\",\"type\":\"bytes\"},{\"name\":\"_outputNumber\",\"type\":\"uint8\"}],\"name\":\"challengeNormalExitByShowingMismatchedInput\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_numOfExits\",\"type\":\"uint256\"}],\"name\":\"finalizeExits\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"}],\"name\":\"isWellFormedTransaction\",\"outputs\":[{\"name\":\"isWellFormed\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"deposit\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_for\",\"type\":\"address\"}],\"name\":\"depositFor\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_index\",\"type\":\"bytes22\"},{\"name\":\"_beneficiary\",\"type\":\"address\"}],\"name\":\"offerOutputBuyout\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_index\",\"type\":\"bytes22\"}],\"name\":\"acceptBuyoutOffer\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_index\",\"type\":\"bytes22\"}],\"name\":\"returnExpiredBuyoutOffer\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"depositIndex\",\"type\":\"uint256\"}],\"name\":\"startDepositWithdraw\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"depositIndex\",\"type\":\"uint256\"}],\"name\":\"finalizeDepositWithdraw\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"depositIndex\",\"type\":\"uint256\"},{\"name\":\"_plasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_merkleProof\",\"type\":\"bytes\"}],\"name\":\"challengeDepositWithdraw\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_plasmaBlockNumber1\",\"type\":\"uint32\"},{\"name\":\"_inputNumber1\",\"type\":\"uint8\"},{\"name\":\"_plasmaTransaction1\",\"type\":\"bytes\"},{\"name\":\"_merkleProof1\",\"type\":\"bytes\"},{\"name\":\"_plasmaBlockNumber2\",\"type\":\"uint32\"},{\"name\":\"_inputNumber2\",\"type\":\"uint8\"},{\"name\":\"_plasmaTransaction2\",\"type\":\"bytes\"},{\"name\":\"_merkleProof2\",\"type\":\"bytes\"}],\"name\":\"proveDoubleSpend\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_plasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_merkleProof\",\"type\":\"bytes\"},{\"name\":\"_originatingPlasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_originatingMerkleProof\",\"type\":\"bytes\"},{\"name\":\"_inputNumber\",\"type\":\"uint8\"}],\"name\":\"proveSpendAndWithdraw\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_plasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_merkleProof\",\"type\":\"bytes\"}],\"name\":\"proveInvalidDeposit\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_plasmaBlockNumber1\",\"type\":\"uint32\"},{\"name\":\"_plasmaTransaction1\",\"type\":\"bytes\"},{\"name\":\"_merkleProof1\",\"type\":\"bytes\"},{\"name\":\"_plasmaBlockNumber2\",\"type\":\"uint32\"},{\"name\":\"_plasmaTransaction2\",\"type\":\"bytes\"},{\"name\":\"_merkleProof2\",\"type\":\"bytes\"}],\"name\":\"proveDoubleFunding\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_plasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_plasmaInputNumberInTx\",\"type\":\"uint8\"},{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_merkleProof\",\"type\":\"bytes\"}],\"name\":\"proveReferencingInvalidBlock\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_plasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_plasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_merkleProof\",\"type\":\"bytes\"},{\"name\":\"_originatingPlasmaBlockNumber\",\"type\":\"uint32\"},{\"name\":\"_originatingPlasmaTransaction\",\"type\":\"bytes\"},{\"name\":\"_originatingMerkleProof\",\"type\":\"bytes\"},{\"name\":\"_inputOfInterest\",\"type\":\"uint256\"}],\"name\":\"proveBalanceOrOwnershipBreakingBetweenInputAndOutput\",\"outputs\":[{\"name\":\"success\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]"
 
 // PlasmaParent is an auto generated Go binding around an Ethereum contract.
 type PlasmaParent struct {
@@ -344,10 +344,10 @@ func (_PlasmaParent *PlasmaParentCallerSession) AllDepositRecordsForUser(arg0 co
 
 // AllExitsForUser is a free data retrieval call binding the contract method 0xece34f68.
 //
-// Solidity: function allExitsForUser( address,  uint256) constant returns(uint256)
-func (_PlasmaParent *PlasmaParentCaller) AllExitsForUser(opts *bind.CallOpts, arg0 common.Address, arg1 *big.Int) (*big.Int, error) {
+// Solidity: function allExitsForUser( address,  uint256) constant returns(bytes22)
+func (_PlasmaParent *PlasmaParentCaller) AllExitsForUser(opts *bind.CallOpts, arg0 common.Address, arg1 *big.Int) ([22]byte, error) {
 	var (
-		ret0 = new(*big.Int)
+		ret0 = new([22]byte)
 	)
 	out := ret0
 	err := _PlasmaParent.contract.Call(opts, out, "allExitsForUser", arg0, arg1)
@@ -356,42 +356,16 @@ func (_PlasmaParent *PlasmaParentCaller) AllExitsForUser(opts *bind.CallOpts, ar
 
 // AllExitsForUser is a free data retrieval call binding the contract method 0xece34f68.
 //
-// Solidity: function allExitsForUser( address,  uint256) constant returns(uint256)
-func (_PlasmaParent *PlasmaParentSession) AllExitsForUser(arg0 common.Address, arg1 *big.Int) (*big.Int, error) {
+// Solidity: function allExitsForUser( address,  uint256) constant returns(bytes22)
+func (_PlasmaParent *PlasmaParentSession) AllExitsForUser(arg0 common.Address, arg1 *big.Int) ([22]byte, error) {
 	return _PlasmaParent.Contract.AllExitsForUser(&_PlasmaParent.CallOpts, arg0, arg1)
 }
 
 // AllExitsForUser is a free data retrieval call binding the contract method 0xece34f68.
 //
-// Solidity: function allExitsForUser( address,  uint256) constant returns(uint256)
-func (_PlasmaParent *PlasmaParentCallerSession) AllExitsForUser(arg0 common.Address, arg1 *big.Int) (*big.Int, error) {
+// Solidity: function allExitsForUser( address,  uint256) constant returns(bytes22)
+func (_PlasmaParent *PlasmaParentCallerSession) AllExitsForUser(arg0 common.Address, arg1 *big.Int) ([22]byte, error) {
 	return _PlasmaParent.Contract.AllExitsForUser(&_PlasmaParent.CallOpts, arg0, arg1)
-}
-
-// AmountPendingExit is a free data retrieval call binding the contract method 0x42637f87.
-//
-// Solidity: function amountPendingExit() constant returns(int256)
-func (_PlasmaParent *PlasmaParentCaller) AmountPendingExit(opts *bind.CallOpts) (*big.Int, error) {
-	var (
-		ret0 = new(*big.Int)
-	)
-	out := ret0
-	err := _PlasmaParent.contract.Call(opts, out, "amountPendingExit")
-	return *ret0, err
-}
-
-// AmountPendingExit is a free data retrieval call binding the contract method 0x42637f87.
-//
-// Solidity: function amountPendingExit() constant returns(int256)
-func (_PlasmaParent *PlasmaParentSession) AmountPendingExit() (*big.Int, error) {
-	return _PlasmaParent.Contract.AmountPendingExit(&_PlasmaParent.CallOpts)
-}
-
-// AmountPendingExit is a free data retrieval call binding the contract method 0x42637f87.
-//
-// Solidity: function amountPendingExit() constant returns(int256)
-func (_PlasmaParent *PlasmaParentCallerSession) AmountPendingExit() (*big.Int, error) {
-	return _PlasmaParent.Contract.AmountPendingExit(&_PlasmaParent.CallOpts)
 }
 
 // BlockStorage is a free data retrieval call binding the contract method 0x4a673e98.
@@ -418,6 +392,32 @@ func (_PlasmaParent *PlasmaParentSession) BlockStorage() (common.Address, error)
 // Solidity: function blockStorage() constant returns(address)
 func (_PlasmaParent *PlasmaParentCallerSession) BlockStorage() (common.Address, error) {
 	return _PlasmaParent.Contract.BlockStorage(&_PlasmaParent.CallOpts)
+}
+
+// BuyoutProcessorContract is a free data retrieval call binding the contract method 0x05032538.
+//
+// Solidity: function buyoutProcessorContract() constant returns(address)
+func (_PlasmaParent *PlasmaParentCaller) BuyoutProcessorContract(opts *bind.CallOpts) (common.Address, error) {
+	var (
+		ret0 = new(common.Address)
+	)
+	out := ret0
+	err := _PlasmaParent.contract.Call(opts, out, "buyoutProcessorContract")
+	return *ret0, err
+}
+
+// BuyoutProcessorContract is a free data retrieval call binding the contract method 0x05032538.
+//
+// Solidity: function buyoutProcessorContract() constant returns(address)
+func (_PlasmaParent *PlasmaParentSession) BuyoutProcessorContract() (common.Address, error) {
+	return _PlasmaParent.Contract.BuyoutProcessorContract(&_PlasmaParent.CallOpts)
+}
+
+// BuyoutProcessorContract is a free data retrieval call binding the contract method 0x05032538.
+//
+// Solidity: function buyoutProcessorContract() constant returns(address)
+func (_PlasmaParent *PlasmaParentCallerSession) BuyoutProcessorContract() (common.Address, error) {
+	return _PlasmaParent.Contract.BuyoutProcessorContract(&_PlasmaParent.CallOpts)
 }
 
 // ChallengesContract is a free data retrieval call binding the contract method 0x934a891a.
@@ -520,10 +520,10 @@ func (_PlasmaParent *PlasmaParentCallerSession) DepositRecords(arg0 *big.Int) (s
 	return _PlasmaParent.Contract.DepositRecords(&_PlasmaParent.CallOpts, arg0)
 }
 
-// ExitBuyoutOffers is a free data retrieval call binding the contract method 0xb6b7afc8.
+// ExitBuyoutOffers is a free data retrieval call binding the contract method 0x86f9acbd.
 //
-// Solidity: function exitBuyoutOffers( uint72) constant returns(amount uint256, from address, accepted bool)
-func (_PlasmaParent *PlasmaParentCaller) ExitBuyoutOffers(opts *bind.CallOpts, arg0 *big.Int) (struct {
+// Solidity: function exitBuyoutOffers( bytes22) constant returns(amount uint256, from address, accepted bool)
+func (_PlasmaParent *PlasmaParentCaller) ExitBuyoutOffers(opts *bind.CallOpts, arg0 [22]byte) (struct {
 	Amount   *big.Int
 	From     common.Address
 	Accepted bool
@@ -538,10 +538,10 @@ func (_PlasmaParent *PlasmaParentCaller) ExitBuyoutOffers(opts *bind.CallOpts, a
 	return *ret, err
 }
 
-// ExitBuyoutOffers is a free data retrieval call binding the contract method 0xb6b7afc8.
+// ExitBuyoutOffers is a free data retrieval call binding the contract method 0x86f9acbd.
 //
-// Solidity: function exitBuyoutOffers( uint72) constant returns(amount uint256, from address, accepted bool)
-func (_PlasmaParent *PlasmaParentSession) ExitBuyoutOffers(arg0 *big.Int) (struct {
+// Solidity: function exitBuyoutOffers( bytes22) constant returns(amount uint256, from address, accepted bool)
+func (_PlasmaParent *PlasmaParentSession) ExitBuyoutOffers(arg0 [22]byte) (struct {
 	Amount   *big.Int
 	From     common.Address
 	Accepted bool
@@ -549,41 +549,15 @@ func (_PlasmaParent *PlasmaParentSession) ExitBuyoutOffers(arg0 *big.Int) (struc
 	return _PlasmaParent.Contract.ExitBuyoutOffers(&_PlasmaParent.CallOpts, arg0)
 }
 
-// ExitBuyoutOffers is a free data retrieval call binding the contract method 0xb6b7afc8.
+// ExitBuyoutOffers is a free data retrieval call binding the contract method 0x86f9acbd.
 //
-// Solidity: function exitBuyoutOffers( uint72) constant returns(amount uint256, from address, accepted bool)
-func (_PlasmaParent *PlasmaParentCallerSession) ExitBuyoutOffers(arg0 *big.Int) (struct {
+// Solidity: function exitBuyoutOffers( bytes22) constant returns(amount uint256, from address, accepted bool)
+func (_PlasmaParent *PlasmaParentCallerSession) ExitBuyoutOffers(arg0 [22]byte) (struct {
 	Amount   *big.Int
 	From     common.Address
 	Accepted bool
 }, error) {
 	return _PlasmaParent.Contract.ExitBuyoutOffers(&_PlasmaParent.CallOpts, arg0)
-}
-
-// ExitProcessorContract is a free data retrieval call binding the contract method 0xfd74f5bd.
-//
-// Solidity: function exitProcessorContract() constant returns(address)
-func (_PlasmaParent *PlasmaParentCaller) ExitProcessorContract(opts *bind.CallOpts) (common.Address, error) {
-	var (
-		ret0 = new(common.Address)
-	)
-	out := ret0
-	err := _PlasmaParent.contract.Call(opts, out, "exitProcessorContract")
-	return *ret0, err
-}
-
-// ExitProcessorContract is a free data retrieval call binding the contract method 0xfd74f5bd.
-//
-// Solidity: function exitProcessorContract() constant returns(address)
-func (_PlasmaParent *PlasmaParentSession) ExitProcessorContract() (common.Address, error) {
-	return _PlasmaParent.Contract.ExitProcessorContract(&_PlasmaParent.CallOpts)
-}
-
-// ExitProcessorContract is a free data retrieval call binding the contract method 0xfd74f5bd.
-//
-// Solidity: function exitProcessorContract() constant returns(address)
-func (_PlasmaParent *PlasmaParentCallerSession) ExitProcessorContract() (common.Address, error) {
-	return _PlasmaParent.Contract.ExitProcessorContract(&_PlasmaParent.CallOpts)
 }
 
 // ExitQueue is a free data retrieval call binding the contract method 0xffed4bf5.
@@ -610,6 +584,70 @@ func (_PlasmaParent *PlasmaParentSession) ExitQueue() (common.Address, error) {
 // Solidity: function exitQueue() constant returns(address)
 func (_PlasmaParent *PlasmaParentCallerSession) ExitQueue() (common.Address, error) {
 	return _PlasmaParent.Contract.ExitQueue(&_PlasmaParent.CallOpts)
+}
+
+// ExitRecords is a free data retrieval call binding the contract method 0x9ef062ee.
+//
+// Solidity: function exitRecords( bytes22) constant returns(transactionRef bytes32, amount uint256, owner address, timePublished uint64, blockNumber uint32, transactionNumber uint32, outputNumber uint8, isValid bool, isLimbo bool)
+func (_PlasmaParent *PlasmaParentCaller) ExitRecords(opts *bind.CallOpts, arg0 [22]byte) (struct {
+	TransactionRef    [32]byte
+	Amount            *big.Int
+	Owner             common.Address
+	TimePublished     uint64
+	BlockNumber       uint32
+	TransactionNumber uint32
+	OutputNumber      uint8
+	IsValid           bool
+	IsLimbo           bool
+}, error) {
+	ret := new(struct {
+		TransactionRef    [32]byte
+		Amount            *big.Int
+		Owner             common.Address
+		TimePublished     uint64
+		BlockNumber       uint32
+		TransactionNumber uint32
+		OutputNumber      uint8
+		IsValid           bool
+		IsLimbo           bool
+	})
+	out := ret
+	err := _PlasmaParent.contract.Call(opts, out, "exitRecords", arg0)
+	return *ret, err
+}
+
+// ExitRecords is a free data retrieval call binding the contract method 0x9ef062ee.
+//
+// Solidity: function exitRecords( bytes22) constant returns(transactionRef bytes32, amount uint256, owner address, timePublished uint64, blockNumber uint32, transactionNumber uint32, outputNumber uint8, isValid bool, isLimbo bool)
+func (_PlasmaParent *PlasmaParentSession) ExitRecords(arg0 [22]byte) (struct {
+	TransactionRef    [32]byte
+	Amount            *big.Int
+	Owner             common.Address
+	TimePublished     uint64
+	BlockNumber       uint32
+	TransactionNumber uint32
+	OutputNumber      uint8
+	IsValid           bool
+	IsLimbo           bool
+}, error) {
+	return _PlasmaParent.Contract.ExitRecords(&_PlasmaParent.CallOpts, arg0)
+}
+
+// ExitRecords is a free data retrieval call binding the contract method 0x9ef062ee.
+//
+// Solidity: function exitRecords( bytes22) constant returns(transactionRef bytes32, amount uint256, owner address, timePublished uint64, blockNumber uint32, transactionNumber uint32, outputNumber uint8, isValid bool, isLimbo bool)
+func (_PlasmaParent *PlasmaParentCallerSession) ExitRecords(arg0 [22]byte) (struct {
+	TransactionRef    [32]byte
+	Amount            *big.Int
+	Owner             common.Address
+	TimePublished     uint64
+	BlockNumber       uint32
+	TransactionNumber uint32
+	OutputNumber      uint8
+	IsValid           bool
+	IsLimbo           bool
+}, error) {
+	return _PlasmaParent.Contract.ExitRecords(&_PlasmaParent.CallOpts, arg0)
 }
 
 // HashOfLastSubmittedBlock is a free data retrieval call binding the contract method 0x8649d43b.
@@ -742,134 +780,6 @@ func (_PlasmaParent *PlasmaParentCallerSession) LimboExitContract() (common.Addr
 	return _PlasmaParent.Contract.LimboExitContract(&_PlasmaParent.CallOpts)
 }
 
-// LimboTransactions is a free data retrieval call binding the contract method 0x7ca9a807.
-//
-// Solidity: function limboTransactions( uint160) constant returns(isCanonical bool, isLimbo bool, priority uint72, status uint8, transactionType uint8, datePublished uint64, sender address)
-func (_PlasmaParent *PlasmaParentCaller) LimboTransactions(opts *bind.CallOpts, arg0 *big.Int) (struct {
-	IsCanonical     bool
-	IsLimbo         bool
-	Priority        *big.Int
-	Status          uint8
-	TransactionType uint8
-	DatePublished   uint64
-	Sender          common.Address
-}, error) {
-	ret := new(struct {
-		IsCanonical     bool
-		IsLimbo         bool
-		Priority        *big.Int
-		Status          uint8
-		TransactionType uint8
-		DatePublished   uint64
-		Sender          common.Address
-	})
-	out := ret
-	err := _PlasmaParent.contract.Call(opts, out, "limboTransactions", arg0)
-	return *ret, err
-}
-
-// LimboTransactions is a free data retrieval call binding the contract method 0x7ca9a807.
-//
-// Solidity: function limboTransactions( uint160) constant returns(isCanonical bool, isLimbo bool, priority uint72, status uint8, transactionType uint8, datePublished uint64, sender address)
-func (_PlasmaParent *PlasmaParentSession) LimboTransactions(arg0 *big.Int) (struct {
-	IsCanonical     bool
-	IsLimbo         bool
-	Priority        *big.Int
-	Status          uint8
-	TransactionType uint8
-	DatePublished   uint64
-	Sender          common.Address
-}, error) {
-	return _PlasmaParent.Contract.LimboTransactions(&_PlasmaParent.CallOpts, arg0)
-}
-
-// LimboTransactions is a free data retrieval call binding the contract method 0x7ca9a807.
-//
-// Solidity: function limboTransactions( uint160) constant returns(isCanonical bool, isLimbo bool, priority uint72, status uint8, transactionType uint8, datePublished uint64, sender address)
-func (_PlasmaParent *PlasmaParentCallerSession) LimboTransactions(arg0 *big.Int) (struct {
-	IsCanonical     bool
-	IsLimbo         bool
-	Priority        *big.Int
-	Status          uint8
-	TransactionType uint8
-	DatePublished   uint64
-	Sender          common.Address
-}, error) {
-	return _PlasmaParent.Contract.LimboTransactions(&_PlasmaParent.CallOpts, arg0)
-}
-
-// LimboUTXOs is a free data retrieval call binding the contract method 0x10275bcd.
-//
-// Solidity: function limboUTXOs( uint176) constant returns(spendingTransactionIndex uint160, utxoStatus uint8, isLinkedToLimbo bool, amountAndOwnerConfirmed bool, pendingExit bool, succesfullyWithdrawn bool, collateralHolder address, originalOwner address, boughtBy address, value uint256, dateExitAllowed uint64)
-func (_PlasmaParent *PlasmaParentCaller) LimboUTXOs(opts *bind.CallOpts, arg0 *big.Int) (struct {
-	SpendingTransactionIndex *big.Int
-	UtxoStatus               uint8
-	IsLinkedToLimbo          bool
-	AmountAndOwnerConfirmed  bool
-	PendingExit              bool
-	SuccesfullyWithdrawn     bool
-	CollateralHolder         common.Address
-	OriginalOwner            common.Address
-	BoughtBy                 common.Address
-	Value                    *big.Int
-	DateExitAllowed          uint64
-}, error) {
-	ret := new(struct {
-		SpendingTransactionIndex *big.Int
-		UtxoStatus               uint8
-		IsLinkedToLimbo          bool
-		AmountAndOwnerConfirmed  bool
-		PendingExit              bool
-		SuccesfullyWithdrawn     bool
-		CollateralHolder         common.Address
-		OriginalOwner            common.Address
-		BoughtBy                 common.Address
-		Value                    *big.Int
-		DateExitAllowed          uint64
-	})
-	out := ret
-	err := _PlasmaParent.contract.Call(opts, out, "limboUTXOs", arg0)
-	return *ret, err
-}
-
-// LimboUTXOs is a free data retrieval call binding the contract method 0x10275bcd.
-//
-// Solidity: function limboUTXOs( uint176) constant returns(spendingTransactionIndex uint160, utxoStatus uint8, isLinkedToLimbo bool, amountAndOwnerConfirmed bool, pendingExit bool, succesfullyWithdrawn bool, collateralHolder address, originalOwner address, boughtBy address, value uint256, dateExitAllowed uint64)
-func (_PlasmaParent *PlasmaParentSession) LimboUTXOs(arg0 *big.Int) (struct {
-	SpendingTransactionIndex *big.Int
-	UtxoStatus               uint8
-	IsLinkedToLimbo          bool
-	AmountAndOwnerConfirmed  bool
-	PendingExit              bool
-	SuccesfullyWithdrawn     bool
-	CollateralHolder         common.Address
-	OriginalOwner            common.Address
-	BoughtBy                 common.Address
-	Value                    *big.Int
-	DateExitAllowed          uint64
-}, error) {
-	return _PlasmaParent.Contract.LimboUTXOs(&_PlasmaParent.CallOpts, arg0)
-}
-
-// LimboUTXOs is a free data retrieval call binding the contract method 0x10275bcd.
-//
-// Solidity: function limboUTXOs( uint176) constant returns(spendingTransactionIndex uint160, utxoStatus uint8, isLinkedToLimbo bool, amountAndOwnerConfirmed bool, pendingExit bool, succesfullyWithdrawn bool, collateralHolder address, originalOwner address, boughtBy address, value uint256, dateExitAllowed uint64)
-func (_PlasmaParent *PlasmaParentCallerSession) LimboUTXOs(arg0 *big.Int) (struct {
-	SpendingTransactionIndex *big.Int
-	UtxoStatus               uint8
-	IsLinkedToLimbo          bool
-	AmountAndOwnerConfirmed  bool
-	PendingExit              bool
-	SuccesfullyWithdrawn     bool
-	CollateralHolder         common.Address
-	OriginalOwner            common.Address
-	BoughtBy                 common.Address
-	Value                    *big.Int
-	DateExitAllowed          uint64
-}, error) {
-	return _PlasmaParent.Contract.LimboUTXOs(&_PlasmaParent.CallOpts, arg0)
-}
-
 // OperatorsBond is a free data retrieval call binding the contract method 0x5a20954e.
 //
 // Solidity: function operatorsBond() constant returns(uint256)
@@ -948,179 +858,114 @@ func (_PlasmaParent *PlasmaParentCallerSession) PlasmaErrorFound() (bool, error)
 	return _PlasmaParent.Contract.PlasmaErrorFound(&_PlasmaParent.CallOpts)
 }
 
-// PublishedTransactions is a free data retrieval call binding the contract method 0x6f0580c5.
+// SuccesfulExits is a free data retrieval call binding the contract method 0x6e637cd6.
 //
-// Solidity: function publishedTransactions( uint160) constant returns(isCanonical bool, isLimbo bool, priority uint72, status uint8, transactionType uint8, datePublished uint64, sender address)
-func (_PlasmaParent *PlasmaParentCaller) PublishedTransactions(opts *bind.CallOpts, arg0 *big.Int) (struct {
-	IsCanonical     bool
-	IsLimbo         bool
-	Priority        *big.Int
-	Status          uint8
-	TransactionType uint8
-	DatePublished   uint64
-	Sender          common.Address
-}, error) {
-	ret := new(struct {
-		IsCanonical     bool
-		IsLimbo         bool
-		Priority        *big.Int
-		Status          uint8
-		TransactionType uint8
-		DatePublished   uint64
-		Sender          common.Address
-	})
-	out := ret
-	err := _PlasmaParent.contract.Call(opts, out, "publishedTransactions", arg0)
-	return *ret, err
-}
-
-// PublishedTransactions is a free data retrieval call binding the contract method 0x6f0580c5.
-//
-// Solidity: function publishedTransactions( uint160) constant returns(isCanonical bool, isLimbo bool, priority uint72, status uint8, transactionType uint8, datePublished uint64, sender address)
-func (_PlasmaParent *PlasmaParentSession) PublishedTransactions(arg0 *big.Int) (struct {
-	IsCanonical     bool
-	IsLimbo         bool
-	Priority        *big.Int
-	Status          uint8
-	TransactionType uint8
-	DatePublished   uint64
-	Sender          common.Address
-}, error) {
-	return _PlasmaParent.Contract.PublishedTransactions(&_PlasmaParent.CallOpts, arg0)
-}
-
-// PublishedTransactions is a free data retrieval call binding the contract method 0x6f0580c5.
-//
-// Solidity: function publishedTransactions( uint160) constant returns(isCanonical bool, isLimbo bool, priority uint72, status uint8, transactionType uint8, datePublished uint64, sender address)
-func (_PlasmaParent *PlasmaParentCallerSession) PublishedTransactions(arg0 *big.Int) (struct {
-	IsCanonical     bool
-	IsLimbo         bool
-	Priority        *big.Int
-	Status          uint8
-	TransactionType uint8
-	DatePublished   uint64
-	Sender          common.Address
-}, error) {
-	return _PlasmaParent.Contract.PublishedTransactions(&_PlasmaParent.CallOpts, arg0)
-}
-
-// PublishedUTXOs is a free data retrieval call binding the contract method 0xd2afd229.
-//
-// Solidity: function publishedUTXOs( uint72) constant returns(spendingTransactionIndex uint160, utxoStatus uint8, isLinkedToLimbo bool, amountAndOwnerConfirmed bool, pendingExit bool, succesfullyWithdrawn bool, collateralHolder address, originalOwner address, boughtBy address, value uint256, dateExitAllowed uint64)
-func (_PlasmaParent *PlasmaParentCaller) PublishedUTXOs(opts *bind.CallOpts, arg0 *big.Int) (struct {
-	SpendingTransactionIndex *big.Int
-	UtxoStatus               uint8
-	IsLinkedToLimbo          bool
-	AmountAndOwnerConfirmed  bool
-	PendingExit              bool
-	SuccesfullyWithdrawn     bool
-	CollateralHolder         common.Address
-	OriginalOwner            common.Address
-	BoughtBy                 common.Address
-	Value                    *big.Int
-	DateExitAllowed          uint64
-}, error) {
-	ret := new(struct {
-		SpendingTransactionIndex *big.Int
-		UtxoStatus               uint8
-		IsLinkedToLimbo          bool
-		AmountAndOwnerConfirmed  bool
-		PendingExit              bool
-		SuccesfullyWithdrawn     bool
-		CollateralHolder         common.Address
-		OriginalOwner            common.Address
-		BoughtBy                 common.Address
-		Value                    *big.Int
-		DateExitAllowed          uint64
-	})
-	out := ret
-	err := _PlasmaParent.contract.Call(opts, out, "publishedUTXOs", arg0)
-	return *ret, err
-}
-
-// PublishedUTXOs is a free data retrieval call binding the contract method 0xd2afd229.
-//
-// Solidity: function publishedUTXOs( uint72) constant returns(spendingTransactionIndex uint160, utxoStatus uint8, isLinkedToLimbo bool, amountAndOwnerConfirmed bool, pendingExit bool, succesfullyWithdrawn bool, collateralHolder address, originalOwner address, boughtBy address, value uint256, dateExitAllowed uint64)
-func (_PlasmaParent *PlasmaParentSession) PublishedUTXOs(arg0 *big.Int) (struct {
-	SpendingTransactionIndex *big.Int
-	UtxoStatus               uint8
-	IsLinkedToLimbo          bool
-	AmountAndOwnerConfirmed  bool
-	PendingExit              bool
-	SuccesfullyWithdrawn     bool
-	CollateralHolder         common.Address
-	OriginalOwner            common.Address
-	BoughtBy                 common.Address
-	Value                    *big.Int
-	DateExitAllowed          uint64
-}, error) {
-	return _PlasmaParent.Contract.PublishedUTXOs(&_PlasmaParent.CallOpts, arg0)
-}
-
-// PublishedUTXOs is a free data retrieval call binding the contract method 0xd2afd229.
-//
-// Solidity: function publishedUTXOs( uint72) constant returns(spendingTransactionIndex uint160, utxoStatus uint8, isLinkedToLimbo bool, amountAndOwnerConfirmed bool, pendingExit bool, succesfullyWithdrawn bool, collateralHolder address, originalOwner address, boughtBy address, value uint256, dateExitAllowed uint64)
-func (_PlasmaParent *PlasmaParentCallerSession) PublishedUTXOs(arg0 *big.Int) (struct {
-	SpendingTransactionIndex *big.Int
-	UtxoStatus               uint8
-	IsLinkedToLimbo          bool
-	AmountAndOwnerConfirmed  bool
-	PendingExit              bool
-	SuccesfullyWithdrawn     bool
-	CollateralHolder         common.Address
-	OriginalOwner            common.Address
-	BoughtBy                 common.Address
-	Value                    *big.Int
-	DateExitAllowed          uint64
-}, error) {
-	return _PlasmaParent.Contract.PublishedUTXOs(&_PlasmaParent.CallOpts, arg0)
-}
-
-// TotalAmountDeposited is a free data retrieval call binding the contract method 0x0d155d26.
-//
-// Solidity: function totalAmountDeposited() constant returns(int256)
-func (_PlasmaParent *PlasmaParentCaller) TotalAmountDeposited(opts *bind.CallOpts) (*big.Int, error) {
+// Solidity: function succesfulExits( bytes22) constant returns(bool)
+func (_PlasmaParent *PlasmaParentCaller) SuccesfulExits(opts *bind.CallOpts, arg0 [22]byte) (bool, error) {
 	var (
-		ret0 = new(*big.Int)
+		ret0 = new(bool)
 	)
 	out := ret0
-	err := _PlasmaParent.contract.Call(opts, out, "totalAmountDeposited")
+	err := _PlasmaParent.contract.Call(opts, out, "succesfulExits", arg0)
 	return *ret0, err
 }
 
-// TotalAmountDeposited is a free data retrieval call binding the contract method 0x0d155d26.
+// SuccesfulExits is a free data retrieval call binding the contract method 0x6e637cd6.
 //
-// Solidity: function totalAmountDeposited() constant returns(int256)
-func (_PlasmaParent *PlasmaParentSession) TotalAmountDeposited() (*big.Int, error) {
-	return _PlasmaParent.Contract.TotalAmountDeposited(&_PlasmaParent.CallOpts)
+// Solidity: function succesfulExits( bytes22) constant returns(bool)
+func (_PlasmaParent *PlasmaParentSession) SuccesfulExits(arg0 [22]byte) (bool, error) {
+	return _PlasmaParent.Contract.SuccesfulExits(&_PlasmaParent.CallOpts, arg0)
 }
 
-// TotalAmountDeposited is a free data retrieval call binding the contract method 0x0d155d26.
+// SuccesfulExits is a free data retrieval call binding the contract method 0x6e637cd6.
 //
-// Solidity: function totalAmountDeposited() constant returns(int256)
-func (_PlasmaParent *PlasmaParentCallerSession) TotalAmountDeposited() (*big.Int, error) {
-	return _PlasmaParent.Contract.TotalAmountDeposited(&_PlasmaParent.CallOpts)
+// Solidity: function succesfulExits( bytes22) constant returns(bool)
+func (_PlasmaParent *PlasmaParentCallerSession) SuccesfulExits(arg0 [22]byte) (bool, error) {
+	return _PlasmaParent.Contract.SuccesfulExits(&_PlasmaParent.CallOpts, arg0)
 }
 
-// AcceptBuyoutOffer is a paid mutator transaction binding the contract method 0x4929a3da.
+// AcceptBuyoutOffer is a paid mutator transaction binding the contract method 0xeed8e608.
 //
-// Solidity: function acceptBuyoutOffer(_utxoIndex uint72) returns(success bool)
-func (_PlasmaParent *PlasmaParentTransactor) AcceptBuyoutOffer(opts *bind.TransactOpts, _utxoIndex *big.Int) (*types.Transaction, error) {
-	return _PlasmaParent.contract.Transact(opts, "acceptBuyoutOffer", _utxoIndex)
+// Solidity: function acceptBuyoutOffer(_index bytes22) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactor) AcceptBuyoutOffer(opts *bind.TransactOpts, _index [22]byte) (*types.Transaction, error) {
+	return _PlasmaParent.contract.Transact(opts, "acceptBuyoutOffer", _index)
 }
 
-// AcceptBuyoutOffer is a paid mutator transaction binding the contract method 0x4929a3da.
+// AcceptBuyoutOffer is a paid mutator transaction binding the contract method 0xeed8e608.
 //
-// Solidity: function acceptBuyoutOffer(_utxoIndex uint72) returns(success bool)
-func (_PlasmaParent *PlasmaParentSession) AcceptBuyoutOffer(_utxoIndex *big.Int) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.AcceptBuyoutOffer(&_PlasmaParent.TransactOpts, _utxoIndex)
+// Solidity: function acceptBuyoutOffer(_index bytes22) returns(success bool)
+func (_PlasmaParent *PlasmaParentSession) AcceptBuyoutOffer(_index [22]byte) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.AcceptBuyoutOffer(&_PlasmaParent.TransactOpts, _index)
 }
 
-// AcceptBuyoutOffer is a paid mutator transaction binding the contract method 0x4929a3da.
+// AcceptBuyoutOffer is a paid mutator transaction binding the contract method 0xeed8e608.
 //
-// Solidity: function acceptBuyoutOffer(_utxoIndex uint72) returns(success bool)
-func (_PlasmaParent *PlasmaParentTransactorSession) AcceptBuyoutOffer(_utxoIndex *big.Int) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.AcceptBuyoutOffer(&_PlasmaParent.TransactOpts, _utxoIndex)
+// Solidity: function acceptBuyoutOffer(_index bytes22) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactorSession) AcceptBuyoutOffer(_index [22]byte) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.AcceptBuyoutOffer(&_PlasmaParent.TransactOpts, _index)
+}
+
+// AllowChallenges is a paid mutator transaction binding the contract method 0x5868e153.
+//
+// Solidity: function allowChallenges(_challenger address) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactor) AllowChallenges(opts *bind.TransactOpts, _challenger common.Address) (*types.Transaction, error) {
+	return _PlasmaParent.contract.Transact(opts, "allowChallenges", _challenger)
+}
+
+// AllowChallenges is a paid mutator transaction binding the contract method 0x5868e153.
+//
+// Solidity: function allowChallenges(_challenger address) returns(success bool)
+func (_PlasmaParent *PlasmaParentSession) AllowChallenges(_challenger common.Address) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.AllowChallenges(&_PlasmaParent.TransactOpts, _challenger)
+}
+
+// AllowChallenges is a paid mutator transaction binding the contract method 0x5868e153.
+//
+// Solidity: function allowChallenges(_challenger address) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactorSession) AllowChallenges(_challenger common.Address) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.AllowChallenges(&_PlasmaParent.TransactOpts, _challenger)
+}
+
+// AllowDeposits is a paid mutator transaction binding the contract method 0x17600fdf.
+//
+// Solidity: function allowDeposits(_buyouts address) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactor) AllowDeposits(opts *bind.TransactOpts, _buyouts common.Address) (*types.Transaction, error) {
+	return _PlasmaParent.contract.Transact(opts, "allowDeposits", _buyouts)
+}
+
+// AllowDeposits is a paid mutator transaction binding the contract method 0x17600fdf.
+//
+// Solidity: function allowDeposits(_buyouts address) returns(success bool)
+func (_PlasmaParent *PlasmaParentSession) AllowDeposits(_buyouts common.Address) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.AllowDeposits(&_PlasmaParent.TransactOpts, _buyouts)
+}
+
+// AllowDeposits is a paid mutator transaction binding the contract method 0x17600fdf.
+//
+// Solidity: function allowDeposits(_buyouts address) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactorSession) AllowDeposits(_buyouts common.Address) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.AllowDeposits(&_PlasmaParent.TransactOpts, _buyouts)
+}
+
+// AllowLimboExits is a paid mutator transaction binding the contract method 0xcb78f233.
+//
+// Solidity: function allowLimboExits(_limboExiter address) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactor) AllowLimboExits(opts *bind.TransactOpts, _limboExiter common.Address) (*types.Transaction, error) {
+	return _PlasmaParent.contract.Transact(opts, "allowLimboExits", _limboExiter)
+}
+
+// AllowLimboExits is a paid mutator transaction binding the contract method 0xcb78f233.
+//
+// Solidity: function allowLimboExits(_limboExiter address) returns(success bool)
+func (_PlasmaParent *PlasmaParentSession) AllowLimboExits(_limboExiter common.Address) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.AllowLimboExits(&_PlasmaParent.TransactOpts, _limboExiter)
+}
+
+// AllowLimboExits is a paid mutator transaction binding the contract method 0xcb78f233.
+//
+// Solidity: function allowLimboExits(_limboExiter address) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactorSession) AllowLimboExits(_limboExiter common.Address) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.AllowLimboExits(&_PlasmaParent.TransactOpts, _limboExiter)
 }
 
 // ChallengeDepositWithdraw is a paid mutator transaction binding the contract method 0x6a7596f2.
@@ -1144,46 +989,67 @@ func (_PlasmaParent *PlasmaParentTransactorSession) ChallengeDepositWithdraw(dep
 	return _PlasmaParent.Contract.ChallengeDepositWithdraw(&_PlasmaParent.TransactOpts, depositIndex, _plasmaBlockNumber, _plasmaTransaction, _merkleProof)
 }
 
-// ChallengeExit is a paid mutator transaction binding the contract method 0x83a7c932.
+// ChallengeNormalExitByShowingAnInputDoubleSpend is a paid mutator transaction binding the contract method 0x0e50aaa8.
 //
-// Solidity: function challengeExit(_utxoIndex uint72, _plasmaBlockNumber uint32, _inputNumber uint8, _plasmaTransaction bytes, _merkleProof bytes) returns(success bool)
-func (_PlasmaParent *PlasmaParentTransactor) ChallengeExit(opts *bind.TransactOpts, _utxoIndex *big.Int, _plasmaBlockNumber uint32, _inputNumber uint8, _plasmaTransaction []byte, _merkleProof []byte) (*types.Transaction, error) {
-	return _PlasmaParent.contract.Transact(opts, "challengeExit", _utxoIndex, _plasmaBlockNumber, _inputNumber, _plasmaTransaction, _merkleProof)
+// Solidity: function challengeNormalExitByShowingAnInputDoubleSpend(_originalTransaction bytes, _originalInputNumber uint8, _exitRecordHash bytes22, _plasmaBlockNumber uint32, _plasmaTransaction bytes, _merkleProof bytes, _inputNumber uint8) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactor) ChallengeNormalExitByShowingAnInputDoubleSpend(opts *bind.TransactOpts, _originalTransaction []byte, _originalInputNumber uint8, _exitRecordHash [22]byte, _plasmaBlockNumber uint32, _plasmaTransaction []byte, _merkleProof []byte, _inputNumber uint8) (*types.Transaction, error) {
+	return _PlasmaParent.contract.Transact(opts, "challengeNormalExitByShowingAnInputDoubleSpend", _originalTransaction, _originalInputNumber, _exitRecordHash, _plasmaBlockNumber, _plasmaTransaction, _merkleProof, _inputNumber)
 }
 
-// ChallengeExit is a paid mutator transaction binding the contract method 0x83a7c932.
+// ChallengeNormalExitByShowingAnInputDoubleSpend is a paid mutator transaction binding the contract method 0x0e50aaa8.
 //
-// Solidity: function challengeExit(_utxoIndex uint72, _plasmaBlockNumber uint32, _inputNumber uint8, _plasmaTransaction bytes, _merkleProof bytes) returns(success bool)
-func (_PlasmaParent *PlasmaParentSession) ChallengeExit(_utxoIndex *big.Int, _plasmaBlockNumber uint32, _inputNumber uint8, _plasmaTransaction []byte, _merkleProof []byte) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.ChallengeExit(&_PlasmaParent.TransactOpts, _utxoIndex, _plasmaBlockNumber, _inputNumber, _plasmaTransaction, _merkleProof)
+// Solidity: function challengeNormalExitByShowingAnInputDoubleSpend(_originalTransaction bytes, _originalInputNumber uint8, _exitRecordHash bytes22, _plasmaBlockNumber uint32, _plasmaTransaction bytes, _merkleProof bytes, _inputNumber uint8) returns(success bool)
+func (_PlasmaParent *PlasmaParentSession) ChallengeNormalExitByShowingAnInputDoubleSpend(_originalTransaction []byte, _originalInputNumber uint8, _exitRecordHash [22]byte, _plasmaBlockNumber uint32, _plasmaTransaction []byte, _merkleProof []byte, _inputNumber uint8) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.ChallengeNormalExitByShowingAnInputDoubleSpend(&_PlasmaParent.TransactOpts, _originalTransaction, _originalInputNumber, _exitRecordHash, _plasmaBlockNumber, _plasmaTransaction, _merkleProof, _inputNumber)
 }
 
-// ChallengeExit is a paid mutator transaction binding the contract method 0x83a7c932.
+// ChallengeNormalExitByShowingAnInputDoubleSpend is a paid mutator transaction binding the contract method 0x0e50aaa8.
 //
-// Solidity: function challengeExit(_utxoIndex uint72, _plasmaBlockNumber uint32, _inputNumber uint8, _plasmaTransaction bytes, _merkleProof bytes) returns(success bool)
-func (_PlasmaParent *PlasmaParentTransactorSession) ChallengeExit(_utxoIndex *big.Int, _plasmaBlockNumber uint32, _inputNumber uint8, _plasmaTransaction []byte, _merkleProof []byte) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.ChallengeExit(&_PlasmaParent.TransactOpts, _utxoIndex, _plasmaBlockNumber, _inputNumber, _plasmaTransaction, _merkleProof)
+// Solidity: function challengeNormalExitByShowingAnInputDoubleSpend(_originalTransaction bytes, _originalInputNumber uint8, _exitRecordHash bytes22, _plasmaBlockNumber uint32, _plasmaTransaction bytes, _merkleProof bytes, _inputNumber uint8) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactorSession) ChallengeNormalExitByShowingAnInputDoubleSpend(_originalTransaction []byte, _originalInputNumber uint8, _exitRecordHash [22]byte, _plasmaBlockNumber uint32, _plasmaTransaction []byte, _merkleProof []byte, _inputNumber uint8) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.ChallengeNormalExitByShowingAnInputDoubleSpend(&_PlasmaParent.TransactOpts, _originalTransaction, _originalInputNumber, _exitRecordHash, _plasmaBlockNumber, _plasmaTransaction, _merkleProof, _inputNumber)
 }
 
-// CollectInputsCollateral is a paid mutator transaction binding the contract method 0x2c1111c5.
+// ChallengeNormalExitByShowingExitBeingSpent is a paid mutator transaction binding the contract method 0xa8c818ba.
 //
-// Solidity: function collectInputsCollateral(_transactionIndex uint64) returns(success bool)
-func (_PlasmaParent *PlasmaParentTransactor) CollectInputsCollateral(opts *bind.TransactOpts, _transactionIndex uint64) (*types.Transaction, error) {
-	return _PlasmaParent.contract.Transact(opts, "collectInputsCollateral", _transactionIndex)
+// Solidity: function challengeNormalExitByShowingExitBeingSpent(_exitRecordHash bytes22, _plasmaBlockNumber uint32, _plasmaTransaction bytes, _merkleProof bytes, _inputNumber uint8) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactor) ChallengeNormalExitByShowingExitBeingSpent(opts *bind.TransactOpts, _exitRecordHash [22]byte, _plasmaBlockNumber uint32, _plasmaTransaction []byte, _merkleProof []byte, _inputNumber uint8) (*types.Transaction, error) {
+	return _PlasmaParent.contract.Transact(opts, "challengeNormalExitByShowingExitBeingSpent", _exitRecordHash, _plasmaBlockNumber, _plasmaTransaction, _merkleProof, _inputNumber)
 }
 
-// CollectInputsCollateral is a paid mutator transaction binding the contract method 0x2c1111c5.
+// ChallengeNormalExitByShowingExitBeingSpent is a paid mutator transaction binding the contract method 0xa8c818ba.
 //
-// Solidity: function collectInputsCollateral(_transactionIndex uint64) returns(success bool)
-func (_PlasmaParent *PlasmaParentSession) CollectInputsCollateral(_transactionIndex uint64) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.CollectInputsCollateral(&_PlasmaParent.TransactOpts, _transactionIndex)
+// Solidity: function challengeNormalExitByShowingExitBeingSpent(_exitRecordHash bytes22, _plasmaBlockNumber uint32, _plasmaTransaction bytes, _merkleProof bytes, _inputNumber uint8) returns(success bool)
+func (_PlasmaParent *PlasmaParentSession) ChallengeNormalExitByShowingExitBeingSpent(_exitRecordHash [22]byte, _plasmaBlockNumber uint32, _plasmaTransaction []byte, _merkleProof []byte, _inputNumber uint8) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.ChallengeNormalExitByShowingExitBeingSpent(&_PlasmaParent.TransactOpts, _exitRecordHash, _plasmaBlockNumber, _plasmaTransaction, _merkleProof, _inputNumber)
 }
 
-// CollectInputsCollateral is a paid mutator transaction binding the contract method 0x2c1111c5.
+// ChallengeNormalExitByShowingExitBeingSpent is a paid mutator transaction binding the contract method 0xa8c818ba.
 //
-// Solidity: function collectInputsCollateral(_transactionIndex uint64) returns(success bool)
-func (_PlasmaParent *PlasmaParentTransactorSession) CollectInputsCollateral(_transactionIndex uint64) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.CollectInputsCollateral(&_PlasmaParent.TransactOpts, _transactionIndex)
+// Solidity: function challengeNormalExitByShowingExitBeingSpent(_exitRecordHash bytes22, _plasmaBlockNumber uint32, _plasmaTransaction bytes, _merkleProof bytes, _inputNumber uint8) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactorSession) ChallengeNormalExitByShowingExitBeingSpent(_exitRecordHash [22]byte, _plasmaBlockNumber uint32, _plasmaTransaction []byte, _merkleProof []byte, _inputNumber uint8) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.ChallengeNormalExitByShowingExitBeingSpent(&_PlasmaParent.TransactOpts, _exitRecordHash, _plasmaBlockNumber, _plasmaTransaction, _merkleProof, _inputNumber)
+}
+
+// ChallengeNormalExitByShowingMismatchedInput is a paid mutator transaction binding the contract method 0xd0bbfd3a.
+//
+// Solidity: function challengeNormalExitByShowingMismatchedInput(_originalTransaction bytes, _originalInputNumber uint8, _exitRecordHash bytes22, _plasmaBlockNumber uint32, _plasmaTransaction bytes, _merkleProof bytes, _outputNumber uint8) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactor) ChallengeNormalExitByShowingMismatchedInput(opts *bind.TransactOpts, _originalTransaction []byte, _originalInputNumber uint8, _exitRecordHash [22]byte, _plasmaBlockNumber uint32, _plasmaTransaction []byte, _merkleProof []byte, _outputNumber uint8) (*types.Transaction, error) {
+	return _PlasmaParent.contract.Transact(opts, "challengeNormalExitByShowingMismatchedInput", _originalTransaction, _originalInputNumber, _exitRecordHash, _plasmaBlockNumber, _plasmaTransaction, _merkleProof, _outputNumber)
+}
+
+// ChallengeNormalExitByShowingMismatchedInput is a paid mutator transaction binding the contract method 0xd0bbfd3a.
+//
+// Solidity: function challengeNormalExitByShowingMismatchedInput(_originalTransaction bytes, _originalInputNumber uint8, _exitRecordHash bytes22, _plasmaBlockNumber uint32, _plasmaTransaction bytes, _merkleProof bytes, _outputNumber uint8) returns(success bool)
+func (_PlasmaParent *PlasmaParentSession) ChallengeNormalExitByShowingMismatchedInput(_originalTransaction []byte, _originalInputNumber uint8, _exitRecordHash [22]byte, _plasmaBlockNumber uint32, _plasmaTransaction []byte, _merkleProof []byte, _outputNumber uint8) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.ChallengeNormalExitByShowingMismatchedInput(&_PlasmaParent.TransactOpts, _originalTransaction, _originalInputNumber, _exitRecordHash, _plasmaBlockNumber, _plasmaTransaction, _merkleProof, _outputNumber)
+}
+
+// ChallengeNormalExitByShowingMismatchedInput is a paid mutator transaction binding the contract method 0xd0bbfd3a.
+//
+// Solidity: function challengeNormalExitByShowingMismatchedInput(_originalTransaction bytes, _originalInputNumber uint8, _exitRecordHash bytes22, _plasmaBlockNumber uint32, _plasmaTransaction bytes, _merkleProof bytes, _outputNumber uint8) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactorSession) ChallengeNormalExitByShowingMismatchedInput(_originalTransaction []byte, _originalInputNumber uint8, _exitRecordHash [22]byte, _plasmaBlockNumber uint32, _plasmaTransaction []byte, _merkleProof []byte, _outputNumber uint8) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.ChallengeNormalExitByShowingMismatchedInput(&_PlasmaParent.TransactOpts, _originalTransaction, _originalInputNumber, _exitRecordHash, _plasmaBlockNumber, _plasmaTransaction, _merkleProof, _outputNumber)
 }
 
 // Deposit is a paid mutator transaction binding the contract method 0xd0e30db0.
@@ -1291,67 +1157,25 @@ func (_PlasmaParent *PlasmaParentTransactorSession) IncrementWeekOldCounter() (*
 	return _PlasmaParent.Contract.IncrementWeekOldCounter(&_PlasmaParent.TransactOpts)
 }
 
-// JoinExit is a paid mutator transaction binding the contract method 0x3228e9b4.
+// OfferOutputBuyout is a paid mutator transaction binding the contract method 0x4dee4a31.
 //
-// Solidity: function joinExit(_plasmaBlockNumber uint32, _plasmaTransactionNumber uint32, _outputNumber uint8) returns(success bool)
-func (_PlasmaParent *PlasmaParentTransactor) JoinExit(opts *bind.TransactOpts, _plasmaBlockNumber uint32, _plasmaTransactionNumber uint32, _outputNumber uint8) (*types.Transaction, error) {
-	return _PlasmaParent.contract.Transact(opts, "joinExit", _plasmaBlockNumber, _plasmaTransactionNumber, _outputNumber)
+// Solidity: function offerOutputBuyout(_index bytes22, _beneficiary address) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactor) OfferOutputBuyout(opts *bind.TransactOpts, _index [22]byte, _beneficiary common.Address) (*types.Transaction, error) {
+	return _PlasmaParent.contract.Transact(opts, "offerOutputBuyout", _index, _beneficiary)
 }
 
-// JoinExit is a paid mutator transaction binding the contract method 0x3228e9b4.
+// OfferOutputBuyout is a paid mutator transaction binding the contract method 0x4dee4a31.
 //
-// Solidity: function joinExit(_plasmaBlockNumber uint32, _plasmaTransactionNumber uint32, _outputNumber uint8) returns(success bool)
-func (_PlasmaParent *PlasmaParentSession) JoinExit(_plasmaBlockNumber uint32, _plasmaTransactionNumber uint32, _outputNumber uint8) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.JoinExit(&_PlasmaParent.TransactOpts, _plasmaBlockNumber, _plasmaTransactionNumber, _outputNumber)
+// Solidity: function offerOutputBuyout(_index bytes22, _beneficiary address) returns(success bool)
+func (_PlasmaParent *PlasmaParentSession) OfferOutputBuyout(_index [22]byte, _beneficiary common.Address) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.OfferOutputBuyout(&_PlasmaParent.TransactOpts, _index, _beneficiary)
 }
 
-// JoinExit is a paid mutator transaction binding the contract method 0x3228e9b4.
+// OfferOutputBuyout is a paid mutator transaction binding the contract method 0x4dee4a31.
 //
-// Solidity: function joinExit(_plasmaBlockNumber uint32, _plasmaTransactionNumber uint32, _outputNumber uint8) returns(success bool)
-func (_PlasmaParent *PlasmaParentTransactorSession) JoinExit(_plasmaBlockNumber uint32, _plasmaTransactionNumber uint32, _outputNumber uint8) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.JoinExit(&_PlasmaParent.TransactOpts, _plasmaBlockNumber, _plasmaTransactionNumber, _outputNumber)
-}
-
-// MarkInputAsDoubleSpent is a paid mutator transaction binding the contract method 0xc383fa90.
-//
-// Solidity: function markInputAsDoubleSpent(_plasmaBlockNumber uint32, _plasmaTransaction bytes, _merkleProof bytes, _inputNumber uint8) returns(success bool)
-func (_PlasmaParent *PlasmaParentTransactor) MarkInputAsDoubleSpent(opts *bind.TransactOpts, _plasmaBlockNumber uint32, _plasmaTransaction []byte, _merkleProof []byte, _inputNumber uint8) (*types.Transaction, error) {
-	return _PlasmaParent.contract.Transact(opts, "markInputAsDoubleSpent", _plasmaBlockNumber, _plasmaTransaction, _merkleProof, _inputNumber)
-}
-
-// MarkInputAsDoubleSpent is a paid mutator transaction binding the contract method 0xc383fa90.
-//
-// Solidity: function markInputAsDoubleSpent(_plasmaBlockNumber uint32, _plasmaTransaction bytes, _merkleProof bytes, _inputNumber uint8) returns(success bool)
-func (_PlasmaParent *PlasmaParentSession) MarkInputAsDoubleSpent(_plasmaBlockNumber uint32, _plasmaTransaction []byte, _merkleProof []byte, _inputNumber uint8) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.MarkInputAsDoubleSpent(&_PlasmaParent.TransactOpts, _plasmaBlockNumber, _plasmaTransaction, _merkleProof, _inputNumber)
-}
-
-// MarkInputAsDoubleSpent is a paid mutator transaction binding the contract method 0xc383fa90.
-//
-// Solidity: function markInputAsDoubleSpent(_plasmaBlockNumber uint32, _plasmaTransaction bytes, _merkleProof bytes, _inputNumber uint8) returns(success bool)
-func (_PlasmaParent *PlasmaParentTransactorSession) MarkInputAsDoubleSpent(_plasmaBlockNumber uint32, _plasmaTransaction []byte, _merkleProof []byte, _inputNumber uint8) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.MarkInputAsDoubleSpent(&_PlasmaParent.TransactOpts, _plasmaBlockNumber, _plasmaTransaction, _merkleProof, _inputNumber)
-}
-
-// OfferOutputBuyout is a paid mutator transaction binding the contract method 0x017d5014.
-//
-// Solidity: function offerOutputBuyout(_utxoIndex uint72, _beneficiary address) returns(success bool)
-func (_PlasmaParent *PlasmaParentTransactor) OfferOutputBuyout(opts *bind.TransactOpts, _utxoIndex *big.Int, _beneficiary common.Address) (*types.Transaction, error) {
-	return _PlasmaParent.contract.Transact(opts, "offerOutputBuyout", _utxoIndex, _beneficiary)
-}
-
-// OfferOutputBuyout is a paid mutator transaction binding the contract method 0x017d5014.
-//
-// Solidity: function offerOutputBuyout(_utxoIndex uint72, _beneficiary address) returns(success bool)
-func (_PlasmaParent *PlasmaParentSession) OfferOutputBuyout(_utxoIndex *big.Int, _beneficiary common.Address) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.OfferOutputBuyout(&_PlasmaParent.TransactOpts, _utxoIndex, _beneficiary)
-}
-
-// OfferOutputBuyout is a paid mutator transaction binding the contract method 0x017d5014.
-//
-// Solidity: function offerOutputBuyout(_utxoIndex uint72, _beneficiary address) returns(success bool)
-func (_PlasmaParent *PlasmaParentTransactorSession) OfferOutputBuyout(_utxoIndex *big.Int, _beneficiary common.Address) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.OfferOutputBuyout(&_PlasmaParent.TransactOpts, _utxoIndex, _beneficiary)
+// Solidity: function offerOutputBuyout(_index bytes22, _beneficiary address) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactorSession) OfferOutputBuyout(_index [22]byte, _beneficiary common.Address) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.OfferOutputBuyout(&_PlasmaParent.TransactOpts, _index, _beneficiary)
 }
 
 // ProveBalanceOrOwnershipBreakingBetweenInputAndOutput is a paid mutator transaction binding the contract method 0xaee5b5de.
@@ -1459,88 +1283,46 @@ func (_PlasmaParent *PlasmaParentTransactorSession) ProveReferencingInvalidBlock
 	return _PlasmaParent.Contract.ProveReferencingInvalidBlock(&_PlasmaParent.TransactOpts, _plasmaBlockNumber, _plasmaInputNumberInTx, _plasmaTransaction, _merkleProof)
 }
 
-// PublishLimboTransaction is a paid mutator transaction binding the contract method 0x552b1136.
+// ProveSpendAndWithdraw is a paid mutator transaction binding the contract method 0xfdb4ad8f.
 //
-// Solidity: function publishLimboTransaction(_plasmaTransaction bytes) returns(success bool, inputsAffected uint72[], transactionHash uint160)
-func (_PlasmaParent *PlasmaParentTransactor) PublishLimboTransaction(opts *bind.TransactOpts, _plasmaTransaction []byte) (*types.Transaction, error) {
-	return _PlasmaParent.contract.Transact(opts, "publishLimboTransaction", _plasmaTransaction)
+// Solidity: function proveSpendAndWithdraw(_plasmaBlockNumber uint32, _plasmaTransaction bytes, _merkleProof bytes, _originatingPlasmaTransaction bytes, _originatingMerkleProof bytes, _inputNumber uint8) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactor) ProveSpendAndWithdraw(opts *bind.TransactOpts, _plasmaBlockNumber uint32, _plasmaTransaction []byte, _merkleProof []byte, _originatingPlasmaTransaction []byte, _originatingMerkleProof []byte, _inputNumber uint8) (*types.Transaction, error) {
+	return _PlasmaParent.contract.Transact(opts, "proveSpendAndWithdraw", _plasmaBlockNumber, _plasmaTransaction, _merkleProof, _originatingPlasmaTransaction, _originatingMerkleProof, _inputNumber)
 }
 
-// PublishLimboTransaction is a paid mutator transaction binding the contract method 0x552b1136.
+// ProveSpendAndWithdraw is a paid mutator transaction binding the contract method 0xfdb4ad8f.
 //
-// Solidity: function publishLimboTransaction(_plasmaTransaction bytes) returns(success bool, inputsAffected uint72[], transactionHash uint160)
-func (_PlasmaParent *PlasmaParentSession) PublishLimboTransaction(_plasmaTransaction []byte) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.PublishLimboTransaction(&_PlasmaParent.TransactOpts, _plasmaTransaction)
+// Solidity: function proveSpendAndWithdraw(_plasmaBlockNumber uint32, _plasmaTransaction bytes, _merkleProof bytes, _originatingPlasmaTransaction bytes, _originatingMerkleProof bytes, _inputNumber uint8) returns(success bool)
+func (_PlasmaParent *PlasmaParentSession) ProveSpendAndWithdraw(_plasmaBlockNumber uint32, _plasmaTransaction []byte, _merkleProof []byte, _originatingPlasmaTransaction []byte, _originatingMerkleProof []byte, _inputNumber uint8) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.ProveSpendAndWithdraw(&_PlasmaParent.TransactOpts, _plasmaBlockNumber, _plasmaTransaction, _merkleProof, _originatingPlasmaTransaction, _originatingMerkleProof, _inputNumber)
 }
 
-// PublishLimboTransaction is a paid mutator transaction binding the contract method 0x552b1136.
+// ProveSpendAndWithdraw is a paid mutator transaction binding the contract method 0xfdb4ad8f.
 //
-// Solidity: function publishLimboTransaction(_plasmaTransaction bytes) returns(success bool, inputsAffected uint72[], transactionHash uint160)
-func (_PlasmaParent *PlasmaParentTransactorSession) PublishLimboTransaction(_plasmaTransaction []byte) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.PublishLimboTransaction(&_PlasmaParent.TransactOpts, _plasmaTransaction)
+// Solidity: function proveSpendAndWithdraw(_plasmaBlockNumber uint32, _plasmaTransaction bytes, _merkleProof bytes, _originatingPlasmaTransaction bytes, _originatingMerkleProof bytes, _inputNumber uint8) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactorSession) ProveSpendAndWithdraw(_plasmaBlockNumber uint32, _plasmaTransaction []byte, _merkleProof []byte, _originatingPlasmaTransaction []byte, _originatingMerkleProof []byte, _inputNumber uint8) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.ProveSpendAndWithdraw(&_PlasmaParent.TransactOpts, _plasmaBlockNumber, _plasmaTransaction, _merkleProof, _originatingPlasmaTransaction, _originatingMerkleProof, _inputNumber)
 }
 
-// PublishTransaction is a paid mutator transaction binding the contract method 0xa85beecf.
+// ReturnExpiredBuyoutOffer is a paid mutator transaction binding the contract method 0x72a609ff.
 //
-// Solidity: function publishTransaction(_plasmaBlockNumber uint32, _plasmaTransaction bytes, _merkleProof bytes) returns(success bool, inputsAffected uint72[], outputsAffected uint72[], transactionIndex uint160)
-func (_PlasmaParent *PlasmaParentTransactor) PublishTransaction(opts *bind.TransactOpts, _plasmaBlockNumber uint32, _plasmaTransaction []byte, _merkleProof []byte) (*types.Transaction, error) {
-	return _PlasmaParent.contract.Transact(opts, "publishTransaction", _plasmaBlockNumber, _plasmaTransaction, _merkleProof)
+// Solidity: function returnExpiredBuyoutOffer(_index bytes22) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactor) ReturnExpiredBuyoutOffer(opts *bind.TransactOpts, _index [22]byte) (*types.Transaction, error) {
+	return _PlasmaParent.contract.Transact(opts, "returnExpiredBuyoutOffer", _index)
 }
 
-// PublishTransaction is a paid mutator transaction binding the contract method 0xa85beecf.
+// ReturnExpiredBuyoutOffer is a paid mutator transaction binding the contract method 0x72a609ff.
 //
-// Solidity: function publishTransaction(_plasmaBlockNumber uint32, _plasmaTransaction bytes, _merkleProof bytes) returns(success bool, inputsAffected uint72[], outputsAffected uint72[], transactionIndex uint160)
-func (_PlasmaParent *PlasmaParentSession) PublishTransaction(_plasmaBlockNumber uint32, _plasmaTransaction []byte, _merkleProof []byte) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.PublishTransaction(&_PlasmaParent.TransactOpts, _plasmaBlockNumber, _plasmaTransaction, _merkleProof)
+// Solidity: function returnExpiredBuyoutOffer(_index bytes22) returns(success bool)
+func (_PlasmaParent *PlasmaParentSession) ReturnExpiredBuyoutOffer(_index [22]byte) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.ReturnExpiredBuyoutOffer(&_PlasmaParent.TransactOpts, _index)
 }
 
-// PublishTransaction is a paid mutator transaction binding the contract method 0xa85beecf.
+// ReturnExpiredBuyoutOffer is a paid mutator transaction binding the contract method 0x72a609ff.
 //
-// Solidity: function publishTransaction(_plasmaBlockNumber uint32, _plasmaTransaction bytes, _merkleProof bytes) returns(success bool, inputsAffected uint72[], outputsAffected uint72[], transactionIndex uint160)
-func (_PlasmaParent *PlasmaParentTransactorSession) PublishTransaction(_plasmaBlockNumber uint32, _plasmaTransaction []byte, _merkleProof []byte) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.PublishTransaction(&_PlasmaParent.TransactOpts, _plasmaBlockNumber, _plasmaTransaction, _merkleProof)
-}
-
-// ReturnExpiredBuyoutOffer is a paid mutator transaction binding the contract method 0x2ad24f12.
-//
-// Solidity: function returnExpiredBuyoutOffer(_utxoIndex uint72) returns(success bool)
-func (_PlasmaParent *PlasmaParentTransactor) ReturnExpiredBuyoutOffer(opts *bind.TransactOpts, _utxoIndex *big.Int) (*types.Transaction, error) {
-	return _PlasmaParent.contract.Transact(opts, "returnExpiredBuyoutOffer", _utxoIndex)
-}
-
-// ReturnExpiredBuyoutOffer is a paid mutator transaction binding the contract method 0x2ad24f12.
-//
-// Solidity: function returnExpiredBuyoutOffer(_utxoIndex uint72) returns(success bool)
-func (_PlasmaParent *PlasmaParentSession) ReturnExpiredBuyoutOffer(_utxoIndex *big.Int) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.ReturnExpiredBuyoutOffer(&_PlasmaParent.TransactOpts, _utxoIndex)
-}
-
-// ReturnExpiredBuyoutOffer is a paid mutator transaction binding the contract method 0x2ad24f12.
-//
-// Solidity: function returnExpiredBuyoutOffer(_utxoIndex uint72) returns(success bool)
-func (_PlasmaParent *PlasmaParentTransactorSession) ReturnExpiredBuyoutOffer(_utxoIndex *big.Int) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.ReturnExpiredBuyoutOffer(&_PlasmaParent.TransactOpts, _utxoIndex)
-}
-
-// SetDelegates is a paid mutator transaction binding the contract method 0xb8bec9ad.
-//
-// Solidity: function setDelegates(_exitProcessor address, _challenger address, _limboExit address) returns(success bool)
-func (_PlasmaParent *PlasmaParentTransactor) SetDelegates(opts *bind.TransactOpts, _exitProcessor common.Address, _challenger common.Address, _limboExit common.Address) (*types.Transaction, error) {
-	return _PlasmaParent.contract.Transact(opts, "setDelegates", _exitProcessor, _challenger, _limboExit)
-}
-
-// SetDelegates is a paid mutator transaction binding the contract method 0xb8bec9ad.
-//
-// Solidity: function setDelegates(_exitProcessor address, _challenger address, _limboExit address) returns(success bool)
-func (_PlasmaParent *PlasmaParentSession) SetDelegates(_exitProcessor common.Address, _challenger common.Address, _limboExit common.Address) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.SetDelegates(&_PlasmaParent.TransactOpts, _exitProcessor, _challenger, _limboExit)
-}
-
-// SetDelegates is a paid mutator transaction binding the contract method 0xb8bec9ad.
-//
-// Solidity: function setDelegates(_exitProcessor address, _challenger address, _limboExit address) returns(success bool)
-func (_PlasmaParent *PlasmaParentTransactorSession) SetDelegates(_exitProcessor common.Address, _challenger common.Address, _limboExit common.Address) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.SetDelegates(&_PlasmaParent.TransactOpts, _exitProcessor, _challenger, _limboExit)
+// Solidity: function returnExpiredBuyoutOffer(_index bytes22) returns(success bool)
+func (_PlasmaParent *PlasmaParentTransactorSession) ReturnExpiredBuyoutOffer(_index [22]byte) (*types.Transaction, error) {
+	return _PlasmaParent.Contract.ReturnExpiredBuyoutOffer(&_PlasmaParent.TransactOpts, _index)
 }
 
 // SetOperator is a paid mutator transaction binding the contract method 0x77754136.
@@ -1604,27 +1386,6 @@ func (_PlasmaParent *PlasmaParentSession) StartExit(_plasmaBlockNumber uint32, _
 // Solidity: function startExit(_plasmaBlockNumber uint32, _outputNumber uint8, _plasmaTransaction bytes, _merkleProof bytes) returns(success bool)
 func (_PlasmaParent *PlasmaParentTransactorSession) StartExit(_plasmaBlockNumber uint32, _outputNumber uint8, _plasmaTransaction []byte, _merkleProof []byte) (*types.Transaction, error) {
 	return _PlasmaParent.Contract.StartExit(&_PlasmaParent.TransactOpts, _plasmaBlockNumber, _outputNumber, _plasmaTransaction, _merkleProof)
-}
-
-// StartLimboExit is a paid mutator transaction binding the contract method 0x94f55795.
-//
-// Solidity: function startLimboExit(_outputNumber uint8, _plasmaTransaction bytes) returns(success bool)
-func (_PlasmaParent *PlasmaParentTransactor) StartLimboExit(opts *bind.TransactOpts, _outputNumber uint8, _plasmaTransaction []byte) (*types.Transaction, error) {
-	return _PlasmaParent.contract.Transact(opts, "startLimboExit", _outputNumber, _plasmaTransaction)
-}
-
-// StartLimboExit is a paid mutator transaction binding the contract method 0x94f55795.
-//
-// Solidity: function startLimboExit(_outputNumber uint8, _plasmaTransaction bytes) returns(success bool)
-func (_PlasmaParent *PlasmaParentSession) StartLimboExit(_outputNumber uint8, _plasmaTransaction []byte) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.StartLimboExit(&_PlasmaParent.TransactOpts, _outputNumber, _plasmaTransaction)
-}
-
-// StartLimboExit is a paid mutator transaction binding the contract method 0x94f55795.
-//
-// Solidity: function startLimboExit(_outputNumber uint8, _plasmaTransaction bytes) returns(success bool)
-func (_PlasmaParent *PlasmaParentTransactorSession) StartLimboExit(_outputNumber uint8, _plasmaTransaction []byte) (*types.Transaction, error) {
-	return _PlasmaParent.Contract.StartLimboExit(&_PlasmaParent.TransactOpts, _outputNumber, _plasmaTransaction)
 }
 
 // SubmitBlockHeaders is a paid mutator transaction binding the contract method 0x8d92ce46.
@@ -2326,6 +2087,561 @@ func (_PlasmaParent *PlasmaParentFilterer) WatchErrorFoundEvent(opts *bind.Watch
 	}), nil
 }
 
+// PlasmaParentExitBuyoutAcceptedIterator is returned from FilterExitBuyoutAccepted and is used to iterate over the raw logs and unpacked data for ExitBuyoutAccepted events raised by the PlasmaParent contract.
+type PlasmaParentExitBuyoutAcceptedIterator struct {
+	Event *PlasmaParentExitBuyoutAccepted // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *PlasmaParentExitBuyoutAcceptedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(PlasmaParentExitBuyoutAccepted)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(PlasmaParentExitBuyoutAccepted)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *PlasmaParentExitBuyoutAcceptedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *PlasmaParentExitBuyoutAcceptedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// PlasmaParentExitBuyoutAccepted represents a ExitBuyoutAccepted event raised by the PlasmaParent contract.
+type PlasmaParentExitBuyoutAccepted struct {
+	PartialHash [22]byte
+	From        common.Address
+	Raw         types.Log // Blockchain specific contextual infos
+}
+
+// FilterExitBuyoutAccepted is a free log retrieval operation binding the contract event 0x8a732776b9b7dffbc4e537a4acf181dfb9914a637b58054e4667661ab82b6095.
+//
+// Solidity: e ExitBuyoutAccepted(_partialHash indexed bytes22, _from indexed address)
+func (_PlasmaParent *PlasmaParentFilterer) FilterExitBuyoutAccepted(opts *bind.FilterOpts, _partialHash [][22]byte, _from []common.Address) (*PlasmaParentExitBuyoutAcceptedIterator, error) {
+
+	var _partialHashRule []interface{}
+	for _, _partialHashItem := range _partialHash {
+		_partialHashRule = append(_partialHashRule, _partialHashItem)
+	}
+	var _fromRule []interface{}
+	for _, _fromItem := range _from {
+		_fromRule = append(_fromRule, _fromItem)
+	}
+
+	logs, sub, err := _PlasmaParent.contract.FilterLogs(opts, "ExitBuyoutAccepted", _partialHashRule, _fromRule)
+	if err != nil {
+		return nil, err
+	}
+	return &PlasmaParentExitBuyoutAcceptedIterator{contract: _PlasmaParent.contract, event: "ExitBuyoutAccepted", logs: logs, sub: sub}, nil
+}
+
+// WatchExitBuyoutAccepted is a free log subscription operation binding the contract event 0x8a732776b9b7dffbc4e537a4acf181dfb9914a637b58054e4667661ab82b6095.
+//
+// Solidity: e ExitBuyoutAccepted(_partialHash indexed bytes22, _from indexed address)
+func (_PlasmaParent *PlasmaParentFilterer) WatchExitBuyoutAccepted(opts *bind.WatchOpts, sink chan<- *PlasmaParentExitBuyoutAccepted, _partialHash [][22]byte, _from []common.Address) (event.Subscription, error) {
+
+	var _partialHashRule []interface{}
+	for _, _partialHashItem := range _partialHash {
+		_partialHashRule = append(_partialHashRule, _partialHashItem)
+	}
+	var _fromRule []interface{}
+	for _, _fromItem := range _from {
+		_fromRule = append(_fromRule, _fromItem)
+	}
+
+	logs, sub, err := _PlasmaParent.contract.WatchLogs(opts, "ExitBuyoutAccepted", _partialHashRule, _fromRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(PlasmaParentExitBuyoutAccepted)
+				if err := _PlasmaParent.contract.UnpackLog(event, "ExitBuyoutAccepted", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// PlasmaParentExitBuyoutOfferedIterator is returned from FilterExitBuyoutOffered and is used to iterate over the raw logs and unpacked data for ExitBuyoutOffered events raised by the PlasmaParent contract.
+type PlasmaParentExitBuyoutOfferedIterator struct {
+	Event *PlasmaParentExitBuyoutOffered // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *PlasmaParentExitBuyoutOfferedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(PlasmaParentExitBuyoutOffered)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(PlasmaParentExitBuyoutOffered)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *PlasmaParentExitBuyoutOfferedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *PlasmaParentExitBuyoutOfferedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// PlasmaParentExitBuyoutOffered represents a ExitBuyoutOffered event raised by the PlasmaParent contract.
+type PlasmaParentExitBuyoutOffered struct {
+	PartialHash  [22]byte
+	From         common.Address
+	BuyoutAmount *big.Int
+	Raw          types.Log // Blockchain specific contextual infos
+}
+
+// FilterExitBuyoutOffered is a free log retrieval operation binding the contract event 0xe406e90405bc7b16c4327a40c5d5592a74ca552f6c83a568fb3e8da4849cf0fa.
+//
+// Solidity: e ExitBuyoutOffered(_partialHash indexed bytes22, _from indexed address, _buyoutAmount indexed uint256)
+func (_PlasmaParent *PlasmaParentFilterer) FilterExitBuyoutOffered(opts *bind.FilterOpts, _partialHash [][22]byte, _from []common.Address, _buyoutAmount []*big.Int) (*PlasmaParentExitBuyoutOfferedIterator, error) {
+
+	var _partialHashRule []interface{}
+	for _, _partialHashItem := range _partialHash {
+		_partialHashRule = append(_partialHashRule, _partialHashItem)
+	}
+	var _fromRule []interface{}
+	for _, _fromItem := range _from {
+		_fromRule = append(_fromRule, _fromItem)
+	}
+	var _buyoutAmountRule []interface{}
+	for _, _buyoutAmountItem := range _buyoutAmount {
+		_buyoutAmountRule = append(_buyoutAmountRule, _buyoutAmountItem)
+	}
+
+	logs, sub, err := _PlasmaParent.contract.FilterLogs(opts, "ExitBuyoutOffered", _partialHashRule, _fromRule, _buyoutAmountRule)
+	if err != nil {
+		return nil, err
+	}
+	return &PlasmaParentExitBuyoutOfferedIterator{contract: _PlasmaParent.contract, event: "ExitBuyoutOffered", logs: logs, sub: sub}, nil
+}
+
+// WatchExitBuyoutOffered is a free log subscription operation binding the contract event 0xe406e90405bc7b16c4327a40c5d5592a74ca552f6c83a568fb3e8da4849cf0fa.
+//
+// Solidity: e ExitBuyoutOffered(_partialHash indexed bytes22, _from indexed address, _buyoutAmount indexed uint256)
+func (_PlasmaParent *PlasmaParentFilterer) WatchExitBuyoutOffered(opts *bind.WatchOpts, sink chan<- *PlasmaParentExitBuyoutOffered, _partialHash [][22]byte, _from []common.Address, _buyoutAmount []*big.Int) (event.Subscription, error) {
+
+	var _partialHashRule []interface{}
+	for _, _partialHashItem := range _partialHash {
+		_partialHashRule = append(_partialHashRule, _partialHashItem)
+	}
+	var _fromRule []interface{}
+	for _, _fromItem := range _from {
+		_fromRule = append(_fromRule, _fromItem)
+	}
+	var _buyoutAmountRule []interface{}
+	for _, _buyoutAmountItem := range _buyoutAmount {
+		_buyoutAmountRule = append(_buyoutAmountRule, _buyoutAmountItem)
+	}
+
+	logs, sub, err := _PlasmaParent.contract.WatchLogs(opts, "ExitBuyoutOffered", _partialHashRule, _fromRule, _buyoutAmountRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(PlasmaParentExitBuyoutOffered)
+				if err := _PlasmaParent.contract.UnpackLog(event, "ExitBuyoutOffered", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// PlasmaParentExitChallengedIterator is returned from FilterExitChallenged and is used to iterate over the raw logs and unpacked data for ExitChallenged events raised by the PlasmaParent contract.
+type PlasmaParentExitChallengedIterator struct {
+	Event *PlasmaParentExitChallenged // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *PlasmaParentExitChallengedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(PlasmaParentExitChallenged)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(PlasmaParentExitChallenged)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *PlasmaParentExitChallengedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *PlasmaParentExitChallengedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// PlasmaParentExitChallenged represents a ExitChallenged event raised by the PlasmaParent contract.
+type PlasmaParentExitChallenged struct {
+	Hash [22]byte
+	Raw  types.Log // Blockchain specific contextual infos
+}
+
+// FilterExitChallenged is a free log retrieval operation binding the contract event 0xbddf872402da7ab20174f1569fa5bda4cd087a73b2108a5b70803be137bc75fb.
+//
+// Solidity: e ExitChallenged(_hash indexed bytes22)
+func (_PlasmaParent *PlasmaParentFilterer) FilterExitChallenged(opts *bind.FilterOpts, _hash [][22]byte) (*PlasmaParentExitChallengedIterator, error) {
+
+	var _hashRule []interface{}
+	for _, _hashItem := range _hash {
+		_hashRule = append(_hashRule, _hashItem)
+	}
+
+	logs, sub, err := _PlasmaParent.contract.FilterLogs(opts, "ExitChallenged", _hashRule)
+	if err != nil {
+		return nil, err
+	}
+	return &PlasmaParentExitChallengedIterator{contract: _PlasmaParent.contract, event: "ExitChallenged", logs: logs, sub: sub}, nil
+}
+
+// WatchExitChallenged is a free log subscription operation binding the contract event 0xbddf872402da7ab20174f1569fa5bda4cd087a73b2108a5b70803be137bc75fb.
+//
+// Solidity: e ExitChallenged(_hash indexed bytes22)
+func (_PlasmaParent *PlasmaParentFilterer) WatchExitChallenged(opts *bind.WatchOpts, sink chan<- *PlasmaParentExitChallenged, _hash [][22]byte) (event.Subscription, error) {
+
+	var _hashRule []interface{}
+	for _, _hashItem := range _hash {
+		_hashRule = append(_hashRule, _hashItem)
+	}
+
+	logs, sub, err := _PlasmaParent.contract.WatchLogs(opts, "ExitChallenged", _hashRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(PlasmaParentExitChallenged)
+				if err := _PlasmaParent.contract.UnpackLog(event, "ExitChallenged", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// PlasmaParentExitRecordCreatedIterator is returned from FilterExitRecordCreated and is used to iterate over the raw logs and unpacked data for ExitRecordCreated events raised by the PlasmaParent contract.
+type PlasmaParentExitRecordCreatedIterator struct {
+	Event *PlasmaParentExitRecordCreated // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *PlasmaParentExitRecordCreatedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(PlasmaParentExitRecordCreated)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(PlasmaParentExitRecordCreated)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *PlasmaParentExitRecordCreatedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *PlasmaParentExitRecordCreatedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// PlasmaParentExitRecordCreated represents a ExitRecordCreated event raised by the PlasmaParent contract.
+type PlasmaParentExitRecordCreated struct {
+	Hash [22]byte
+	Raw  types.Log // Blockchain specific contextual infos
+}
+
+// FilterExitRecordCreated is a free log retrieval operation binding the contract event 0x5ead8ca9ab45ce1e07a752c71e011fa2f0d7a9d4b9cfba42c2032ae0cf6ca047.
+//
+// Solidity: e ExitRecordCreated(_hash indexed bytes22)
+func (_PlasmaParent *PlasmaParentFilterer) FilterExitRecordCreated(opts *bind.FilterOpts, _hash [][22]byte) (*PlasmaParentExitRecordCreatedIterator, error) {
+
+	var _hashRule []interface{}
+	for _, _hashItem := range _hash {
+		_hashRule = append(_hashRule, _hashItem)
+	}
+
+	logs, sub, err := _PlasmaParent.contract.FilterLogs(opts, "ExitRecordCreated", _hashRule)
+	if err != nil {
+		return nil, err
+	}
+	return &PlasmaParentExitRecordCreatedIterator{contract: _PlasmaParent.contract, event: "ExitRecordCreated", logs: logs, sub: sub}, nil
+}
+
+// WatchExitRecordCreated is a free log subscription operation binding the contract event 0x5ead8ca9ab45ce1e07a752c71e011fa2f0d7a9d4b9cfba42c2032ae0cf6ca047.
+//
+// Solidity: e ExitRecordCreated(_hash indexed bytes22)
+func (_PlasmaParent *PlasmaParentFilterer) WatchExitRecordCreated(opts *bind.WatchOpts, sink chan<- *PlasmaParentExitRecordCreated, _hash [][22]byte) (event.Subscription, error) {
+
+	var _hashRule []interface{}
+	for _, _hashItem := range _hash {
+		_hashRule = append(_hashRule, _hashItem)
+	}
+
+	logs, sub, err := _PlasmaParent.contract.WatchLogs(opts, "ExitRecordCreated", _hashRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(PlasmaParentExitRecordCreated)
+				if err := _PlasmaParent.contract.UnpackLog(event, "ExitRecordCreated", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
 // PlasmaParentExitStartedEventIterator is returned from FilterExitStartedEvent and is used to iterate over the raw logs and unpacked data for ExitStartedEvent events raised by the PlasmaParent contract.
 type PlasmaParentExitStartedEventIterator struct {
 	Event *PlasmaParentExitStartedEvent // Event containing the contract specifics and raw log
@@ -2398,53 +2714,56 @@ type PlasmaParentExitStartedEvent struct {
 	From     common.Address
 	Priority *big.Int
 	Index    *big.Int
+	Hash     [22]byte
 	Raw      types.Log // Blockchain specific contextual infos
 }
 
-// FilterExitStartedEvent is a free log retrieval operation binding the contract event 0x50569bdf874330f81b20c45d0fab2edd294aa5906eb95c3b35539daaf85361f2.
+// FilterExitStartedEvent is a free log retrieval operation binding the contract event 0xe5b1890f8a8a29ed5112599c90e8a9417367f23307d8f8349053ea6198b86673.
 //
-// Solidity: e ExitStartedEvent(_from indexed address, _priority indexed uint72, _index indexed uint72)
-func (_PlasmaParent *PlasmaParentFilterer) FilterExitStartedEvent(opts *bind.FilterOpts, _from []common.Address, _priority []*big.Int, _index []*big.Int) (*PlasmaParentExitStartedEventIterator, error) {
+// Solidity: e ExitStartedEvent(_from indexed address, _priority uint72, _index indexed uint72, _hash indexed bytes22)
+func (_PlasmaParent *PlasmaParentFilterer) FilterExitStartedEvent(opts *bind.FilterOpts, _from []common.Address, _index []*big.Int, _hash [][22]byte) (*PlasmaParentExitStartedEventIterator, error) {
 
 	var _fromRule []interface{}
 	for _, _fromItem := range _from {
 		_fromRule = append(_fromRule, _fromItem)
 	}
-	var _priorityRule []interface{}
-	for _, _priorityItem := range _priority {
-		_priorityRule = append(_priorityRule, _priorityItem)
-	}
+
 	var _indexRule []interface{}
 	for _, _indexItem := range _index {
 		_indexRule = append(_indexRule, _indexItem)
 	}
+	var _hashRule []interface{}
+	for _, _hashItem := range _hash {
+		_hashRule = append(_hashRule, _hashItem)
+	}
 
-	logs, sub, err := _PlasmaParent.contract.FilterLogs(opts, "ExitStartedEvent", _fromRule, _priorityRule, _indexRule)
+	logs, sub, err := _PlasmaParent.contract.FilterLogs(opts, "ExitStartedEvent", _fromRule, _indexRule, _hashRule)
 	if err != nil {
 		return nil, err
 	}
 	return &PlasmaParentExitStartedEventIterator{contract: _PlasmaParent.contract, event: "ExitStartedEvent", logs: logs, sub: sub}, nil
 }
 
-// WatchExitStartedEvent is a free log subscription operation binding the contract event 0x50569bdf874330f81b20c45d0fab2edd294aa5906eb95c3b35539daaf85361f2.
+// WatchExitStartedEvent is a free log subscription operation binding the contract event 0xe5b1890f8a8a29ed5112599c90e8a9417367f23307d8f8349053ea6198b86673.
 //
-// Solidity: e ExitStartedEvent(_from indexed address, _priority indexed uint72, _index indexed uint72)
-func (_PlasmaParent *PlasmaParentFilterer) WatchExitStartedEvent(opts *bind.WatchOpts, sink chan<- *PlasmaParentExitStartedEvent, _from []common.Address, _priority []*big.Int, _index []*big.Int) (event.Subscription, error) {
+// Solidity: e ExitStartedEvent(_from indexed address, _priority uint72, _index indexed uint72, _hash indexed bytes22)
+func (_PlasmaParent *PlasmaParentFilterer) WatchExitStartedEvent(opts *bind.WatchOpts, sink chan<- *PlasmaParentExitStartedEvent, _from []common.Address, _index []*big.Int, _hash [][22]byte) (event.Subscription, error) {
 
 	var _fromRule []interface{}
 	for _, _fromItem := range _from {
 		_fromRule = append(_fromRule, _fromItem)
 	}
-	var _priorityRule []interface{}
-	for _, _priorityItem := range _priority {
-		_priorityRule = append(_priorityRule, _priorityItem)
-	}
+
 	var _indexRule []interface{}
 	for _, _indexItem := range _index {
 		_indexRule = append(_indexRule, _indexItem)
 	}
+	var _hashRule []interface{}
+	for _, _hashItem := range _hash {
+		_hashRule = append(_hashRule, _hashItem)
+	}
 
-	logs, sub, err := _PlasmaParent.contract.WatchLogs(opts, "ExitStartedEvent", _fromRule, _priorityRule, _indexRule)
+	logs, sub, err := _PlasmaParent.contract.WatchLogs(opts, "ExitStartedEvent", _fromRule, _indexRule, _hashRule)
 	if err != nil {
 		return nil, err
 	}
@@ -2456,138 +2775,6 @@ func (_PlasmaParent *PlasmaParentFilterer) WatchExitStartedEvent(opts *bind.Watc
 				// New log arrived, parse the event and forward to the user
 				event := new(PlasmaParentExitStartedEvent)
 				if err := _PlasmaParent.contract.UnpackLog(event, "ExitStartedEvent", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// PlasmaParentInputIsPublishedIterator is returned from FilterInputIsPublished and is used to iterate over the raw logs and unpacked data for InputIsPublished events raised by the PlasmaParent contract.
-type PlasmaParentInputIsPublishedIterator struct {
-	Event *PlasmaParentInputIsPublished // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *PlasmaParentInputIsPublishedIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(PlasmaParentInputIsPublished)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(PlasmaParentInputIsPublished)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *PlasmaParentInputIsPublishedIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *PlasmaParentInputIsPublishedIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// PlasmaParentInputIsPublished represents a InputIsPublished event raised by the PlasmaParent contract.
-type PlasmaParentInputIsPublished struct {
-	Index *big.Int
-	Raw   types.Log // Blockchain specific contextual infos
-}
-
-// FilterInputIsPublished is a free log retrieval operation binding the contract event 0x4709d5ea75f3a5a21854a4105654fba63bf9f86905f03e4e5f5ecfd8ad0734b8.
-//
-// Solidity: e InputIsPublished(_index indexed uint72)
-func (_PlasmaParent *PlasmaParentFilterer) FilterInputIsPublished(opts *bind.FilterOpts, _index []*big.Int) (*PlasmaParentInputIsPublishedIterator, error) {
-
-	var _indexRule []interface{}
-	for _, _indexItem := range _index {
-		_indexRule = append(_indexRule, _indexItem)
-	}
-
-	logs, sub, err := _PlasmaParent.contract.FilterLogs(opts, "InputIsPublished", _indexRule)
-	if err != nil {
-		return nil, err
-	}
-	return &PlasmaParentInputIsPublishedIterator{contract: _PlasmaParent.contract, event: "InputIsPublished", logs: logs, sub: sub}, nil
-}
-
-// WatchInputIsPublished is a free log subscription operation binding the contract event 0x4709d5ea75f3a5a21854a4105654fba63bf9f86905f03e4e5f5ecfd8ad0734b8.
-//
-// Solidity: e InputIsPublished(_index indexed uint72)
-func (_PlasmaParent *PlasmaParentFilterer) WatchInputIsPublished(opts *bind.WatchOpts, sink chan<- *PlasmaParentInputIsPublished, _index []*big.Int) (event.Subscription, error) {
-
-	var _indexRule []interface{}
-	for _, _indexItem := range _index {
-		_indexRule = append(_indexRule, _indexItem)
-	}
-
-	logs, sub, err := _PlasmaParent.contract.WatchLogs(opts, "InputIsPublished", _indexRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(PlasmaParentInputIsPublished)
-				if err := _PlasmaParent.contract.UnpackLog(event, "InputIsPublished", log); err != nil {
 					return err
 				}
 				event.Raw = log
@@ -2758,402 +2945,6 @@ func (_PlasmaParent *PlasmaParentFilterer) WatchLimboExitStartedEvent(opts *bind
 	}), nil
 }
 
-// PlasmaParentLimboOutputIsPublishedIterator is returned from FilterLimboOutputIsPublished and is used to iterate over the raw logs and unpacked data for LimboOutputIsPublished events raised by the PlasmaParent contract.
-type PlasmaParentLimboOutputIsPublishedIterator struct {
-	Event *PlasmaParentLimboOutputIsPublished // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *PlasmaParentLimboOutputIsPublishedIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(PlasmaParentLimboOutputIsPublished)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(PlasmaParentLimboOutputIsPublished)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *PlasmaParentLimboOutputIsPublishedIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *PlasmaParentLimboOutputIsPublishedIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// PlasmaParentLimboOutputIsPublished represents a LimboOutputIsPublished event raised by the PlasmaParent contract.
-type PlasmaParentLimboOutputIsPublished struct {
-	Index *big.Int
-	Raw   types.Log // Blockchain specific contextual infos
-}
-
-// FilterLimboOutputIsPublished is a free log retrieval operation binding the contract event 0xf96b1a948c67e64388904ef7c2ef6854d1129a88e890fbeb0a768b7e06f3cf72.
-//
-// Solidity: e LimboOutputIsPublished(_index indexed uint176)
-func (_PlasmaParent *PlasmaParentFilterer) FilterLimboOutputIsPublished(opts *bind.FilterOpts, _index []*big.Int) (*PlasmaParentLimboOutputIsPublishedIterator, error) {
-
-	var _indexRule []interface{}
-	for _, _indexItem := range _index {
-		_indexRule = append(_indexRule, _indexItem)
-	}
-
-	logs, sub, err := _PlasmaParent.contract.FilterLogs(opts, "LimboOutputIsPublished", _indexRule)
-	if err != nil {
-		return nil, err
-	}
-	return &PlasmaParentLimboOutputIsPublishedIterator{contract: _PlasmaParent.contract, event: "LimboOutputIsPublished", logs: logs, sub: sub}, nil
-}
-
-// WatchLimboOutputIsPublished is a free log subscription operation binding the contract event 0xf96b1a948c67e64388904ef7c2ef6854d1129a88e890fbeb0a768b7e06f3cf72.
-//
-// Solidity: e LimboOutputIsPublished(_index indexed uint176)
-func (_PlasmaParent *PlasmaParentFilterer) WatchLimboOutputIsPublished(opts *bind.WatchOpts, sink chan<- *PlasmaParentLimboOutputIsPublished, _index []*big.Int) (event.Subscription, error) {
-
-	var _indexRule []interface{}
-	for _, _indexItem := range _index {
-		_indexRule = append(_indexRule, _indexItem)
-	}
-
-	logs, sub, err := _PlasmaParent.contract.WatchLogs(opts, "LimboOutputIsPublished", _indexRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(PlasmaParentLimboOutputIsPublished)
-				if err := _PlasmaParent.contract.UnpackLog(event, "LimboOutputIsPublished", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// PlasmaParentLimboTransactionIsPublishedIterator is returned from FilterLimboTransactionIsPublished and is used to iterate over the raw logs and unpacked data for LimboTransactionIsPublished events raised by the PlasmaParent contract.
-type PlasmaParentLimboTransactionIsPublishedIterator struct {
-	Event *PlasmaParentLimboTransactionIsPublished // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *PlasmaParentLimboTransactionIsPublishedIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(PlasmaParentLimboTransactionIsPublished)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(PlasmaParentLimboTransactionIsPublished)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *PlasmaParentLimboTransactionIsPublishedIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *PlasmaParentLimboTransactionIsPublishedIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// PlasmaParentLimboTransactionIsPublished represents a LimboTransactionIsPublished event raised by the PlasmaParent contract.
-type PlasmaParentLimboTransactionIsPublished struct {
-	Index *big.Int
-	Raw   types.Log // Blockchain specific contextual infos
-}
-
-// FilterLimboTransactionIsPublished is a free log retrieval operation binding the contract event 0x303d10ff23c2b2a9b99167607efa27681316e662a89f72f6c2e87f13abe58d85.
-//
-// Solidity: e LimboTransactionIsPublished(_index indexed uint160)
-func (_PlasmaParent *PlasmaParentFilterer) FilterLimboTransactionIsPublished(opts *bind.FilterOpts, _index []*big.Int) (*PlasmaParentLimboTransactionIsPublishedIterator, error) {
-
-	var _indexRule []interface{}
-	for _, _indexItem := range _index {
-		_indexRule = append(_indexRule, _indexItem)
-	}
-
-	logs, sub, err := _PlasmaParent.contract.FilterLogs(opts, "LimboTransactionIsPublished", _indexRule)
-	if err != nil {
-		return nil, err
-	}
-	return &PlasmaParentLimboTransactionIsPublishedIterator{contract: _PlasmaParent.contract, event: "LimboTransactionIsPublished", logs: logs, sub: sub}, nil
-}
-
-// WatchLimboTransactionIsPublished is a free log subscription operation binding the contract event 0x303d10ff23c2b2a9b99167607efa27681316e662a89f72f6c2e87f13abe58d85.
-//
-// Solidity: e LimboTransactionIsPublished(_index indexed uint160)
-func (_PlasmaParent *PlasmaParentFilterer) WatchLimboTransactionIsPublished(opts *bind.WatchOpts, sink chan<- *PlasmaParentLimboTransactionIsPublished, _index []*big.Int) (event.Subscription, error) {
-
-	var _indexRule []interface{}
-	for _, _indexItem := range _index {
-		_indexRule = append(_indexRule, _indexItem)
-	}
-
-	logs, sub, err := _PlasmaParent.contract.WatchLogs(opts, "LimboTransactionIsPublished", _indexRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(PlasmaParentLimboTransactionIsPublished)
-				if err := _PlasmaParent.contract.UnpackLog(event, "LimboTransactionIsPublished", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// PlasmaParentOutputIsPublishedIterator is returned from FilterOutputIsPublished and is used to iterate over the raw logs and unpacked data for OutputIsPublished events raised by the PlasmaParent contract.
-type PlasmaParentOutputIsPublishedIterator struct {
-	Event *PlasmaParentOutputIsPublished // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *PlasmaParentOutputIsPublishedIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(PlasmaParentOutputIsPublished)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(PlasmaParentOutputIsPublished)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *PlasmaParentOutputIsPublishedIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *PlasmaParentOutputIsPublishedIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// PlasmaParentOutputIsPublished represents a OutputIsPublished event raised by the PlasmaParent contract.
-type PlasmaParentOutputIsPublished struct {
-	Index *big.Int
-	Raw   types.Log // Blockchain specific contextual infos
-}
-
-// FilterOutputIsPublished is a free log retrieval operation binding the contract event 0x5b1fcbf9ba7adfaecb48eac9deefd21ca8f4cd5e1152fe876a8b9954fb6d309c.
-//
-// Solidity: e OutputIsPublished(_index indexed uint72)
-func (_PlasmaParent *PlasmaParentFilterer) FilterOutputIsPublished(opts *bind.FilterOpts, _index []*big.Int) (*PlasmaParentOutputIsPublishedIterator, error) {
-
-	var _indexRule []interface{}
-	for _, _indexItem := range _index {
-		_indexRule = append(_indexRule, _indexItem)
-	}
-
-	logs, sub, err := _PlasmaParent.contract.FilterLogs(opts, "OutputIsPublished", _indexRule)
-	if err != nil {
-		return nil, err
-	}
-	return &PlasmaParentOutputIsPublishedIterator{contract: _PlasmaParent.contract, event: "OutputIsPublished", logs: logs, sub: sub}, nil
-}
-
-// WatchOutputIsPublished is a free log subscription operation binding the contract event 0x5b1fcbf9ba7adfaecb48eac9deefd21ca8f4cd5e1152fe876a8b9954fb6d309c.
-//
-// Solidity: e OutputIsPublished(_index indexed uint72)
-func (_PlasmaParent *PlasmaParentFilterer) WatchOutputIsPublished(opts *bind.WatchOpts, sink chan<- *PlasmaParentOutputIsPublished, _index []*big.Int) (event.Subscription, error) {
-
-	var _indexRule []interface{}
-	for _, _indexItem := range _index {
-		_indexRule = append(_indexRule, _indexItem)
-	}
-
-	logs, sub, err := _PlasmaParent.contract.WatchLogs(opts, "OutputIsPublished", _indexRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(PlasmaParentOutputIsPublished)
-				if err := _PlasmaParent.contract.UnpackLog(event, "OutputIsPublished", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
 // PlasmaParentTransactionIsPublishedIterator is returned from FilterTransactionIsPublished and is used to iterate over the raw logs and unpacked data for TransactionIsPublished events raised by the PlasmaParent contract.
 type PlasmaParentTransactionIsPublishedIterator struct {
 	Event *PlasmaParentTransactionIsPublished // Event containing the contract specifics and raw log
@@ -3286,9 +3077,9 @@ func (_PlasmaParent *PlasmaParentFilterer) WatchTransactionIsPublished(opts *bin
 	}), nil
 }
 
-// PlasmaParentWithdrawBuyoutAcceptedIterator is returned from FilterWithdrawBuyoutAccepted and is used to iterate over the raw logs and unpacked data for WithdrawBuyoutAccepted events raised by the PlasmaParent contract.
-type PlasmaParentWithdrawBuyoutAcceptedIterator struct {
-	Event *PlasmaParentWithdrawBuyoutAccepted // Event containing the contract specifics and raw log
+// PlasmaParentTransactionPublishedIterator is returned from FilterTransactionPublished and is used to iterate over the raw logs and unpacked data for TransactionPublished events raised by the PlasmaParent contract.
+type PlasmaParentTransactionPublishedIterator struct {
+	Event *PlasmaParentTransactionPublished // Event containing the contract specifics and raw log
 
 	contract *bind.BoundContract // Generic contract to use for unpacking event data
 	event    string              // Event name to use for unpacking event data
@@ -3302,7 +3093,7 @@ type PlasmaParentWithdrawBuyoutAcceptedIterator struct {
 // Next advances the iterator to the subsequent event, returning whether there
 // are any more events found. In case of a retrieval or parsing error, false is
 // returned and Error() can be queried for the exact failure.
-func (it *PlasmaParentWithdrawBuyoutAcceptedIterator) Next() bool {
+func (it *PlasmaParentTransactionPublishedIterator) Next() bool {
 	// If the iterator failed, stop iterating
 	if it.fail != nil {
 		return false
@@ -3311,7 +3102,7 @@ func (it *PlasmaParentWithdrawBuyoutAcceptedIterator) Next() bool {
 	if it.done {
 		select {
 		case log := <-it.logs:
-			it.Event = new(PlasmaParentWithdrawBuyoutAccepted)
+			it.Event = new(PlasmaParentTransactionPublished)
 			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 				it.fail = err
 				return false
@@ -3326,7 +3117,7 @@ func (it *PlasmaParentWithdrawBuyoutAcceptedIterator) Next() bool {
 	// Iterator still in progress, wait for either a data or an error event
 	select {
 	case log := <-it.logs:
-		it.Event = new(PlasmaParentWithdrawBuyoutAccepted)
+		it.Event = new(PlasmaParentTransactionPublished)
 		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
 			it.fail = err
 			return false
@@ -3342,60 +3133,52 @@ func (it *PlasmaParentWithdrawBuyoutAcceptedIterator) Next() bool {
 }
 
 // Error returns any retrieval or parsing error occurred during filtering.
-func (it *PlasmaParentWithdrawBuyoutAcceptedIterator) Error() error {
+func (it *PlasmaParentTransactionPublishedIterator) Error() error {
 	return it.fail
 }
 
 // Close terminates the iteration process, releasing any pending underlying
 // resources.
-func (it *PlasmaParentWithdrawBuyoutAcceptedIterator) Close() error {
+func (it *PlasmaParentTransactionPublishedIterator) Close() error {
 	it.sub.Unsubscribe()
 	return nil
 }
 
-// PlasmaParentWithdrawBuyoutAccepted represents a WithdrawBuyoutAccepted event raised by the PlasmaParent contract.
-type PlasmaParentWithdrawBuyoutAccepted struct {
-	WithdrawIndex *big.Int
-	From          common.Address
-	Raw           types.Log // Blockchain specific contextual infos
+// PlasmaParentTransactionPublished represents a TransactionPublished event raised by the PlasmaParent contract.
+type PlasmaParentTransactionPublished struct {
+	Hash [32]byte
+	Data []byte
+	Raw  types.Log // Blockchain specific contextual infos
 }
 
-// FilterWithdrawBuyoutAccepted is a free log retrieval operation binding the contract event 0xd6c3d29d9d003c3f88938e1810e463e87b2c180b78213bea882dbc5f986d6120.
+// FilterTransactionPublished is a free log retrieval operation binding the contract event 0x5801adacaa607b7a58d602d13f84bd912554bcbaf9ca07f03badfbd7be50a9b9.
 //
-// Solidity: e WithdrawBuyoutAccepted(_withdrawIndex indexed uint256, _from indexed address)
-func (_PlasmaParent *PlasmaParentFilterer) FilterWithdrawBuyoutAccepted(opts *bind.FilterOpts, _withdrawIndex []*big.Int, _from []common.Address) (*PlasmaParentWithdrawBuyoutAcceptedIterator, error) {
+// Solidity: e TransactionPublished(_hash indexed bytes32, _data bytes)
+func (_PlasmaParent *PlasmaParentFilterer) FilterTransactionPublished(opts *bind.FilterOpts, _hash [][32]byte) (*PlasmaParentTransactionPublishedIterator, error) {
 
-	var _withdrawIndexRule []interface{}
-	for _, _withdrawIndexItem := range _withdrawIndex {
-		_withdrawIndexRule = append(_withdrawIndexRule, _withdrawIndexItem)
-	}
-	var _fromRule []interface{}
-	for _, _fromItem := range _from {
-		_fromRule = append(_fromRule, _fromItem)
+	var _hashRule []interface{}
+	for _, _hashItem := range _hash {
+		_hashRule = append(_hashRule, _hashItem)
 	}
 
-	logs, sub, err := _PlasmaParent.contract.FilterLogs(opts, "WithdrawBuyoutAccepted", _withdrawIndexRule, _fromRule)
+	logs, sub, err := _PlasmaParent.contract.FilterLogs(opts, "TransactionPublished", _hashRule)
 	if err != nil {
 		return nil, err
 	}
-	return &PlasmaParentWithdrawBuyoutAcceptedIterator{contract: _PlasmaParent.contract, event: "WithdrawBuyoutAccepted", logs: logs, sub: sub}, nil
+	return &PlasmaParentTransactionPublishedIterator{contract: _PlasmaParent.contract, event: "TransactionPublished", logs: logs, sub: sub}, nil
 }
 
-// WatchWithdrawBuyoutAccepted is a free log subscription operation binding the contract event 0xd6c3d29d9d003c3f88938e1810e463e87b2c180b78213bea882dbc5f986d6120.
+// WatchTransactionPublished is a free log subscription operation binding the contract event 0x5801adacaa607b7a58d602d13f84bd912554bcbaf9ca07f03badfbd7be50a9b9.
 //
-// Solidity: e WithdrawBuyoutAccepted(_withdrawIndex indexed uint256, _from indexed address)
-func (_PlasmaParent *PlasmaParentFilterer) WatchWithdrawBuyoutAccepted(opts *bind.WatchOpts, sink chan<- *PlasmaParentWithdrawBuyoutAccepted, _withdrawIndex []*big.Int, _from []common.Address) (event.Subscription, error) {
+// Solidity: e TransactionPublished(_hash indexed bytes32, _data bytes)
+func (_PlasmaParent *PlasmaParentFilterer) WatchTransactionPublished(opts *bind.WatchOpts, sink chan<- *PlasmaParentTransactionPublished, _hash [][32]byte) (event.Subscription, error) {
 
-	var _withdrawIndexRule []interface{}
-	for _, _withdrawIndexItem := range _withdrawIndex {
-		_withdrawIndexRule = append(_withdrawIndexRule, _withdrawIndexItem)
-	}
-	var _fromRule []interface{}
-	for _, _fromItem := range _from {
-		_fromRule = append(_fromRule, _fromItem)
+	var _hashRule []interface{}
+	for _, _hashItem := range _hash {
+		_hashRule = append(_hashRule, _hashItem)
 	}
 
-	logs, sub, err := _PlasmaParent.contract.WatchLogs(opts, "WithdrawBuyoutAccepted", _withdrawIndexRule, _fromRule)
+	logs, sub, err := _PlasmaParent.contract.WatchLogs(opts, "TransactionPublished", _hashRule)
 	if err != nil {
 		return nil, err
 	}
@@ -3405,158 +3188,8 @@ func (_PlasmaParent *PlasmaParentFilterer) WatchWithdrawBuyoutAccepted(opts *bin
 			select {
 			case log := <-logs:
 				// New log arrived, parse the event and forward to the user
-				event := new(PlasmaParentWithdrawBuyoutAccepted)
-				if err := _PlasmaParent.contract.UnpackLog(event, "WithdrawBuyoutAccepted", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// PlasmaParentWithdrawBuyoutOfferedIterator is returned from FilterWithdrawBuyoutOffered and is used to iterate over the raw logs and unpacked data for WithdrawBuyoutOffered events raised by the PlasmaParent contract.
-type PlasmaParentWithdrawBuyoutOfferedIterator struct {
-	Event *PlasmaParentWithdrawBuyoutOffered // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *PlasmaParentWithdrawBuyoutOfferedIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(PlasmaParentWithdrawBuyoutOffered)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(PlasmaParentWithdrawBuyoutOffered)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *PlasmaParentWithdrawBuyoutOfferedIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *PlasmaParentWithdrawBuyoutOfferedIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// PlasmaParentWithdrawBuyoutOffered represents a WithdrawBuyoutOffered event raised by the PlasmaParent contract.
-type PlasmaParentWithdrawBuyoutOffered struct {
-	WithdrawIndex *big.Int
-	From          common.Address
-	BuyoutAmount  *big.Int
-	Raw           types.Log // Blockchain specific contextual infos
-}
-
-// FilterWithdrawBuyoutOffered is a free log retrieval operation binding the contract event 0x9c3b6d9650755af34de4fc309766af432c1e637f9861560503761273422e8de4.
-//
-// Solidity: e WithdrawBuyoutOffered(_withdrawIndex indexed uint256, _from indexed address, _buyoutAmount indexed uint256)
-func (_PlasmaParent *PlasmaParentFilterer) FilterWithdrawBuyoutOffered(opts *bind.FilterOpts, _withdrawIndex []*big.Int, _from []common.Address, _buyoutAmount []*big.Int) (*PlasmaParentWithdrawBuyoutOfferedIterator, error) {
-
-	var _withdrawIndexRule []interface{}
-	for _, _withdrawIndexItem := range _withdrawIndex {
-		_withdrawIndexRule = append(_withdrawIndexRule, _withdrawIndexItem)
-	}
-	var _fromRule []interface{}
-	for _, _fromItem := range _from {
-		_fromRule = append(_fromRule, _fromItem)
-	}
-	var _buyoutAmountRule []interface{}
-	for _, _buyoutAmountItem := range _buyoutAmount {
-		_buyoutAmountRule = append(_buyoutAmountRule, _buyoutAmountItem)
-	}
-
-	logs, sub, err := _PlasmaParent.contract.FilterLogs(opts, "WithdrawBuyoutOffered", _withdrawIndexRule, _fromRule, _buyoutAmountRule)
-	if err != nil {
-		return nil, err
-	}
-	return &PlasmaParentWithdrawBuyoutOfferedIterator{contract: _PlasmaParent.contract, event: "WithdrawBuyoutOffered", logs: logs, sub: sub}, nil
-}
-
-// WatchWithdrawBuyoutOffered is a free log subscription operation binding the contract event 0x9c3b6d9650755af34de4fc309766af432c1e637f9861560503761273422e8de4.
-//
-// Solidity: e WithdrawBuyoutOffered(_withdrawIndex indexed uint256, _from indexed address, _buyoutAmount indexed uint256)
-func (_PlasmaParent *PlasmaParentFilterer) WatchWithdrawBuyoutOffered(opts *bind.WatchOpts, sink chan<- *PlasmaParentWithdrawBuyoutOffered, _withdrawIndex []*big.Int, _from []common.Address, _buyoutAmount []*big.Int) (event.Subscription, error) {
-
-	var _withdrawIndexRule []interface{}
-	for _, _withdrawIndexItem := range _withdrawIndex {
-		_withdrawIndexRule = append(_withdrawIndexRule, _withdrawIndexItem)
-	}
-	var _fromRule []interface{}
-	for _, _fromItem := range _from {
-		_fromRule = append(_fromRule, _fromItem)
-	}
-	var _buyoutAmountRule []interface{}
-	for _, _buyoutAmountItem := range _buyoutAmount {
-		_buyoutAmountRule = append(_buyoutAmountRule, _buyoutAmountItem)
-	}
-
-	logs, sub, err := _PlasmaParent.contract.WatchLogs(opts, "WithdrawBuyoutOffered", _withdrawIndexRule, _fromRule, _buyoutAmountRule)
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(PlasmaParentWithdrawBuyoutOffered)
-				if err := _PlasmaParent.contract.UnpackLog(event, "WithdrawBuyoutOffered", log); err != nil {
+				event := new(PlasmaParentTransactionPublished)
+				if err := _PlasmaParent.contract.UnpackLog(event, "TransactionPublished", log); err != nil {
 					return err
 				}
 				event.Raw = log

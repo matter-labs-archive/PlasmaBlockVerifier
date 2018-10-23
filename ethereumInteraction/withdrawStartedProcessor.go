@@ -1,7 +1,7 @@
 package ethereuminteraction
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/dgraph-io/badger"
 	"github.com/matterinc/PlasmaBlockVerifier/messageStructures"
@@ -22,20 +22,10 @@ func (p *WithdrawStartedProcessor) Process(event *messageStructures.WithdrawStar
 	if event.IsLimbo {
 		return nil, nil
 	}
-	// utxoIndex := event.Index.Bytes()
-	// // transaction.ParseUTXOindexNumberIntoDetails()
-	// if len(utxoIndex) < 9 {
-	// 	padding := make([]byte, 9-len(utxoIndex))
-	// 	utxoIndex = append(padding, utxoIndex...)
-	// }
-	// blockNumber := binary.BigEndian.Uint32(utxoIndex[0:4])
-	// txNumber := binary.BigEndian.Uint32(utxoIndex[4:8])
-	// outputNumber := utxoIndex[8]
-	details, err := transaction.ParseUTXOindexBigIntIntoDetails(event.Index)
-	if err != nil {
-		return nil, err
-	}
-	utxoIndex, err := transaction.CreateFullUTXOindexFromDetails(details.BlockNumber, details.TransactionNumber, details.OutputNumber, event.From, event.Amount)
+	blockNumber := event.BlockNumber
+	transactionNumber := event.TransactionNumber
+	outputNumber := event.OutputNumber
+	utxoIndex, err := transaction.CreateFullUTXOindexFromDetails(blockNumber, transactionNumber, outputNumber, event.From, event.Amount)
 	if err != nil {
 		return nil, err
 	}
@@ -57,7 +47,7 @@ func (p *WithdrawStartedProcessor) Process(event *messageStructures.WithdrawStar
 		return nil, nil
 	}
 	var spendingIndex []byte
-	shortIndex := transaction.PackUTXOnumber(details.BlockNumber, details.TransactionNumber, details.OutputNumber)
+	shortIndex := transaction.PackUTXOnumber(blockNumber, transactionNumber, outputNumber)
 	lookupIndex := []byte("spend")
 	lookupIndex = append(lookupIndex, shortIndex...)
 	err = p.db.View(func(txn *badger.Txn) error {
@@ -79,6 +69,6 @@ func (p *WithdrawStartedProcessor) Process(event *messageStructures.WithdrawStar
 	if err != nil {
 		return nil, err
 	}
-	fmt.Printf("Preparing challenge by using a block %i, tx %i, output %i", spendingBlock, spendingTxNumber, spendingInput)
+	log.Printf("Preparing challenge by using a block %i, tx %i, output %i", spendingBlock, spendingTxNumber, spendingInput)
 	return nil, nil
 }

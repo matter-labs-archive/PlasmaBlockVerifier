@@ -7,9 +7,11 @@ import (
 )
 
 type WithdrawStartedInformation struct {
-	IsLimbo    bool
-	Index      *big.Int
-	LimboIndex []byte
-	From       common.Address
-	Amount     *big.Int
+	IsLimbo           bool
+	BlockNumber       uint32
+	TransactionNumber uint32
+	OutputNumber      uint8
+	From              common.Address
+	Amount            *big.Int
+	PartialHash       []byte
 }

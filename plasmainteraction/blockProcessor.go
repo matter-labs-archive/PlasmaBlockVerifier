@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/binary"
 	"errors"
-	"fmt"
+	"log"
 	"math/big"
 	"sync"
 
@@ -131,10 +131,10 @@ func (p *BlockProcessor) ProcessParsedBlock(parsedBlock *block.Block) ([]*messag
 	withdrawChecks := []*messageStructures.WithdrawChallengeRequest{}
 	for result := range flattenedResults {
 		if result.Result == false {
-			fmt.Println("Unsuccesfull result")
+			log.Println("Unsuccesfull result")
 		}
 		if result.NonrecoverableError != nil {
-			panic(result.NonrecoverableError)
+			log.Fatalln(result.NonrecoverableError)
 		}
 		if result.DepositIndexRequest != nil {
 			depositChecks = append(depositChecks, result.DepositIndexRequest)
@@ -175,17 +175,28 @@ func (p *BlockProcessor) startWorker(startIndex, endIndex uint32, txes []*transa
 		defer close(finished)
 		preprocessed, err := p.PreprocessTransactions(startIndex, endIndex, txes, blockNumber)
 		if err != nil {
-			panic(err)
+			log.Fatalln(err)
 		}
-		result, err := p.ProcessTransactionsSlice(preprocessed)
+		results, err := p.CheckTransactionsSlice(preprocessed)
 		if err != nil {
-			result, err := p.ProcessSliceInSequence(preprocessed)
 			if err != nil {
-				panic(err)
+				log.Fatalln("Inconsistent DB state")
 			}
-			finished <- result
+		}
+		results, err = p.ApplyTransactionsSlice(preprocessed, results)
+		if err != nil {
+			if err != nil {
+				log.Fatalln("Inconsistent DB state")
+			}
+		}
+		if err != nil {
+			results, err := p.ProcessSliceInSequence(preprocessed)
+			if err != nil {
+				log.Fatalln(err)
+			}
+			finished <- results
 		} else {
-			finished <- result
+			finished <- results
 		}
 	}()
 	return finished
@@ -280,9 +291,9 @@ func (p *BlockProcessor) ProcessSliceInSequence(preprocessed []*PreprocessedTran
 	return results, nil
 }
 
-func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTransactionPayload) ([]ResultPayload, error) {
+func (p *BlockProcessor) CheckTransactionsSlice(preprocessed []*PreprocessedTransactionPayload) ([]ResultPayload, error) {
 	results := make([]ResultPayload, len(preprocessed))
-	txn := p.db.NewTransaction(true)
+	txn := p.db.NewTransaction(false)
 	defer txn.Discard()
 	// first do an UTXO check
 	for i, payload := range preprocessed {
@@ -292,91 +303,52 @@ func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTr
 		} else {
 			for j, toDelete := range payload.keysToDelete {
 				_, err := txn.Get(toDelete)
-				if err == badger.ErrTxnTooBig {
-					err := txn.Commit(nil)
-					if err != nil {
-						return nil, err
-					}
-					txn = p.db.NewTransaction(true)
-					_, err = txn.Get(toDelete)
-					if err != nil {
-						spendingIndex := payload.spendingIndexesToWrite[j][1]
-						withdrawRequest := &messageStructures.WithdrawChallengeRequest{toDelete, spendingIndex}
-						results[i] = ResultPayload{payload.txNumber, true, nil, nil, withdrawRequest}
-						continue
-					}
-				} else if err != nil {
+				if err != nil {
 					spendingIndex := payload.spendingIndexesToWrite[j][1]
 					withdrawRequest := &messageStructures.WithdrawChallengeRequest{toDelete, spendingIndex}
 					results[i] = ResultPayload{payload.txNumber, true, nil, nil, withdrawRequest}
 					continue
 				}
-				err = txn.Delete(toDelete)
-				if err == badger.ErrTxnTooBig {
-					err := txn.Commit(nil)
-					if err != nil {
-						return nil, err
-					}
-					txn = p.db.NewTransaction(true)
-					err = txn.Delete(toDelete)
-					if err != nil {
-						return nil, err
-					}
-				} else if err != nil {
-					return nil, err
-				}
 			}
+		}
+	}
+	return results, nil
+}
 
-			for _, toIndex := range payload.spendingIndexesToWrite {
-				if results[i].Result == true {
-					continue
-				}
-				err := txn.Set(toIndex[0], toIndex[1])
-				if err == badger.ErrTxnTooBig {
-					err := txn.Commit(nil)
-					if err != nil {
-						return nil, err
-					}
-					txn = p.db.NewTransaction(true)
-					err = txn.Set(toIndex[0], toIndex[1])
-					if err != nil {
-						return nil, err
-					}
-				} else if err != nil {
-					return nil, err
-				}
+func (p *BlockProcessor) ApplyTransactionsSlice(preprocessed []*PreprocessedTransactionPayload, results []ResultPayload) ([]ResultPayload, error) {
+	txn := p.db.NewTransaction(true)
+	defer txn.Discard()
+	// first do an UTXO check
+	for i, payload := range preprocessed {
+		if results[i].Result == true {
+			continue
+		}
+		for _, toDelete := range payload.keysToDelete {
+			err := txn.Delete(toDelete)
+			if err != nil {
+				return nil, err
+			}
+		}
+
+		for _, toIndex := range payload.spendingIndexesToWrite {
+			err := txn.Set(toIndex[0], toIndex[1])
+			if err != nil {
+				return nil, err
 			}
 		}
 
 		// process new UTXOs
 		for _, toAdd := range payload.keysToWrite {
-			if results[i].Result == true {
-				continue
-			}
 			err := txn.Set(toAdd, []byte{0x01})
-			if err == badger.ErrTxnTooBig {
-				err := txn.Commit(nil)
-				if err != nil {
-					return nil, err
-				}
-				txn = p.db.NewTransaction(true)
-				err = txn.Set(toAdd, []byte{0x01})
-				if err != nil {
-					return nil, err
-				}
-			} else if err != nil {
+			if err != nil {
 				return nil, err
 			}
 		}
-
-		if results[i].Result != true {
-			if results[i].DepositIndexRequest != nil {
-				results[i].Result = true
-			} else {
-				res := ResultPayload{payload.txNumber, true, nil, nil, nil}
-				results[i] = res
-			}
-
+		if results[i].DepositIndexRequest != nil {
+			results[i].Result = true
+		} else {
+			res := ResultPayload{payload.txNumber, true, nil, nil, nil}
+			results[i] = res
 		}
 	}
 	err := txn.Commit(nil)
@@ -385,3 +357,109 @@ func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTr
 	}
 	return results, nil
 }
+
+// func (p *BlockProcessor) ProcessTransactionsSlice(preprocessed []*PreprocessedTransactionPayload) ([]ResultPayload, error) {
+// 	results := make([]ResultPayload, len(preprocessed))
+// 	txn := p.db.NewTransaction(true)
+// 	defer txn.Discard()
+// 	// first do an UTXO check
+// 	for i, payload := range preprocessed {
+// 		// process either a deposit transaction or work with UTXO indexes
+// 		if payload.depositCheckoutRequest != nil {
+// 			results[i] = ResultPayload{payload.txNumber, false, nil, payload.depositCheckoutRequest, nil}
+// 		} else {
+// 			for j, toDelete := range payload.keysToDelete {
+// 				_, err := txn.Get(toDelete)
+// 				if err == badger.ErrTxnTooBig {
+// 					err := txn.Commit(nil)
+// 					if err != nil {
+// 						return nil, err
+// 					}
+// 					txn = p.db.NewTransaction(true)
+// 					_, err = txn.Get(toDelete)
+// 					if err != nil {
+// 						spendingIndex := payload.spendingIndexesToWrite[j][1]
+// 						withdrawRequest := &messageStructures.WithdrawChallengeRequest{toDelete, spendingIndex}
+// 						results[i] = ResultPayload{payload.txNumber, true, nil, nil, withdrawRequest}
+// 						continue
+// 					}
+// 				} else if err != nil {
+// 					spendingIndex := payload.spendingIndexesToWrite[j][1]
+// 					withdrawRequest := &messageStructures.WithdrawChallengeRequest{toDelete, spendingIndex}
+// 					results[i] = ResultPayload{payload.txNumber, true, nil, nil, withdrawRequest}
+// 					continue
+// 				}
+// 				err = txn.Delete(toDelete)
+// 				if err == badger.ErrTxnTooBig {
+// 					err := txn.Commit(nil)
+// 					if err != nil {
+// 						return nil, err
+// 					}
+// 					txn = p.db.NewTransaction(true)
+// 					err = txn.Delete(toDelete)
+// 					if err != nil {
+// 						return nil, err
+// 					}
+// 				} else if err != nil {
+// 					return nil, err
+// 				}
+// 			}
+
+// 			for _, toIndex := range payload.spendingIndexesToWrite {
+// 				if results[i].Result == true {
+// 					continue
+// 				}
+// 				err := txn.Set(toIndex[0], toIndex[1])
+// 				if err == badger.ErrTxnTooBig {
+// 					err := txn.Commit(nil)
+// 					if err != nil {
+// 						return nil, err
+// 					}
+// 					txn = p.db.NewTransaction(true)
+// 					err = txn.Set(toIndex[0], toIndex[1])
+// 					if err != nil {
+// 						return nil, err
+// 					}
+// 				} else if err != nil {
+// 					return nil, err
+// 				}
+// 			}
+// 		}
+
+// 		// process new UTXOs
+// 		for _, toAdd := range payload.keysToWrite {
+// 			if results[i].Result == true {
+// 				continue
+// 			}
+// 			err := txn.Set(toAdd, []byte{0x01})
+// 			if err == badger.ErrTxnTooBig {
+// 				err := txn.Commit(nil)
+// 				if err != nil {
+// 					return nil, err
+// 				}
+// 				txn = p.db.NewTransaction(true)
+// 				err = txn.Set(toAdd, []byte{0x01})
+// 				if err != nil {
+// 					return nil, err
+// 				}
+// 			} else if err != nil {
+// 				return nil, err
+// 			}
+// 		}
+
+// 		if results[i].Result != true {
+// 			if results[i].DepositIndexRequest != nil {
+// 				results[i].Result = true
+// 			} else {
+// 				res := ResultPayload{payload.txNumber, true, nil, nil, nil}
+// 				results[i] = res
+// 			}
+
+// 		}
+// 	}
+// 	err := txn.Commit(nil)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	return results, nil
+// }

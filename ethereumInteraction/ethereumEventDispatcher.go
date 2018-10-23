@@ -2,7 +2,7 @@ package ethereuminteraction
 
 import (
 	"context"
-	"fmt"
+	"log"
 	"math/big"
 	"time"
 
@@ -14,7 +14,7 @@ import (
 	messageStructures "github.com/matterinc/PlasmaBlockVerifier/messageStructures"
 )
 
-const loopDelay = 10000000 // 10 seconds
+const loopDelay = 100000000 // 0.1 second
 
 type EthereumNetworkEventDispatcher struct {
 	ConnectionString     string
@@ -34,7 +34,7 @@ func NewEthereumNetworkEventDispatcher(connection, contractAddress string) *Ethe
 	plasma, err := ABI.NewPlasmaParent(address, conn)
 	blockStorageAddress, err := plasma.PlasmaParentCaller.BlockStorage(nil)
 	if err != nil {
-		panic("Can not get block storage contract address")
+		log.Fatalln("Can not get block storage contract address")
 	}
 	blockStorage, err := ABI.NewPlasmaBlockStorage(blockStorageAddress, conn)
 	newInstance := &EthereumNetworkEventDispatcher{connection, conn, signalChan, plasma, blockStorage}
@@ -49,51 +49,58 @@ func (p *EthereumNetworkEventDispatcher) Run(fromBlockNumber int64, blockProcess
 	one := big.NewInt(1)
 	eventLoop := func() {
 		for {
-			time.Sleep(loopDelay)
-			newBlockNumber := new(big.Int).Add(lastBlockNumber, one)
-			_, err := p.Client.HeaderByNumber(context.TODO(), newBlockNumber)
-			if err != nil {
-				continue
-			}
-			fmt.Println("Processing Ethereum block " + newBlockNumber.String())
-			blockNumberUInt64 := newBlockNumber.Uint64()
-
-			filterOptions := &bind.FilterOpts{blockNumberUInt64, &blockNumberUInt64, context.TODO()}
-			exitEventsIterator, err := p.PlasmaParentContract.PlasmaParentFilterer.FilterExitStartedEvent(filterOptions, nil, nil, nil)
-			if err != nil {
-				fmt.Println(err)
-				continue
-			}
-			for exitEventsIterator.Next() {
-				ev := exitEventsIterator.Event
-				fmt.Println("Processing exit event")
-				fullInfo, err := p.PlasmaParentContract.PlasmaParentCaller.PublishedUTXOs(nil, ev.Index)
+			select {
+			case _ = <-p.SignalChannel:
+				log.Println("Received control message")
+				// log.Println(strconv.Itoa(controlMessage))
+				return
+			default:
+				newBlockNumber := new(big.Int).Add(lastBlockNumber, one)
+				_, err := p.Client.HeaderByNumber(context.TODO(), newBlockNumber)
 				if err != nil {
-					fmt.Println(err)
-					panic(err)
+					time.Sleep(loopDelay)
+					continue
 				}
+				if newBlockNumber.Uint64()%10 == 0 {
+					log.Println("Processing Ethereum block " + newBlockNumber.String())
+				}
+				blockNumberUInt64 := newBlockNumber.Uint64()
 
-				info := &messageStructures.WithdrawStartedInformation{false, ev.Index, nil, ev.From, fullInfo.Value}
-				_, err = withdrawProcessor.Process(info)
+				filterOptions := &bind.FilterOpts{blockNumberUInt64, &blockNumberUInt64, context.TODO()}
+				exitEventsIterator, err := p.PlasmaParentContract.PlasmaParentFilterer.FilterExitStartedEvent(filterOptions, nil, nil, nil)
 				if err != nil {
-					fmt.Println(err)
-					panic(err)
+					log.Println(err)
+					continue
 				}
+				for exitEventsIterator.Next() {
+					ev := exitEventsIterator.Event
+					log.Println("Processing exit event")
+					fullInfo, err := p.PlasmaParentContract.PlasmaParentCaller.ExitRecords(nil, ev.Hash)
+					if err != nil {
+						log.Fatalln(err)
+					}
+
+					info := &messageStructures.WithdrawStartedInformation{false, fullInfo.BlockNumber, fullInfo.TransactionNumber, fullInfo.OutputNumber, ev.From, fullInfo.Amount, ev.Hash[:]}
+					_, err = withdrawProcessor.Process(info)
+					if err != nil {
+						log.Fatalln(err)
+					}
+				}
+				blocksEventIterator, err := p.BlockStorageContract.PlasmaBlockStorageFilterer.FilterBlockHeaderSubmitted(filterOptions, nil, nil)
+				if err != nil {
+					log.Println(err)
+					continue
+				}
+				for blocksEventIterator.Next() {
+					ev := blocksEventIterator.Event
+					log.Println("Processing Plasma block " + ev.BlockNumber.String() + " in Ethereum block " + newBlockNumber.String())
+					plasmaBlockNumber := uint32(ev.BlockNumber.Uint64())
+					merkleRoot := ev.MerkleRoot
+					blockProcessingInformation := &messageStructures.BlockInformation{BlockNumber: plasmaBlockNumber, BlockHash: [32]byte{}, BlockMerkleRoot: merkleRoot}
+					blockProcessorLoopChannel <- blockProcessingInformation
+				}
+				lastBlockNumber = newBlockNumber
 			}
-			blocksEventIterator, err := p.BlockStorageContract.PlasmaBlockStorageFilterer.FilterBlockHeaderSubmitted(filterOptions, nil, nil)
-			if err != nil {
-				fmt.Println(err)
-				continue
-			}
-			for blocksEventIterator.Next() {
-				ev := blocksEventIterator.Event
-				fmt.Println("Processing Plasma block " + ev.BlockNumber.String() + " in Ethereum block " + newBlockNumber.String())
-				plasmaBlockNumber := uint32(ev.BlockNumber.Uint64())
-				merkleRoot := ev.MerkleRoot
-				blockProcessingInformation := &messageStructures.BlockInformation{BlockNumber: plasmaBlockNumber, BlockHash: [32]byte{}, BlockMerkleRoot: merkleRoot}
-				blockProcessorLoopChannel <- blockProcessingInformation
-			}
-			lastBlockNumber = newBlockNumber
 		}
 	}
 	go eventLoop()

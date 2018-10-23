@@ -16,25 +16,29 @@ import (
 func main() {
 	database.PurgeTestDatabase()
 	db, err := database.OpenTestDatabase()
-	ethereumLoop := eth.NewEthereumNetworkEventDispatcher("http://127.0.0.1:8545", "0x345ca3e014aaf5dca488057592ee47305d9b3e10")
+	if err != nil {
+		log.Fatalln(err)
+	}
+	defer db.Close()
+
+	ethereumLoop := eth.NewEthereumNetworkEventDispatcher("https://mainnet.infura.io", "0xc71d3638e2f14c115eb53163ae97ae76eae9d7f6")
 	depositCheckoutsProcessor := eth.NewDepositCheckoutProcessor(db, ethereumLoop.PlasmaParentContract, ethereumLoop.BlockStorageContract)
 	withdrawChallengeProcessor := eth.NewWithdrawChallengeProcessor(ethereumLoop.PlasmaParentContract, db)
 	withdrawStartedProcessor := eth.NewWithdrawStartedProcessor(db)
 	blockProcessor := plasma.NewBlockProcessor(db, 100, 100)
 	processingLoop := plasma.NewBlockProcessingLoop(blockProcessor)
 
-	ethereumLoop.Run(0, dispatch.BlockInformationChannel, withdrawStartedProcessor)
+	// ethereumLoop.Run(6525445, dispatch.BlockInformationChannel, withdrawStartedProcessor, dispatch.ControlChannel)
+	ethereumLoop.Run(6527670, dispatch.BlockInformationChannel, withdrawStartedProcessor)
 	processingLoop.Run(dispatch.BlockInformationChannel, depositCheckoutsProcessor, withdrawChallengeProcessor)
 
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
 	wait := time.Second * 15
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
 	<-c
 	_, cancel := context.WithTimeout(context.Background(), wait)
+	ethereumLoop.SignalChannel <- 1
+	processingLoop.ControlChannel <- 1
 	defer cancel()
 	log.Println("Shutting down")
 	os.Exit(0)

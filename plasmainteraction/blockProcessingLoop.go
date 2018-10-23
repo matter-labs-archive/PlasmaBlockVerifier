@@ -1,15 +1,14 @@
 package plasmainteraction
 
 import (
-	"fmt"
-	"strconv"
+	"log"
 	"time"
 
 	ethereuminteraction "github.com/matterinc/PlasmaBlockVerifier/ethereuminteraction"
 	"github.com/matterinc/PlasmaBlockVerifier/messageStructures"
 )
 
-const loopTimeMS = 1000
+const loopTimeMS = 100000000 // 0.1 ms
 
 // TODO add checker for exit events!
 type BlockProcessingLoop struct {
@@ -39,9 +38,10 @@ func (p *BlockProcessingLoop) Run(blockInfoChannel <-chan *messageStructures.Blo
 	blockFunction := func() {
 		for {
 			select {
-			case controlMessage := <-p.ControlChannel:
-				fmt.Println("Received control message")
-				fmt.Println(strconv.Itoa(controlMessage))
+			case _ = <-p.ControlChannel:
+				log.Println("Received control message")
+				return
+				// log.Println(strconv.Itoa(controlMessage))
 			default:
 				// fmt.Println("continue to process")
 			}
@@ -49,18 +49,18 @@ func (p *BlockProcessingLoop) Run(blockInfoChannel <-chan *messageStructures.Blo
 			case newBlockInfo := <-blockInfoChannel:
 				newBlockBytes := <-blockDownloader.GetBlock(newBlockInfo.BlockNumber)
 				if len(newBlockBytes) == 0 {
-					panic("Block is probably withheld")
+					log.Fatalln("Block is probably withheld")
 				}
 				deps, withs, err := p.Processor.ProcessBlock(newBlockBytes, newBlockInfo.BlockHash[:], newBlockInfo.BlockMerkleRoot[:])
 				if err != nil {
-					panic("Unrecoverable error, chain is byzantine")
+					log.Fatalln("Unrecoverable error, chain is byzantine")
 				}
 				for _, d := range deps {
-					fmt.Println("Processing deposit checks")
+					log.Println("Processing deposit checks")
 					depositCheckoutsChannel <- d
 				}
 				for _, w := range withs {
-					fmt.Println("Processing exit challenges")
+					log.Println("Processing exit challenges")
 					withdrawChallengesChannel <- w
 				}
 			default:
@@ -74,7 +74,7 @@ func (p *BlockProcessingLoop) Run(blockInfoChannel <-chan *messageStructures.Blo
 			case depositCheckoutRequest := <-depositCheckoutsChannel:
 				success, err := depositCheckoutProcessor.Process(depositCheckoutRequest)
 				if !success || err != nil {
-					panic("Unrecoverable error, chain is byzantine")
+					log.Fatalln("Unrecoverable error, chain is byzantine")
 				}
 			default:
 				// fmt.Println("No deposits to process")
@@ -83,7 +83,7 @@ func (p *BlockProcessingLoop) Run(blockInfoChannel <-chan *messageStructures.Blo
 			case challengeRequest := <-withdrawChallengesChannel:
 				success, err := withdrawChallengeProcessor.Process(challengeRequest)
 				if !success || err != nil {
-					panic("Unrecoverable error, chain is byzantine")
+					log.Fatalln("Unrecoverable error, chain is byzantine")
 				}
 			default:
 				// fmt.Println("No withdraw challenges to process")

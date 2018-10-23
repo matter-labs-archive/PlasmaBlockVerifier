@@ -1,7 +1,7 @@
 package ethereuminteraction
 
 import (
-	"fmt"
+	"log"
 
 	"github.com/dgraph-io/badger"
 
@@ -29,7 +29,7 @@ func (p *WithdrawChallengeProcessor) Process(challengeRequest *messageStructures
 		var utxoIndex [transaction.UTXOIndexLength]byte
 		copy(utxoIndex[:], challengeRequest.UtxoIndex[4:])
 		details := transaction.ParseIndexIntoUTXOdetails(utxoIndex)
-		fmt.Println("Processign withdraw challenge for " + fmt.Sprintln(details))
+		log.Printf("Processign withdraw challenge for %v", details)
 		shortIndex := transaction.PackUTXOnumber(details.BlockNumber, details.TransactionNumber, details.OutputNumber)
 		index := []byte{}
 		index = append(index, []byte("spend")...)
@@ -55,6 +55,6 @@ func (p *WithdrawChallengeProcessor) Process(challengeRequest *messageStructures
 	if err != nil {
 		return false, err
 	}
-	fmt.Printf("Preparing challenge by using a block %v, tx %v, output %v \n", spendingBlock, spendingTxNumber, spendingInput)
+	log.Printf("Preparing challenge by using a block %v, tx %v, output %v \n", spendingBlock, spendingTxNumber, spendingInput)
 	return true, nil
 }
